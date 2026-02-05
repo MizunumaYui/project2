@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Character Shop - 注文完了</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec3263",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211115",
+                        "text-main": "#181113",
+                        "text-sub": "#89616c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans JP", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-display min-h-screen flex flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f0f1] px-10 py-3 bg-white dark:bg-[#2a1b1f] dark:border-b-[#3d2c31]">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-text-main dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-3xl">storefront</span>
+</div>
+<h2 class="text-text-main dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Character Shop</h2>
+</div>
+<nav class="flex items-center gap-9 hidden md:flex">
+<a class="text-text-main dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-text-main dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">商品一覧</a>
+<a class="text-text-main dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">セール</a>
+<a class="text-text-main dark:text-gray-200 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">お問い合わせ</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<label class="flex flex-col min-w-40 !h-10 max-w-64 hidden sm:flex">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-text-sub flex border-none bg-[#f4f0f1] dark:bg-[#3d2c31] items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[24px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-text-main dark:text-white focus:outline-0 focus:ring-0 border-none bg-[#f4f0f1] dark:bg-[#3d2c31] focus:border-none h-full placeholder:text-text-sub px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
+</div>
+</label>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-opacity-90 transition-colors">
+<span class="truncate">ログイン</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#f4f0f1] dark:bg-[#3d2c31] text-text-main dark:text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-200 dark:hover:bg-[#4d3a3f] transition-colors">
+<span class="truncate">カート</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col items-center justify-center py-16 px-4">
+<div class="max-w-[640px] w-full bg-white dark:bg-[#2a1b1f] rounded-xl shadow-sm p-8 md:p-12 flex flex-col items-center text-center gap-8">
+<!-- Success Icon -->
+<div class="relative">
+<div class="size-24 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400">
+<span class="material-symbols-outlined text-[48px] font-bold">check</span>
+</div>
+<!-- Decorative sparkles -->
+<div class="absolute -top-2 -right-2 text-yellow-400 animate-pulse">
+<span class="material-symbols-outlined text-[24px]">star</span>
+</div>
+<div class="absolute bottom-0 -left-4 text-primary/60 animate-bounce" style="animation-duration: 2s;">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</div>
+</div>
+<!-- Message -->
+<div class="space-y-4">
+<h1 class="text-text-main dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-tight">
+                    ご注文ありがとうございます
+                </h1>
+<p class="text-text-sub dark:text-gray-300 text-base md:text-lg leading-relaxed max-w-lg mx-auto">
+                    お客様の注文は正常に完了しました。<br class="hidden sm:inline"/>確認メールをお送りしましたのでご確認ください。
+                </p>
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-[#f4f0f1] dark:bg-[#3d2c31] rounded-lg mt-2">
+<span class="text-text-sub dark:text-gray-400 text-sm font-medium">注文番号:</span>
+<span class="text-text-main dark:text-white text-base font-bold font-mono tracking-wide">#ORD-12345</span>
+</div>
+</div>
+<!-- Illustration placeholder (optional celebratory image) -->
+<div class="w-full h-48 rounded-lg overflow-hidden relative bg-gradient-to-r from-primary/10 to-purple-100 dark:from-primary/20 dark:to-purple-900/20 flex items-center justify-center mb-2">
+<img alt="Celebratory Shopping Image" class="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700" data-alt="Happy shopping bags with confetti illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCG3TszSmH_s8Aibw6N6X6cmdoT8zmdOS-cl_M0veFtVwvdsdjEVSoExtOVG1t5OT5CctNslfj02lYok-duwRpSbkx0vZ_gcXutkh4uJyM0dPdo3qbkI5mTLGBV4O1jcENB53E2ivGL6l6imz_w_kq_p0DqwoDeqPLmZz7i4OTsh8I5JnfwIzmfeLVACgdmG-9CzhnLNp7kkdTkxVCNTQDu8U4QnPe8clJwzZJ-8-uCim5u_Eq5UFhfUZnGHWvsFnfTYq9KWqmz8vqj"/>
+<div class="absolute inset-0 bg-gradient-to-t from-white/20 to-transparent pointer-events-none"></div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center pt-4">
+<button class="flex-1 min-w-[160px] max-w-[280px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-primary text-white text-base font-bold tracking-[0.015em] hover:bg-opacity-90 shadow-lg shadow-primary/30 transition-all hover:-translate-y-0.5">
+                    トップページへ戻る
+                </button>
+<button class="flex-1 min-w-[160px] max-w-[280px] cursor-pointer items-center justify-center rounded-lg h-12 px-6 bg-white border-2 border-[#f4f0f1] dark:border-[#3d2c31] dark:bg-transparent text-text-main dark:text-white text-base font-bold tracking-[0.015em] hover:bg-[#f4f0f1] dark:hover:bg-[#3d2c31] transition-all">
+                    注文履歴を見る
+                </button>
+</div>
+<!-- Additional Links -->
+<div class="pt-4 border-t border-[#f4f0f1] dark:border-[#3d2c31] w-full mt-2">
+<p class="text-sm text-text-sub dark:text-gray-400">
+                    お問い合わせが必要ですか？ <a class="text-primary font-medium hover:underline decoration-primary underline-offset-4" href="#">サポートセンターへ</a>
+</p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="flex flex-col gap-6 px-5 py-10 text-center bg-white dark:bg-[#2a1b1f] mt-auto border-t border-[#f4f0f1] dark:border-[#3d2c31]">
+<div class="flex flex-wrap items-center justify-center gap-6 md:justify-center">
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors text-base font-normal leading-normal" href="#">プライバシーポリシー</a>
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors text-base font-normal leading-normal" href="#">利用規約</a>
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors text-base font-normal leading-normal" href="#">特定商取引法に基づく表記</a>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<svg fill="currentColor" height="24px" viewbox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M247.39,68.94A8,8,0,0,0,240,64H209.57A48.66,48.66,0,0,0,168.1,40a46.91,46.91,0,0,0-33.75,13.7A47.9,47.9,0,0,0,120,88v6.09C79.74,83.47,46.81,50.72,46.46,50.37a8,8,0,0,0-13.65,4.92c-4.31,47.79,9.57,79.77,22,98.18a110.93,110.93,0,0,0,21.88,24.2c-15.23,17.53-39.21,26.74-39.47,26.84a8,8,0,0,0-3.85,11.93c.75,1.12,3.75,5.05,11.08,8.72C53.51,229.7,65.48,232,80,232c70.67,0,129.72-54.42,135.75-124.44l29.91-29.9A8,8,0,0,0,247.39,68.94Zm-45,29.41a8,8,0,0,0-2.32,5.14C196,166.58,143.28,216,80,216c-10.56,0-18-1.4-23.22-3.08,11.51-6.25,27.56-17,37.88-32.48A8,8,0,0,0,92,169.08c-.47-.27-43.91-26.34-44-96,16,13,45.25,33.17,78.67,38.79A8,8,0,0,0,136,104V88a32,32,0,0,1,9.6-22.92A30.94,30.94,0,0,1,167.9,56c12.66.16,24.49,7.88,29.44,19.21A8,8,0,0,0,204.67,80h16Z"></path>
+</svg>
+</a>
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<svg fill="currentColor" height="24px" viewbox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>
+</svg>
+</a>
+<a class="text-text-sub dark:text-gray-400 hover:text-primary transition-colors" href="#">
+<svg fill="currentColor" height="24px" viewbox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"></path>
+</svg>
+</a>
+</div>
+<p class="text-text-sub dark:text-gray-500 text-sm font-normal leading-normal">© 2023 Character Shop. All rights reserved.</p>
+</footer>
+</body></html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Character EC Home Screen</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#EC4899","accent-blue": "#3B82F6","accent-pink": "#EC4899",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans JP", "Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden">
+<div class="relative flex min-h-screen w-full flex-col group/design-root">
+<div class="w-full bg-white dark:bg-[#1a202c] border-b border-[#f0f2f5] dark:border-gray-800 sticky top-0 z-50">
+<div class="flex justify-center px-4 md:px-10 lg:px-40 py-3">
+<div class="flex w-full max-w-[1200px] items-center justify-between">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white cursor-pointer">
+<div class="size-8 text-accent-blue">
+<span class="material-symbols-outlined text-4xl">storefront</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">キャラクターショップ</h2>
+</div>
+<div class="flex-1 max-w-[500px] px-8 hidden md:block">
+<label class="flex w-full h-10 rounded-lg bg-[#f0f2f5] dark:bg-gray-800 overflow-hidden items-center">
+<div class="pl-4 pr-2 text-[#60708a] dark:text-gray-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-sm text-[#111418] dark:text-white placeholder-[#60708a] focus:ring-0" placeholder="キャラクターやグッズを検索..."/>
+</label>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-6 mr-4">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="#">グッズ</a>
+</div>
+<button class="relative flex items-center justify-center size-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#111418] dark:text-white transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent-pink text-[10px] font-bold text-white ring-2 ring-white dark:ring-[#1a202c]">2</span>
+</button>
+<button class="flex items-center gap-2 px-4 h-10 rounded-lg bg-primary text-white text-sm font-bold hover:bg-pink-600 transition-colors">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+<span>ログイン</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-1 flex-col items-center">
+<div class="flex flex-col w-full max-w-[1200px] px-4 md:px-10 lg:px-40 py-5 gap-10">
+<div class="@container w-full">
+<div class="relative flex min-h-[400px] w-full flex-col justify-end overflow-hidden rounded-xl bg-cover bg-center p-8 md:p-12 shadow-sm" data-alt="Anime figures and merchandise display" style='background-image: linear-gradient(to right, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuD-fozXKEm779dRF5Exrdfe6jzw8a_riPw-EHQkJr2d-_BfDmtVELmrUT2XjcB7d4JzIR0Cv8S9zrab67kMCJmqfeyuivbZfBfj_vaTo0fyk_TsHO-gz-w2z8No71E36M1bcORVmiaWaOjV6MUYBtKIfd_JsR0G6iurVPaKyVjVuRmiRlB2TBj4cu2yD-TtsJU5T-srSvBTxrO13XP7uwVZK1cBMsJicZrZabBqfR7l9niX9gaHAhttDmKwfrxYhc6vBjCOVE253KTM");'>
+<div class="flex max-w-lg flex-col gap-4">
+<div class="inline-flex w-fit items-center rounded-full bg-accent-pink/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white backdrop-blur-sm">
+                            新シーズン
+                        </div>
+<h1 class="text-4xl font-black leading-tight tracking-tight text-white md:text-5xl lg:text-6xl drop-shadow-lg">
+                            お気に入りの<span class="text-primary">キャラクターグッズ</span>を見つけよう
+                        </h1>
+<p class="text-base font-medium text-gray-100 md:text-lg drop-shadow-md max-w-md">
+                            人気アニメやゲームの公式グッズ、フィギュア、限定アクセサリーなど、魅力的なアイテムが勢揃い。
+                        </p>
+<button class="mt-4 w-fit rounded-lg bg-primary px-8 py-3 text-base font-bold text-white shadow-lg shadow-pink-500/30 transition-all hover:bg-pink-600 hover:scale-105">
+                            今すぐ購入
+                        </button>
+</div>
+</div>
+</div>
+<section class="flex flex-col gap-4">
+<h2 class="text-xl font-bold text-[#111418] dark:text-white">カテゴリから探す</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/20 text-accent-blue group-hover:bg-accent-blue group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">toys</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">フィギュア</span>
+</a>
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-pink-50 dark:bg-pink-900/20 text-accent-pink group-hover:bg-accent-pink group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">image</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">アクリルスタンド</span>
+</a>
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-purple-50 dark:bg-purple-900/20 text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">local_activity</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">缶バッジ</span>
+</a>
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">checkroom</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">アパレル</span>
+</a>
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20 text-green-600 group-hover:bg-green-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">book</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">書籍</span>
+</a>
+<a class="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer" href="#">
+<div class="flex size-12 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-700 text-gray-600 dark:text-gray-300 group-hover:bg-gray-600 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</div>
+<span class="text-sm font-bold text-gray-700 dark:text-gray-200">もっと見る</span>
+</a>
+</div>
+</section>
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-2xl font-bold text-[#111418] dark:text-white tracking-tight">人気キャラクター</h2>
+<a class="text-sm font-medium text-accent-blue hover:text-blue-600" href="#">すべて見る</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<div class="flex flex-col items-center gap-3 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="aspect-square w-24 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Anime character portrait blue hair" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjYifIkoe_ROgQF7DaXDiYg1EXRRV1yd5s26psGtwGtxb2LLoakZkG4wKCMFy2WQlA5WVGPMxr07t1rXbzeSk5nFNu_yJrXGKbrPFYnGo1EdAtv_qoH9e3Ht7EYkInACfZ9DjSMZAf2j-QI56LIDtVl5MegkunWbg-csIxe_mnThJntAlcDNNAvBCbe1Ue6__ZgwSLusAQl47p3tiTRaq_yW9Oc32rHRVe25Ue5OdcN5XcUuMbgSplOR0plW0EKUciteCTtgTnmYYK");'></div>
+<h3 class="text-base font-bold text-[#111418] dark:text-white">初音ミク</h3>
+</div>
+<div class="flex flex-col items-center gap-3 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="aspect-square w-24 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Anime character portrait ninja" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBrbKrEuIMgkM8hMfknD-kRwqFQZo1eSC_t_4uw20gjOw6c7h8Z1gC7yIJAZfISJgSBy0pl9nsCij7tuYxo1_Zbd_4MwcIM4nufw3SreMYQSdjeMUSiueu5-CIL4DeBm-Jaso4hyypoJks81IGpo1nP930noHTQfuYd2bFt0bfYuLvF8Ig3iNGyY5dMlrWzfw9m90zw4lO6LiNPFE5bPxqTIEujurLmFqSwv7_E2zuIrtTm_0uHYAUzgR3UzEHnQSAewPOJXuIwNz4f");'></div>
+<h3 class="text-base font-bold text-[#111418] dark:text-white">ナルト</h3>
+</div>
+<div class="flex flex-col items-center gap-3 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="aspect-square w-24 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Anime character portrait pirate" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCbFfVS6jmiAvIBTbAc-sy9Gn8Fp8MK1ja1mBBScZFxuqcWKvdI2BmQ0SIKL0BbkJ0UO8Ez6k2JvHya68_HXjbOx6zQZtCJcW1jPIoM9MJul39w6EYPvLrOFEuYhElBA5H3yM_iakNd-dy7-L1k_kBQuhgNwkKBjMxc4bwAFBo2b-_MuLJt5gkD1Ug4boVUKcF7cW7J5fG_sB1aPt62JXX5iEjiOAo7I4bE6fzCaF4QkIuCp3TdnEErgmnPjEnbeuxFMEJB8EWg2tiF");'></div>
+<h3 class="text-base font-bold text-[#111418] dark:text-white">ルフィ</h3>
+</div>
+<div class="flex flex-col items-center gap-3 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="aspect-square w-24 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Anime character portrait fighter" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBREJEngMHggXsFDi7ikgIS-Y1DIFxBYDkt83HmsHf4gXA0xxeoBp0WLBrP3RYB_JXKJgwxqmJZePFDJpsUccpxIst49V6fefib4v6mS4t8sa04GP_AGp1qmICw_GGy0wKG6TaSSOuLLXTTd71KNmcpnnNbL-Sgc34YJ8t26Erj_oSw6M2EAhqazOwx1hcCTaf6hBnuYoFE9kjI5-ebzpuPmrS3WMQ4VwaQ45aMHJBz7TAnRN5zmM9yhai8uPkI3qMppHIfz-X4jOUH");'></div>
+<h3 class="text-base font-bold text-[#111418] dark:text-white">悟空</h3>
+</div>
+<div class="flex flex-col items-center gap-3 rounded-xl border border-[#dbdfe6] dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+<div class="aspect-square w-24 rounded-full bg-cover bg-center border-2 border-transparent group-hover:border-primary transition-all" data-alt="Anime character portrait magical girl" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBn07ArWsovPiGkpmzXurEAzLoxEXp-ntx7SEoYbS8Xmg9LdZyaU36K_colTbYRnNoEeObMB8yJxlyqGk8B0nglBczvX3XzF4UtgYgCR6b7qBTo8G1Rn045JqNnc6kaBfuwe7VlJBz68U1N3LLWZKNiWWpEFs7uUGVT81kICCGVimhqyDKDW784IO6l_W4GM0vbNUG9cSEaMU-8fU9nsmhOGhoK-ZRgxn9dscDC5Fug-wsMq_kROM-1RU9i3KlKipWrwlkEQoRvnbao");'></div>
+<h3 class="text-base font-bold text-[#111418] dark:text-white">セーラームーン</h3>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-6">
+<div class="flex items-center justify-between border-b border-gray-200 dark:border-gray-800 pb-2">
+<h2 class="text-2xl font-bold text-[#111418] dark:text-white tracking-tight relative">
+                        新着商品
+                        <span class="absolute -bottom-[9px] left-0 h-1 w-12 bg-accent-pink rounded-full"></span>
+</h2>
+<div class="flex gap-2">
+<button class="flex size-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+</button>
+<button class="flex size-8 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="group flex flex-col rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+<span class="absolute top-3 left-3 z-10 rounded bg-accent-pink px-2 py-1 text-[10px] font-bold uppercase text-white">新着</span>
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Action figure on shelf" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYVqO9XkC4tHB4OYouFDCmUoSrixlH3-PEY-eZp2rJwgHpBv8Blxr-jsws03rUbs-YQXWL-qLPuGYlAS9hYpbMLrSuwFQqBD5_lwfo6EVoaeQ1Zqla5J3Yn0Y9JasBk8lUMwJVBXkDAbSkwA5Ha9p-OlH5LRg5yZYOJAN362TD10sR1Av1QWOniEudHxF-a2jBY7ex1QAaLzzIsGPYLWZkdIMpfEY-yajs8VNZ4qonEQZB-EB-HmOnpgedtW1oDU59MijyyVaklrjt");'></div>
+<button class="absolute bottom-3 right-3 flex size-10 translate-y-12 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-primary hover:text-white">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="flex flex-col p-4">
+<p class="text-xs text-gray-500 mb-1">フィギュア</p>
+<h3 class="mb-2 text-base font-bold text-[#111418] dark:text-white line-clamp-2 min-h-[3rem]">サイバーフューチャー・ウォリアー 1/7スケール</h3>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-lg font-bold text-primary">¥15,800</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Spiderman action figure close up" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDw9vU59-Y7oUmK2sfC08IfbI1N-6TetiF7azKVNhRZXzpQen236Fahuj_XlNjXZZXsoxhxS7LC1ONvNAnwSxDh7f8U6FqlfwTTi58sanfPQhYKrEOPV3qh2iEJ-tfQvPWjV1CyWaQMSDe_Xk9vHhzD6syYbY66xcxb4KANltCXlQKpspaqlLFk8tX1CawoBoHe-RtaUClJpBsx9TjjR7s5CarjxkVoMgIEb831bFkLnx4fS5KtN1TsJLa9SrPdf3Bp_nhCipgmhyxI");'></div>
+<button class="absolute bottom-3 right-3 flex size-10 translate-y-12 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-primary hover:text-white">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="flex flex-col p-4">
+<p class="text-xs text-gray-500 mb-1">アクリルスタンド</p>
+<h3 class="mb-2 text-base font-bold text-[#111418] dark:text-white line-clamp-2 min-h-[3rem]">ヒーローアカデミア限定アクリルスタンド</h3>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-lg font-bold text-primary">¥1,500</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+<span class="absolute top-3 left-3 z-10 rounded bg-accent-blue px-2 py-1 text-[10px] font-bold uppercase text-white">予約商品</span>
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Anime plush toy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWLuuZgmPG_jO3VDYvfHK-Jx6cdrCTm0DYLdCDC3osmCR1XQZH1huwgH53uLIsdwuuXfBbO-24TPi_hzKm9KQawX8S8pW66VzlBwvYmZKaF_hPL7cbIzE__z3BL5FnWD3kEU5nR0B6HSn4le1SFUQ44mQhISYtYqDPLIxLzVPq9BNZlNa2SXGI_JFmVrFCkvzJn4MXKbVxJlG66iTVgPUY0FGZ1DOJQFHG_2wE_CNyHG5xij9V_xkSxfQXXsal9xuP1hJrL79JCJBf");'></div>
+<button class="absolute bottom-3 right-3 flex size-10 translate-y-12 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-primary hover:text-white">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="flex flex-col p-4">
+<p class="text-xs text-gray-500 mb-1">ぬいぐるみ</p>
+<h3 class="mb-2 text-base font-bold text-[#111418] dark:text-white line-clamp-2 min-h-[3rem]">魔法少女マスコット特大ぬいぐるみ</h3>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-lg font-bold text-primary">¥4,200</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-transparent hover:border-gray-200 dark:hover:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+<div class="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
+<div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Collection of anime badges" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCCvNaxCAAfnCsg8EOWFUsOEFlHOS3kA0LE1CcNyFNXc238GRRX0oS4KNoUDJVg25EgnGUEEKNt9115QAM9_IJ9XZERdKZydTHKhBfewJPC4oTGEPNdSSv9GNO-GhoWSFx7kaOT3XU79VeMGNmMQ5gT-L_NDn3myI4PEzEwQaY2Gu8qWC1AYyrGBeX8AoWdh5Tw1bzJrHaYkpnhbXB2ivALn-8rRInTPOjM6vI4ETEFea7oWwLxmnwDkcmQLZMeOpD1mseH7ifZbiMN");'></div>
+<button class="absolute bottom-3 right-3 flex size-10 translate-y-12 items-center justify-center rounded-full bg-white text-primary shadow-lg transition-all duration-300 group-hover:translate-y-0 hover:bg-primary hover:text-white">
+<span class="material-symbols-outlined">add_shopping_cart</span>
+</button>
+</div>
+<div class="flex flex-col p-4">
+<p class="text-xs text-gray-500 mb-1">缶バッジ</p>
+<h3 class="mb-2 text-base font-bold text-[#111418] dark:text-white line-clamp-2 min-h-[3rem]">アニバーサリーホログラム缶バッジセット</h3>
+<div class="flex items-center justify-between mt-auto">
+<span class="text-lg font-bold text-primary">¥800</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<footer class="mt-auto border-t border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a202c] py-10">
+<div class="flex flex-col items-center gap-8 px-10">
+<div class="flex items-center gap-2 text-[#111418] dark:text-white">
+<div class="size-6 text-accent-blue">
+<span class="material-symbols-outlined text-2xl">storefront</span>
+</div>
+<span class="text-lg font-bold">キャラクターショップ</span>
+</div>
+<div class="flex flex-wrap justify-center gap-8 text-sm font-medium text-[#60708a] dark:text-gray-400">
+<a class="hover:text-primary transition-colors" href="#">会社概要</a>
+<a class="hover:text-primary transition-colors" href="#">利用規約</a>
+<a class="hover:text-primary transition-colors" href="#">プライバシーポリシー</a>
+<a class="hover:text-primary transition-colors" href="#">お問い合わせ</a>
+</div>
+<p class="text-xs text-[#60708a] dark:text-gray-500">© 2023 Character Shop Inc. All rights reserved.</p>
+</div>
+</footer>
+</div>
+
+</body></html>

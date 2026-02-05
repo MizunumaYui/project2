@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>注文詳細 - Character Shop</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c83f6",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                        "sans": ["Inter", "Noto Sans JP", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 gap-4">
+<!-- Logo & Nav -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-2 group" href="#">
+<div class="text-primary p-1 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-3xl">storefront</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Character Shop</h1>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">商品一覧</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">特集</a>
+</nav>
+</div>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4 md:gap-6">
+<!-- Search Bar -->
+<div class="hidden md:flex max-w-xs w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg leading-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-shadow" placeholder="商品を検索..." type="text"/>
+</div>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Breadcrumbs -->
+<nav class="flex mb-6 text-sm text-slate-500 dark:text-slate-400">
+<a class="hover:text-primary transition-colors" href="#">ホーム</a>
+<span class="mx-2">/</span>
+<a class="hover:text-primary transition-colors" href="#">マイページ</a>
+<span class="mx-2">/</span>
+<a class="hover:text-primary transition-colors" href="#">注文履歴</a>
+<span class="mx-2">/</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">注文詳細</span>
+</nav>
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
+<div>
+<h2 class="text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2">注文詳細 <span class="text-slate-400 font-normal text-xl ml-2">#ORD-2023-8890</span></h2>
+<div class="flex items-center gap-3 text-sm">
+<span class="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 px-2.5 py-0.5 rounded-full font-medium border border-green-200 dark:border-green-800">発送済み</span>
+<span class="text-slate-500 dark:text-slate-400">2023年10月25日 注文</span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">receipt</span>
+                    領収書を発行
+                </button>
+<button class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition-colors shadow-sm shadow-blue-500/30">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+                    お問い合わせ
+                </button>
+</div>
+</div>
+<!-- Order Summary Grid (Key Details) -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 mb-8 grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-4">
+<div class="flex flex-col gap-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">お届け予定日</span>
+<span class="text-base font-medium text-slate-900 dark:text-white">2023/10/27</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">配送業者</span>
+<span class="text-base font-medium text-slate-900 dark:text-white">ヤマト運輸</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">追跡番号</span>
+<div class="flex items-center gap-2">
+<span class="text-base font-medium text-slate-900 dark:text-white font-mono">1234-5678-9012</span>
+<button class="text-primary hover:text-blue-600" title="Copy">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">合計金額</span>
+<span class="text-base font-bold text-slate-900 dark:text-white">¥14,580</span>
+</div>
+</div>
+<!-- Main Layout: 2 Columns on Desktop -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Products -->
+<div class="lg:col-span-2 flex flex-col gap-8">
+<!-- Product List -->
+<section class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+<div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+                            商品内容
+                        </h3>
+<span class="text-sm text-slate-500">3点</span>
+</div>
+<div class="divide-y divide-slate-100 dark:divide-slate-800">
+<!-- Item 1 -->
+<div class="p-6 flex flex-col sm:flex-row gap-4 sm:items-center group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+<img alt="Anime character figure blue hair" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Action figure of anime character with blue hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIkBriZHy2jMau-bQh3u4xF0jzrkGhWDfBxYq3PQGrozYkQPZEvJJJfybeKEhywT8WOQuSueLn2F_7CItbNuGtNcycPzPK_J_kRcGky-Pw9f8b7RaAVTOMQtTt8LqBRVQsO564bwBlkNsqTMqC7LrCIFmDFP8yZILJtsIDClBCzFh46r5gu0K9biJORInuuf_iVS52jj-58T6yjxyH5QUC1HDu55T95V7yvhcoWR0WddM672HOO76k0hBRxl9gmW2qjVaYM9dDig_y"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-base font-semibold text-slate-900 dark:text-white truncate pr-4">魔法少女リリカル・フィギュア Vol.1</h4>
+<span class="font-bold text-slate-900 dark:text-white">¥8,800</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2">サイズ: 1/7スケール • カラー: オリジナル</p>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs border border-slate-200 dark:border-slate-700">数量: 1</span>
+<a class="text-primary hover:underline" href="#">商品レビューを書く</a>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-6 flex flex-col sm:flex-row gap-4 sm:items-center group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+<img alt="Collector keychains set" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Set of colorful anime character keychains" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClPbPwCC3wEre2NP60WoEn2cui-z30gT7II3Bn9Z8g7A1gJAVIDLrsuwCOeR8Zl7UD9eeb0vR9wChWErFrBstPnVQSy11zGTRv1_OISiA3NlR6lq5rXtWnvz_w3pUdEAf47ICsTD9VEAtzvvFzrgnpaoN7fxIkUnSscR-EXWvw4xNh9jT9oMmCF2nNH-fPce-RtqN3SPUkZxRH3gQLd5rt3Kxn-6tEy_cZyjX_bI4KzzXlMWRmacnS5xVY_MuXPqmVviDvGW6C0L46"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-base font-semibold text-slate-900 dark:text-white truncate pr-4">キャラクターアクリルキーホルダーセット (5種)</h4>
+<span class="font-bold text-slate-900 dark:text-white">¥3,500</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2">限定版 • 未開封</p>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs border border-slate-200 dark:border-slate-700">数量: 1</span>
+<a class="text-primary hover:underline" href="#">商品レビューを書く</a>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="p-6 flex flex-col sm:flex-row gap-4 sm:items-center group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<div class="w-24 h-24 sm:w-20 sm:h-20 flex-shrink-0 bg-slate-100 dark:bg-slate-800 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700">
+<img alt="Official Guidebook book cover" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Official guidebook with colorful anime art cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7acY4OzaXAzyh-pCrzrF_Cg8zKv8G-TOJN53i5gM9IHWv4Cit9TYFfekqwO1QzrfYfsyETavnHLpnZ1JS2oC4Q-WRSo4aw3shCZs_pL3MK1zZcun-VihLz4_jXeaWJ3a1rTYftZt5BM1F_TKPtTXJV7kDKNKU-6c6ibRT3Ger7dfD_E1D55vUTzqYvrBLBD6YKSBqbqz_AlyiUW4OLxMdCptif1LkZzKUwMpjEpdkcH3UTentpgzKipCQ2aK2WduCDGZtMTqlKXIY"/>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-start mb-1">
+<h4 class="text-base font-semibold text-slate-900 dark:text-white truncate pr-4">公式設定資料集 2023</h4>
+<span class="font-bold text-slate-900 dark:text-white">¥1,500</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mb-2">特典ポストカード付き</p>
+<div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+<span class="bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-xs border border-slate-200 dark:border-slate-700">数量: 1</span>
+<a class="text-primary hover:underline" href="#">商品レビューを書く</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cost Breakdown -->
+<section class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<div class="flex flex-col gap-3 max-w-sm ml-auto">
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+<span>小計 (3点)</span>
+<span>¥13,800</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+<span>送料</span>
+<span>¥780</span>
+</div>
+<div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+<span>クーポン割引</span>
+<span class="text-green-600 dark:text-green-400">-¥0</span>
+</div>
+<div class="border-t border-slate-200 dark:border-slate-700 my-1"></div>
+<div class="flex justify-between items-end">
+<span class="font-bold text-slate-900 dark:text-white">合計</span>
+<span class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">¥14,580</span>
+</div>
+<div class="text-right text-xs text-slate-400 mt-1">
+                            (税込: ¥1,325)
+                        </div>
+</div>
+</section>
+</div>
+<!-- Right Column: Info & Actions -->
+<div class="flex flex-col gap-6">
+<!-- Shipping Info Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+                        配送先情報
+                    </h3>
+<div class="flex flex-col gap-4 text-sm">
+<div class="flex gap-3">
+<div class="min-w-[24px] pt-0.5 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">person</span>
+</div>
+<div class="text-slate-700 dark:text-slate-300 font-medium">
+                                山田 太郎
+                            </div>
+</div>
+<div class="flex gap-3">
+<div class="min-w-[24px] pt-0.5 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</div>
+<div class="text-slate-700 dark:text-slate-300 leading-relaxed">
+                                〒100-0001<br/>
+                                東京都千代田区千代田1-1-1<br/>
+                                パレスサイドビル 303号室
+                            </div>
+</div>
+<div class="flex gap-3">
+<div class="min-w-[24px] pt-0.5 text-slate-400">
+<span class="material-symbols-outlined text-[20px]">call</span>
+</div>
+<div class="text-slate-700 dark:text-slate-300">
+                                090-1234-5678
+                            </div>
+</div>
+</div>
+</div>
+<!-- Payment Info Card -->
+<div class="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 p-6">
+<h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">credit_card</span>
+                        お支払い方法
+                    </h3>
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-8 bg-slate-100 dark:bg-slate-800 rounded flex items-center justify-center border border-slate-200 dark:border-slate-700">
+<span class="font-bold text-xs text-slate-500">VISA</span>
+</div>
+<div class="flex flex-col text-sm">
+<span class="font-medium text-slate-900 dark:text-white">Visa ending in 1234</span>
+<span class="text-slate-500 text-xs">有効期限: 12/2026</span>
+</div>
+</div>
+<div class="border-t border-slate-100 dark:border-slate-800 pt-4 mt-4">
+<h4 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">請求先住所</h4>
+<p class="text-sm text-slate-600 dark:text-slate-400">配送先と同じ</p>
+</div>
+</div>
+<!-- Help Card -->
+<div class="bg-primary/5 dark:bg-primary/10 rounded-xl p-6 border border-primary/10 dark:border-primary/20">
+<h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">何かお困りですか？</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                        注文内容の変更や返品については、ヘルプセンターをご確認ください。
+                    </p>
+<a class="text-sm font-medium text-primary hover:text-blue-600 flex items-center gap-1" href="#">
+                        ヘルプセンターへ
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-auto">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-slate-500 dark:text-slate-400">© 2023 Character Shop. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200" href="#">プライバシーポリシー</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200" href="#">利用規約</a>
+<a class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200" href="#">特定商取引法に基づく表記</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Character Shop - キャラクター一覧</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Noto+Sans+JP:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#EC4899", // V2 Pink Accent
+                "background-light": "#f5f7f8",
+                "background-dark": "#101722",
+              },
+              fontFamily: {
+                "display": ["Noto Sans JP", "Inter", "sans-serif"],
+                "sans": ["Noto Sans JP", "Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+        }.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 bg-white dark:bg-[#1a2332] border-b border-[#f0f2f5] dark:border-gray-800">
+<div class="mx-auto max-w-[1440px] px-6 py-3">
+<div class="flex items-center justify-between gap-6">
+<div class="flex items-center gap-3">
+<div class="text-primary size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-xl font-bold tracking-tight">Character Shop</h2>
+</div>
+<nav class="hidden md:flex flex-1 justify-center gap-8">
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-primary text-sm font-bold" href="#">キャラクター</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">グッズ</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">新着</a>
+<a class="text-[#111418] dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors" href="#">セール</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex h-10 px-5 items-center justify-center rounded-lg bg-primary text-white text-sm font-bold hover:bg-pink-600 transition-colors">
+                    ログイン
+                </button>
+<button class="hidden sm:flex h-10 px-5 items-center justify-center rounded-lg bg-[#f0f2f5] dark:bg-gray-700 text-[#111418] dark:text-white text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                    新規登録
+                </button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f0f2f5] dark:bg-gray-700 text-[#111418] dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500"></span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full mx-auto max-w-[1440px] px-6 py-6 sm:py-8">
+<div class="flex items-center gap-2 mb-6 text-sm">
+<a class="text-[#60708a] dark:text-gray-400 font-medium hover:underline" href="#">ホーム</a>
+<span class="material-symbols-outlined text-[16px] text-[#60708a] dark:text-gray-500">chevron_right</span>
+<span class="text-[#111418] dark:text-white font-medium">キャラクター一覧</span>
+</div>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-[#111418] dark:text-white text-3xl md:text-4xl font-black tracking-tight">キャラクター一覧</h1>
+<p class="text-[#60708a] dark:text-gray-400 text-base">お気に入りのキャラクターと限定グッズを見つけよう。</p>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-4 mb-8 bg-white dark:bg-[#1a2332] p-4 rounded-xl border border-[#f0f2f5] dark:border-gray-800 shadow-sm">
+<label class="flex-1 relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#60708a] text-[24px]">search</span>
+</div>
+<input class="block w-full h-12 rounded-lg bg-[#f5f7f8] dark:bg-gray-900 border-none pl-12 pr-4 text-[#111418] dark:text-white placeholder:text-[#60708a] focus:ring-2 focus:ring-primary/50 transition-all" placeholder="名前やシリーズで検索..." type="text"/>
+</label>
+<div class="flex items-center gap-3 w-full lg:w-auto">
+<span class="text-[#111418] dark:text-white font-medium whitespace-nowrap pl-1">並び替え:</span>
+<div class="relative w-full lg:w-48">
+<select class="block w-full h-12 appearance-none rounded-lg bg-white dark:bg-gray-800 border border-[#dbdfe6] dark:border-gray-700 text-[#111418] dark:text-white pl-4 pr-10 focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer transition-colors">
+<option value="popularity">人気順</option>
+<option value="newest">新着順</option>
+<option value="name_asc">名前順 (あ-ん)</option>
+<option value="items_desc">商品数順</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-[#60708a]">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Spiderman character portrait looking heroic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBp0r6wGZnDdeBbe3rfOKM0c6JMrDWI1j_WGY-p3gyhg05SeNQpmPVGbaxpBiNBTtbY3Ubyholcmwu6kiguZ9faifE7zI6TN9TkI3WvC46lX_Y6R-ut8fv3_SA-L0mL8UL7RS_cC_w20ztlcsxNMRvQBSB6IKKachWuvG4N2yK3MIoCARVamV1ZgZ17hFa4YCEXoGzxYzSXTZfqPYrodK2YNsKJX0Nvc7BH1mwplpOxrDcTAbpLwOeaQEcZx-AGDtFEYLLzfkeV4m2M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">スパイダーマン</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">マーベル</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品245件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Manga style female character with pink hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkrL7nt78v7iSZ1hv60O55x9gfA8Nfc81SYYT4HwKgu5U3y7x9Yj5vvLHJJybUHxIWlz8Upe5oQc-6Hw0fwBmSQfTOeMPL3YWP_bSALksiGiNoXsamzFH2PrtWc_qKgoj2KpEGHkJaRkCfRcPmPGK2h7tXHKtB6Zn8G16SxYJvlYDpdb1lXvUeUPgThwUTq6XTFb1NpI2zXoYcMAaealhbYkGAM9Y8dozSKOivkWFhpKpRGgMyfcoxeMNi4mNGJLWex26xUc8KUcNg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">宮本さくら</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">サイバーシティ</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品82件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Dark villain character figure with helmet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9ToROvlyZLXm2uBGr8L0_-ydRYiM3lZp8fGWiND7B3eEV44IYMbVWljeiNwKIO6gTcyBrh7prTbiXsMg43RIVvHH6ZS3en_Gm00Wchj0J3NVo4ARw7LAn4m2IkavjDMjn7j5styvgY67Si3LtD8vzi-GDdMtnAWRLDbQLxeaLD_nxEgNyRbC9AHFEGoihrjLDNwr-wfQeUM99es83qWeeMBJ-xanf2132QMx2bEF8BKh8GGhgwGR3OdJSnDimQBuMOiYdV07-QDK7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">ダークナイト</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">ゴッサム</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品156件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Cute yellow electric mouse character plush" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZzKoG6oaoVm8jjyobanGIOPLB2sMyeJOFTLUaiK1Dceda_JECi2PS-izrVnfvUDfwOZ0dAHazJViESidqlY7kkIYnrxfsvEOxeZ5MLV1V5ylcmANlhdZhO_OcItki95Om0z8Sx65BrVNo-Umbhd8CGkO9NT0mzTpOkoLmbuyNWSQOnOLvtfcvmBQzl1LxUjNl2M2XWDQxOsTrVBD9RrCkgLQKbdzp-rXB1zuQYnBEpUIsUYoMzaQzWH44CIMfwLROah9STziHDOce"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">スパーキー</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">モンスターキャッチャー</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品312件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Gamer girl character digital art" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOlpMxHaVaEBRI3_ZY3sVXTDlgyGmuPOZ4sKiB8XjxWiMU9ygTWT4TQ6p3P9c6Q1L9orgQxLnhFfdmDdVp1NNz52kwADr0Ruap2ntRPmFE-3XdSzGLpJhypiXk8aXSbZxW-_RBqjqmeC-RoKGkRjBCro1XtpvOQ1hVHbaMJX-LSU-8Wn1LNSf5wgeCXQDkjNXyg8Il9C3onAGeQ9hk8UU7gZU60cFaj9KI558Nvk06sGoZADMcAe8Up4ogDwUKRw9eHBeJkdDlKWeI"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">D.Va</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">オーバーウォッチ</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品94件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="3D render of a cute astronaut character" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_w8FGoU9iMtWIeA252NkQM5Zcfren8Ov6OJl-bjaWEFK6xz65b0qKpL3o35ZLxyMj9EPlOdElupwbet_Y7zmI53brfZECoKj7q6_v1FlEFtDbn8tW6ACM9MYX4amOcJRgtweK2a2LddSW4TCElFhyUxRMHjfH_YoMh17RvYha1b0PpIrlxTt7Gc8zgHSn-ojoFFlc1s3MWv_mSS3XYaNbDKJTIBKT7JpXaaJN2DDCMCl4SLHluJtf9Mt27KuvIISyrLEgFv8sceZA"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">鉄腕アトム</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">手塚プロダクション</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品45件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Anime figurine with blue hair and sword" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6OzeBA2d_YUr4YbupEsejbijH376qmCiPKGqzy75XZM0VjXf9vO5a2bgNXToCMdOibd_anl7oaAKc1V3YXGUTmUW9hll45Shd0mzWRsgcL7Steez7XhOHXeAyrEkXw8ay66rYlRwCIgU9HzkgZB-Xvvv5Sx5N0lhTBB4KR2sQjXbHdVu2y4U0Wn3ZHaKI223S4m9xXy-f3508Qh-zWT1C7X8Vl5zntbYfHq0Wr4lm_bh-aLHp6caDoxOXZPVHHYXDUkf3CVVFuiy3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">結城明日奈</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">SAO</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品189件</span>
+</div>
+</div>
+</div>
+</div>
+<div class="group relative flex flex-col bg-white dark:bg-[#1a2332] rounded-xl overflow-hidden border border-[#f0f2f5] dark:border-gray-800 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+<div class="relative w-full aspect-[4/5] overflow-hidden bg-gray-100 dark:bg-gray-700">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="Lego batman figure close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA3oOWoQk-Ib8LZ921RFYCZjacsSWJQk1NrlsBjigo1TwK1-Vk7hDK1xr3_LhEhRrWbeMRj_3d_cD1UMX5HZTKtCIDyqYXBRIEHuBS2EMJt4vynsKUQYopYZNYEkOAUzFtLX67_zbXflAbFDXKxwirklWEQlTci8Ew1TI4sjzFyE2dSuiNmz5mb7A7ISaPhh3jZ9b8PXJCHMVI5ap-obXyg8joqO84OiBjmU2pim95CXs3dKbShNBGKFsiRvcsFMHZbA_dZdlGZ6Mf"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<button class="absolute top-3 right-3 p-2 rounded-full bg-white/90 dark:bg-black/60 hover:bg-white text-gray-400 hover:text-primary transition-colors shadow-sm backdrop-blur-sm z-10">
+<span class="material-symbols-outlined text-[20px] fill-current">favorite</span>
+</button>
+</div>
+<div class="p-5 flex flex-col gap-1">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white group-hover:text-primary transition-colors">レゴバットマン</h3>
+<div class="flex items-center justify-between mt-1">
+<span class="text-sm font-medium text-[#60708a] dark:text-gray-400">レゴ®ムービー</span>
+<div class="flex items-center gap-1 bg-primary/10 px-2 py-1 rounded-md">
+<span class="material-symbols-outlined text-[14px] text-primary">inventory_2</span>
+<span class="text-xs font-bold text-primary">商品67件</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 flex justify-center">
+<nav class="flex items-center gap-2">
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a2332] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white font-bold shadow-sm">1</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a2332] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 font-medium">2</button>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a2332] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 font-medium">3</button>
+<span class="flex h-10 w-10 items-center justify-center text-[#60708a]">...</span>
+<button class="flex h-10 w-10 items-center justify-center rounded-lg border border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a2332] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</nav>
+</div>
+</main>
+<footer class="mt-12 border-t border-[#f0f2f5] dark:border-gray-800 bg-white dark:bg-[#1a2332] py-8">
+<div class="mx-auto max-w-[1440px] px-6 text-center text-[#60708a] dark:text-gray-400 text-sm">
+<p>© 2024 Character Shop. All rights reserved.</p>
+</div>
+</footer>
+
+</body></html>

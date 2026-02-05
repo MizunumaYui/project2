@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>キャラクター詳細 - アニメストア</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ed459c",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#211119",
+                        "text-main": "#181115",
+                        "text-muted": "#886376",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "Noto Sans JP", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Spline Sans', 'Noto Sans JP', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white antialiased min-h-screen flex flex-col">
+<!-- Top Navigation Bar -->
+<div class="w-full bg-white dark:bg-[#2a1b24] border-b border-[#f4f0f2] dark:border-white/10 sticky top-0 z-50">
+<div class="px-4 md:px-10 py-3 flex items-center justify-between max-w-[1400px] mx-auto w-full">
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-4 text-text-main dark:text-white hover:opacity-80 transition-opacity" href="#">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">movie_filter</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">アニメストア</h2>
+</a>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-text-main dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-text-main dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">カテゴリ</a>
+<a class="text-text-main dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-text-main dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">セール</a>
+<a class="text-text-main dark:text-white text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">お問い合わせ</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar -->
+<label class="hidden lg:flex flex-col min-w-64 h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-[#f4f0f2] dark:bg-white/5 transition-colors focus-within:ring-2 focus-within:ring-primary/50">
+<div class="text-text-muted flex items-center justify-center pl-4 pr-2" data-weight="regular">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full flex-1 bg-transparent border-none focus:ring-0 text-text-main dark:text-white placeholder:text-text-muted text-sm font-normal px-0" placeholder="キャラクターや商品を検索" value=""/>
+</div>
+</label>
+<!-- Action Buttons -->
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 md:w-auto md:px-5 bg-white border border-[#f4f0f2] dark:bg-white/5 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-text-main dark:text-white text-sm font-bold transition-colors">
+<span class="hidden md:inline">ログイン</span>
+<span class="material-symbols-outlined md:hidden text-[20px]">login</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 md:w-auto md:px-5 bg-primary hover:bg-primary/90 text-white text-sm font-bold shadow-sm transition-colors">
+<span class="hidden md:inline">登録</span>
+<span class="material-symbols-outlined md:hidden text-[20px]">person_add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[1200px] mx-auto px-4 md:px-10 py-6">
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap items-center gap-2 mb-8 text-sm">
+<a class="text-text-muted hover:text-primary transition-colors" href="#">ホーム</a>
+<span class="material-symbols-outlined text-text-muted text-sm">chevron_right</span>
+<a class="text-text-muted hover:text-primary transition-colors" href="#">キャラクター一覧</a>
+<span class="material-symbols-outlined text-text-muted text-sm">chevron_right</span>
+<span class="text-text-main dark:text-white font-medium">初音ミク</span>
+</div>
+<!-- Character Profile Header -->
+<div class="bg-white dark:bg-[#2a1b24] rounded-xl border border-[#f4f0f2] dark:border-white/5 overflow-hidden shadow-sm mb-12">
+<div class="flex flex-col md:flex-row">
+<!-- Character Image -->
+<div class="w-full md:w-1/3 lg:w-1/4 relative group">
+<div class="aspect-[3/4] md:h-full w-full bg-cover bg-center" data-alt="Anime character portrait illustration" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdhKE8RZ5EQtjqhK6odYXIIRg8tEYF8RJ0IJdlQqru0_7_9rKMoWo3Om9C85t6U_MUNH03WnsUrWfeYJYVAA5RARRSsF1VIL54mjKvygJJkQYFQi7PVhOZti1zic9nraeKhKAzgkD8VDnMJbEehF6ry8g7A8hf2ggAb3f3Fklum-FoKc0qe6ylQRG34gqiiAfXfE8g4m2i7qX6Cu4P2fgWdPPagd9bxMy7bRlioTyKdUROZjSTfmb9by_xtMDf6jo_E4Osg5YtlJQh");'></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent md:hidden"></div>
+<div class="absolute bottom-4 left-4 md:hidden">
+<h1 class="text-white text-3xl font-bold tracking-tight mb-1">初音ミク</h1>
+<span class="inline-block px-2 py-1 bg-primary text-white text-xs font-bold rounded-full">人気ランク: 1位</span>
+</div>
+</div>
+<!-- Character Info -->
+<div class="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-between">
+<div>
+<div class="hidden md:flex justify-between items-start mb-4">
+<div>
+<h1 class="text-text-main dark:text-white text-3xl lg:text-4xl font-bold tracking-tight mb-2">初音ミク</h1>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-primary/10 text-primary text-xs font-bold rounded-full border border-primary/20">
+<span class="material-symbols-outlined text-[14px]">trophy</span>
+                                        人気ランク: 1位
+                                    </span>
+<span class="text-text-muted text-sm">CV: 藤田 咲</span>
+</div>
+</div>
+<!-- Share/Action Buttons (Desktop) -->
+<div class="flex gap-2">
+<button aria-label="Share" class="p-2 text-text-muted hover:text-primary hover:bg-primary/5 rounded-full transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+<button aria-label="More options" class="p-2 text-text-muted hover:text-primary hover:bg-primary/5 rounded-full transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+<div class="prose dark:prose-invert max-w-none">
+<h3 class="text-text-main dark:text-white text-lg font-bold mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">description</span>
+                                プロフィール
+                            </h3>
+<p class="text-text-muted dark:text-gray-300 text-base leading-relaxed mb-6">
+                                歌詞とメロディーを入力して誰でも歌を歌わせることができる「ソフトウェア」です。大勢のクリエイターが「初音ミク」で音楽を作り、インターネット上に投稿したことで一躍ムーブメントとなりました。「キャラクター」としても注目を集め、今ではバーチャル・シンガーとしてグッズ展開やライブを行うなど多方面で活躍するようになり、人気は世界に拡がっています。
+                            </p>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+<div class="bg-background-light dark:bg-white/5 p-3 rounded-lg">
+<span class="block text-xs text-text-muted mb-1">誕生日</span>
+<span class="block text-sm font-bold text-text-main dark:text-white">8月31日</span>
+</div>
+<div class="bg-background-light dark:bg-white/5 p-3 rounded-lg">
+<span class="block text-xs text-text-muted mb-1">年齢</span>
+<span class="block text-sm font-bold text-text-main dark:text-white">16歳</span>
+</div>
+<div class="bg-background-light dark:bg-white/5 p-3 rounded-lg">
+<span class="block text-xs text-text-muted mb-1">身長</span>
+<span class="block text-sm font-bold text-text-main dark:text-white">158cm</span>
+</div>
+<div class="bg-background-light dark:bg-white/5 p-3 rounded-lg">
+<span class="block text-xs text-text-muted mb-1">体重</span>
+<span class="block text-sm font-bold text-text-main dark:text-white">42kg</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mt-auto">
+<button class="flex-1 flex items-center justify-center gap-2 h-12 px-6 bg-primary hover:bg-primary/90 text-white rounded-lg font-bold shadow-md transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined filled">favorite</span>
+                            お気に入りに追加
+                        </button>
+<button class="flex-1 flex items-center justify-center gap-2 h-12 px-6 bg-white border border-gray-200 dark:bg-white/5 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-text-main dark:text-white rounded-lg font-bold transition-all">
+<span class="material-symbols-outlined">notifications</span>
+                            新着通知を受け取る
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Section -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6 px-1">
+<h2 class="text-text-main dark:text-white text-2xl font-bold flex items-center gap-2">
+<span class="w-1 h-8 bg-primary rounded-full"></span>
+                    関連商品
+                </h2>
+<a class="text-primary text-sm font-bold hover:underline flex items-center" href="#">
+                    すべて見る
+                    <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Anime figure on white background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDJ1ez_7DwGFaYswuslXZu6__mSotxruip4cN5q9LGwYy3Cyw_-2O_I1BSGCYVdhDvjYxz792ns6Xewdy7FfMags49iNgO9GbpFcXNkcrvhwxeSXyV3tHj8jfWz-DnxzFNgxZupKJI09yhJLMiCCQLtT_mXLM_mVEU6Y2iCspZZJNKCmwc5abMTJnIQMLTCsuB8mwnay8ercWv1iR9OG8djLfgNIP9g-Kne20lW2ipkJj894VhvvC7p_bMbHBlYX9uuFVhC-AFkiL-t");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-[10px] font-bold">予約商品</span>
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">フィギュア</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">初音ミク 1/7スケール フィギュア メモリアルドレスVer.</p>
+<p class="text-primary font-bold text-lg">¥15,800 <span class="text-xs text-text-muted font-normal line-through ml-2">¥17,800</span></p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Stuffed plush toy cute" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBnY_8T1lRzvoOjB0vOf6nXv5NyzfrHXjxUgeEAMauC5OzpCxaj4NbLacx2A8z1wkHbysslfZRSQqLoQKLoafevPUwVfli4K7fV-944ML43apfZOnFvTjQQ7ugM_-ILG4HCoaaThlfGjopK7kJCi59dwMRSU0TYxPzJu5nOYAdZOV9-gMWutF1mx2A433k4F0JXq0brOGswMioSBdd1GDKMJTGjuOEIeWCfEbzUqoFWoXtk8jjbTsWQHebzv634RlRWThdsO8wvGv1B");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute top-2 left-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full shadow-sm">
+                            残りわずか
+                        </div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">グッズ</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">初音ミク どでかジャンボぬいぐるみ</p>
+<p class="text-text-main dark:text-white font-bold text-lg">¥3,200</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Anime style keychains set" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4IRUMgLgdLZrjJ1Z4gBot0wAbEcUKYW_ZnrI8OEAxFYfe7xDDO2De2XaB9fnyCmozOgaONDccI5yGiu2oOfP6AGkGzdOs7lDxY5yEe8IZ3k85UrSAKTpkTwYwGtchIylRgmn2eW-QnGVn9l_v9WqG2E1iQHEdrfKX8LMlRbbYc_r-oW0RVwZQWB7t6kKwaXQexz7d1Tw9XgwL4Cpbek5KdWz1bf17XmnU6JDA0HHvsIdSdJFrfHH43V28OJUW-shJEINuPDOjEJc7");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">アクセサリー</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">ボーカロイド アクリルキーホルダーセット (6種)</p>
+<p class="text-text-main dark:text-white font-bold text-lg">¥1,500</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Folded graphic t-shirt" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBedn1I4FkCsfpudbkiPeS7Llgy8o1xs7KTd_amFpppXqnMeRMawF4-CCb44l2Ium7w5EyeTo98wlVJ_AXHkQoFN8_4eKE1xwCVmlb840TZ9GQHNP6MrE2LWEmui12fGPMqCePdIShv65BhGRkCzYv2_ad26tt2MUGvKcULdEUbYqDstJTB1qbIOLNPYBZcc4ilrON-JX4KwbkDS_ucOkdc_zbk-77NF5vbwAm3ePujMgAstT1IdmzMIdk9KJJTUYQpWLZ_PQ2PFAqi");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 text-[10px] font-bold">在庫あり</span>
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">アパレル</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">マジカルミライ 2024 オフィシャルTシャツ</p>
+<p class="text-text-main dark:text-white font-bold text-lg">¥4,500</p>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Colorful graphic illustration artbook" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCHey7oeb7bUPZVdmm0vx9mvfaceCdpB6Ssi043Ax5EwhyLFEGHBYG6_q8pv_9mFbwI27n05wTvEs7W_8bALnDEq1HWEM6C2iKi1Aqn2mxE8hy8UVHuVCn7nAiL7wEF6jtB8Uil4iotcXgG60QfBd_ApsKJ8Yv-ad70xca8n0mobwtsYc8fZja7u9RbbnvqRAhS8BUIQz8Cp0R7TkUXCSFlj2oTm2kNBoox2ossI4OUfpTSeinuEnQmw3wANVFHR5d51ug0ZW0Z-Mfn");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">書籍</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">初音ミク画集 - Colorful Stage</p>
+<p class="text-text-main dark:text-white font-bold text-lg">¥2,800</p>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group cursor-pointer flex flex-col gap-3">
+<div class="relative w-full aspect-square bg-white dark:bg-white/5 rounded-xl overflow-hidden border border-[#f4f0f2] dark:border-white/5 shadow-sm group-hover:shadow-md transition-shadow">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Vinyl record anime soundtrack" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB3pCb0K-1TOTRTsERGxnJqcgilAJMcwfwFu3wD30Hn5BbOJvSRSdkN673cjYzNV8sbHAq0509nNgoOu7hhVP0T1uhBBYsiahFWFPmb9EL2j_t5Di1XVPkasukOeK8QcaHHK-6G_DK9Zw6ZhDJjhb1yRvbvOYDLF3CiNLW6qBmN6Dv71wZJPn9Ef5_8FeXo26Dh0GZJ1ukvOSku-zdEeLQKgsQsOO7gVImVwbbGy8coMXmhE0uml_Olma7Or_lQ2PMk9EF5QQWpfiD8");'></div>
+<div class="absolute top-2 right-2">
+<button class="p-2 rounded-full bg-white/80 dark:bg-black/60 hover:bg-white hover:text-primary transition-colors text-text-muted backdrop-blur-sm shadow-sm">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-full bg-white text-text-main py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-50">カートに入れる</button>
+</div>
+</div>
+<div>
+<div class="flex gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-md bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400 text-[10px] font-bold">CD/DVD</span>
+</div>
+<p class="text-text-main dark:text-white text-base font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-1">初音ミク Symphony 2023 Live CD</p>
+<p class="text-text-main dark:text-white font-bold text-lg">¥3,000</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-[#2a1b24] border-t border-[#f4f0f2] dark:border-white/10 mt-auto">
+<div class="px-4 md:px-10 py-12 max-w-[1400px] mx-auto w-full">
+<div class="flex flex-col md:flex-row justify-between gap-10">
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 text-text-main dark:text-white">
+<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">movie_filter</span>
+</div>
+<h2 class="text-xl font-bold">アニメストア</h2>
+</div>
+<p class="text-text-muted text-sm max-w-xs">
+                        世界最大級のアニメグッズ専門店。フィギュアからアパレルまで、あなたの「好き」がきっと見つかる。
+                    </p>
+</div>
+<div class="flex flex-wrap gap-12 md:gap-24">
+<div class="flex flex-col gap-4">
+<h4 class="text-text-main dark:text-white font-bold">ショッピング</h4>
+<div class="flex flex-col gap-2 text-sm text-text-muted">
+<a class="hover:text-primary" href="#">新着商品</a>
+<a class="hover:text-primary" href="#">ランキング</a>
+<a class="hover:text-primary" href="#">セール情報</a>
+<a class="hover:text-primary" href="#">ブランド一覧</a>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="text-text-main dark:text-white font-bold">ヘルプ &amp; ガイド</h4>
+<div class="flex flex-col gap-2 text-sm text-text-muted">
+<a class="hover:text-primary" href="#">利用規約</a>
+<a class="hover:text-primary" href="#">プライバシーポリシー</a>
+<a class="hover:text-primary" href="#">特定商取引法に基づく表記</a>
+<a class="hover:text-primary" href="#">お問い合わせ</a>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-[#f4f0f2] dark:border-white/10 text-center text-text-muted text-sm">
+                © 2024 Anime Store. All rights reserved.
+            </div>
+</div>
+</footer>
+</body></html>

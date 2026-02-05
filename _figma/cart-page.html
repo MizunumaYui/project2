@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ショッピングカート - AnimeShop</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#EC4899", // Updated to Pink as requested
+                        "primary-hover": "#DB2777",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2332",
+                        "border-light": "#dbdfe6",
+                        "border-dark": "#2a3441",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                        "body": ["Inter", "Noto Sans JP", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-body min-h-screen flex flex-col transition-colors duration-200 text-gray-900 dark:text-gray-100">
+<header class="sticky top-0 z-50 w-full bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark px-4 lg:px-10 py-3">
+<div class="max-w-[1280px] mx-auto flex items-center justify-between gap-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-gray-900 dark:text-white">
+<div class="size-8 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 32px;">local_mall</span>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">AnimeShop</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-gray-900 dark:text-gray-100 text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-gray-900 dark:text-gray-100 text-sm font-medium hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-gray-900 dark:text-gray-100 text-sm font-medium hover:text-primary transition-colors" href="#">グッズ</a>
+<a class="text-gray-900 dark:text-gray-100 text-sm font-medium hover:text-primary transition-colors" href="#">セール</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-4 items-center">
+<label class="hidden md:flex flex-col min-w-40 h-10 max-w-64 w-full">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-background-light dark:bg-background-dark overflow-hidden focus-within:ring-2 ring-primary/50 transition-shadow">
+<div class="text-gray-500 dark:text-gray-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none bg-transparent border-none text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 px-3 text-sm focus:ring-0 focus:outline-none" placeholder="グッズを検索..."/>
+</div>
+</label>
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border border-border-light dark:border-border-dark cursor-pointer" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYZ-fKQ2XqeGfnLqor02lzdRb71UVnBiTQC7bLdrLpmNa3YlNzn0LzCpLrWMmAmKJEgaxPZsxTZZksaNa6ifYixa-PjfW0x4h0RqiLWaXxO9_qybGVFneXdrHWl3pv_4Sh3SlwZcBLkbXAXfwBeFoqT9d_KXmZigqe7YSh8r6pceSGORPa3OeqIH6cSAYyF_JotH_a25vYG-qUidB_LXJRhisVf58TmmRk1ayrpoYNNb38emI0ppddJK9WUchnWJJjd1NbL0mdPP_D");'></div>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1280px] mx-auto px-4 lg:px-10 py-8">
+<h1 class="text-gray-900 dark:text-white text-3xl font-black leading-tight tracking-[-0.033em] mb-8">ショッピングカート</h1>
+<div class="flex flex-col xl:flex-row gap-8 items-start">
+<div class="flex-1 w-full @container">
+<div class="overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark shadow-sm">
+<table class="w-full border-collapse">
+<thead>
+<tr class="border-b border-border-light dark:border-border-dark bg-gray-50 dark:bg-gray-800/50">
+<th class="px-4 py-4 w-12">
+<input class="rounded border-gray-300 text-primary focus:ring-primary/20 bg-white dark:bg-gray-700 dark:border-gray-600 dark:checked:bg-primary" type="checkbox"/>
+</th>
+<th class="px-4 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider w-[40%]">商品</th>
+<th class="px-4 py-4 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden sm:table-cell">価格</th>
+<th class="px-4 py-4 text-center text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">数量</th>
+<th class="px-4 py-4 text-right text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider hidden md:table-cell">小計</th>
+<th class="px-4 py-4 w-12 text-center text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">削除</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-light dark:divide-border-dark">
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-4 py-6 text-center align-middle">
+<input class="rounded border-gray-300 text-primary focus:ring-primary/20 bg-white dark:bg-gray-700 dark:border-gray-600 dark:checked:bg-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="relative shrink-0 size-16 rounded-lg overflow-hidden border border-border-light dark:border-border-dark bg-gray-100">
+<div class="w-full h-full bg-cover bg-center" data-alt="Action figure of a warrior" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuhf5gu7L6MfRrK-UDmDHtWz4CtTq6Ax6jzJDT_MrRRTcUcc7hKOXd9e0NWRvfn5LU8TfpYhMJxtg32s4k3aAKmdJWG2h_9V9AiFLfFyL1HNTTffCHoDaz1vGVTjzswU6EjhsT38ZY3CaoRnuqANKM4jaKeQGQu5gjYHni1nOkzGh1dMk2u1GlCNm9hFRVIL2LZgEZxDKY_LEu1DCG-sLJSlMNdZ7B6bftnM1GJ20fn0fR6K9aVLSOyKQWZ5ZDWiCz9ZXr2UJI3Byb');"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-gray-900 dark:text-white font-medium line-clamp-2">限定版ウォリアーフィギュア</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm mt-1 sm:hidden">¥3,500</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-gray-600 dark:text-gray-300 text-sm font-medium hidden sm:table-cell align-middle">
+                            ¥3,500
+                        </td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center justify-center">
+<div class="flex items-center border border-border-light dark:border-border-dark rounded-lg overflow-hidden bg-background-light dark:bg-background-dark">
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">remove</span>
+</button>
+<span class="px-2 text-sm font-semibold text-gray-900 dark:text-white min-w-[2rem] text-center">1</span>
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+</button>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-right text-gray-900 dark:text-white font-semibold hidden md:table-cell align-middle">
+                            ¥3,500
+                        </td>
+<td class="px-4 py-6 text-center align-middle">
+<button class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20" title="削除">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-4 py-6 text-center align-middle">
+<input checked="" class="rounded border-gray-300 text-primary focus:ring-primary/20 bg-white dark:bg-gray-700 dark:border-gray-600 dark:checked:bg-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="relative shrink-0 size-16 rounded-lg overflow-hidden border border-border-light dark:border-border-dark bg-gray-100">
+<div class="w-full h-full bg-cover bg-center" data-alt="Pink cute plushie toy" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0OoSDlpm04NxW8vZ3XTgnvqSyuNRftIPJXJECN0n6p_7aSzWEpeLBqnQIjjN5vLmKpMrb7lII6xA7rlGDmtvTuDLG-6XN-yxsSupHxhZMTd2zWKzOk0P9KnDW3YYkjxYQX51cGaj0kZABgUw8iSncLWGidruJbPM3led5MMMTMvQuKCYynRV9K69Ow0l4DKPfCUM53USLBdk3XeR1gp0xys9DLZkFXBmPO_40eEdJJiauuryEHJFKh5k7tsTxZTdmwVlpNogIuA4e');"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-gray-900 dark:text-white font-medium line-clamp-2">ピンクマスコットぬいぐるみ</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm mt-1 sm:hidden">¥1,800</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-gray-600 dark:text-gray-300 text-sm font-medium hidden sm:table-cell align-middle">
+                            ¥1,800
+                        </td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center justify-center">
+<div class="flex items-center border border-border-light dark:border-border-dark rounded-lg overflow-hidden bg-background-light dark:bg-background-dark">
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">remove</span>
+</button>
+<span class="px-2 text-sm font-semibold text-gray-900 dark:text-white min-w-[2rem] text-center">2</span>
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+</button>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-right text-gray-900 dark:text-white font-semibold hidden md:table-cell align-middle">
+                            ¥3,600
+                        </td>
+<td class="px-4 py-6 text-center align-middle">
+<button class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20" title="削除">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</td>
+</tr>
+<tr class="group hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-colors">
+<td class="px-4 py-6 text-center align-middle">
+<input checked="" class="rounded border-gray-300 text-primary focus:ring-primary/20 bg-white dark:bg-gray-700 dark:border-gray-600 dark:checked:bg-primary" type="checkbox"/>
+</td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center gap-4">
+<div class="relative shrink-0 size-16 rounded-lg overflow-hidden border border-border-light dark:border-border-dark bg-gray-100">
+<div class="w-full h-full bg-cover bg-center" data-alt="Acrylic keychain anime set" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBMP4RFt0oYDGNMMY0CmxKkXPVXa7JksgMBr2gGtEbW2fY9RYRWUiMbPOsn3VdS-gSEyKmLEvoaAYM5hoJ0tegm9ngOvCiQLWVMuCa8-KoocCG-GYW65LGmNdKZJfoL7EQ639Fqk1_LO0K3r3IQlwpIFaIUld-9oTeIxdm9xTBTZMCSTcuyYG1CSA-xg_BfVKDwhr8ytSEExbPLSFgIwC7wd2PRarC1H8NySwKczBzgpGWoBevL3LD_H1TsC06pp1VopbQ0e5H9FyWU');"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-gray-900 dark:text-white font-medium line-clamp-2">アクリルキーホルダーセット</span>
+<span class="text-gray-500 dark:text-gray-400 text-sm mt-1 sm:hidden">¥700</span>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-gray-600 dark:text-gray-300 text-sm font-medium hidden sm:table-cell align-middle">
+                            ¥700
+                        </td>
+<td class="px-4 py-6 align-middle">
+<div class="flex items-center justify-center">
+<div class="flex items-center border border-border-light dark:border-border-dark rounded-lg overflow-hidden bg-background-light dark:bg-background-dark">
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">remove</span>
+</button>
+<span class="px-2 text-sm font-semibold text-gray-900 dark:text-white min-w-[2rem] text-center">1</span>
+<button class="px-3 py-1 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+</button>
+</div>
+</div>
+</td>
+<td class="px-4 py-6 text-right text-gray-900 dark:text-white font-semibold hidden md:table-cell align-middle">
+                            ¥700
+                        </td>
+<td class="px-4 py-6 text-center align-middle">
+<button class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50 dark:hover:bg-red-900/20" title="削除">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-6 flex justify-between items-center">
+<a class="flex items-center gap-2 text-primary font-medium hover:underline hover:text-primary-hover" href="#">
+<span class="material-symbols-outlined text-lg">arrow_back</span>
+                    買い物を続ける
+                </a>
+</div>
+</div>
+<div class="w-full xl:w-[380px] shrink-0">
+<div class="sticky top-24 bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm">
+<h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">注文内容</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-gray-500 dark:text-gray-400 text-sm">小計 (3点)</span>
+<span class="text-gray-900 dark:text-white font-medium">¥7,800</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-gray-500 dark:text-gray-400 text-sm">送料</span>
+<span class="text-gray-900 dark:text-white font-medium">¥500</span>
+</div>
+<div class="pt-4 pb-2">
+<div class="flex gap-2">
+<input class="flex-1 rounded-lg bg-background-light dark:bg-background-dark border-transparent focus:border-primary focus:ring-0 text-sm text-gray-900 dark:text-white placeholder:text-gray-500" placeholder="クーポンコード" type="text"/>
+<button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">適用</button>
+</div>
+</div>
+<div class="h-px bg-border-light dark:bg-border-dark my-4"></div>
+<div class="flex justify-between items-baseline mb-4">
+<span class="text-gray-900 dark:text-white font-bold text-lg">合計（税込）</span>
+<span class="text-primary font-black text-2xl tracking-tight">¥8,300</span>
+</div>
+<button class="w-full bg-primary hover:bg-primary-hover text-white font-bold py-3.5 px-4 rounded-lg shadow-lg shadow-pink-500/20 transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2">
+<span>購入手続きへ進む</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-2 mt-4 text-xs text-gray-500 dark:text-gray-400">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>セキュリティ保護された接続</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>
