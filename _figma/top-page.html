@@ -29,41 +29,52 @@
 </head>
 <body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden">
 <div class="relative flex min-h-screen w-full flex-col group/design-root">
-<div class="w-full bg-white dark:bg-[#1a202c] border-b border-[#f0f2f5] dark:border-gray-800 sticky top-0 z-50">
-<div class="flex justify-center px-4 md:px-10 lg:px-40 py-3">
-<div class="flex w-full max-w-[1200px] items-center justify-between">
-<div class="flex items-center gap-4 text-[#111418] dark:text-white cursor-pointer">
-<div class="size-8 text-accent-blue">
-<span class="material-symbols-outlined text-4xl">storefront</span>
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 gap-4">
+<!-- Logo & Nav -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-4 group" href="#">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
 </div>
-<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] hidden sm:block">キャラクターショップ</h2>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Character Shop</h1>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">商品</a>
+</nav>
 </div>
-<div class="flex-1 max-w-[500px] px-8 hidden md:block">
-<label class="flex w-full h-10 rounded-lg bg-[#f0f2f5] dark:bg-gray-800 overflow-hidden items-center">
-<div class="pl-4 pr-2 text-[#60708a] dark:text-gray-400">
-<span class="material-symbols-outlined">search</span>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4 md:gap-6">
+<!-- Search Bar -->
+<div class="hidden md:flex max-w-xs w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
 </div>
-<input class="w-full bg-transparent border-none text-sm text-[#111418] dark:text-white placeholder-[#60708a] focus:ring-0" placeholder="キャラクターやグッズを検索..."/>
-</label>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg leading-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-shadow" placeholder="商品を検索..." type="text"/>
 </div>
-<div class="flex items-center gap-4">
-<div class="hidden lg:flex items-center gap-6 mr-4">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">キャラクター</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">グッズ</a>
 </div>
-<button class="relative flex items-center justify-center size-10 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#111418] dark:text-white transition-colors">
-<span class="material-symbols-outlined">shopping_cart</span>
-<span class="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-accent-pink text-[10px] font-bold text-white ring-2 ring-white dark:ring-[#1a202c]">2</span>
+<!-- Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
 </button>
-<button class="flex items-center gap-2 px-4 h-10 rounded-lg bg-primary text-white text-sm font-bold hover:bg-pink-600 transition-colors">
-<span class="material-symbols-outlined text-[20px]">account_circle</span>
-<span>ログイン</span>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
 </button>
 </div>
 </div>
 </div>
 </div>
+</header>
 <div class="flex flex-1 flex-col items-center">
 <div class="flex flex-col w-full max-w-[1200px] px-4 md:px-10 lg:px-40 py-5 gap-10">
 <div class="@container w-full">

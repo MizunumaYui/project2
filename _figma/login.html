@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Character EC Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#ec4699",
+              "background-light": "#f8f6f7",
+              "background-dark": "#211119",
+              "surface-light": "#ffffff",
+              "surface-dark": "#2d1b24",
+              "text-main-light": "#181114",
+              "text-main-dark": "#ffffff",
+              "text-muted-light": "#886375",
+              "text-muted-dark": "#d1b3c0",
+              "border-light": "#e5dce0",
+              "border-dark": "#4a3b42",
+            },
+            fontFamily: {
+              "display": ["Inter", "Noto Sans JP", "sans-serif"],
+              "body": ["Inter", "Noto Sans JP", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display antialiased">
+<!-- Navigation Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-border-light dark:border-border-dark px-10 py-3 bg-surface-light dark:bg-surface-dark sticky top-0 z-50">
+<div class="flex items-center gap-4 text-text-main-light dark:text-text-main-dark">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h2 class="text-text-main-light dark:text-text-main-dark text-lg font-bold leading-tight tracking-[-0.015em]">Character Shop</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 hidden md:flex">
+<nav class="flex items-center gap-9">
+<a class="text-text-main-light dark:text-text-main-dark text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-text-main-light dark:text-text-main-dark text-sm font-medium hover:text-primary transition-colors" href="#">ストア</a>
+<a class="text-text-main-light dark:text-text-main-dark text-sm font-medium hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-text-main-light dark:text-text-main-dark text-sm font-medium hover:text-primary transition-colors" href="#">セール</a>
+</nav>
+<div class="flex gap-2">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-opacity-90 transition-opacity">
+<span class="truncate">登録</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark text-sm font-bold border border-border-light dark:border-border-dark hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="truncate">ログイン</span>
+</button>
+</div>
+</div>
+<div class="md:hidden text-text-main-light dark:text-text-main-dark">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col items-center justify-center p-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-md bg-surface-light dark:bg-surface-dark rounded-xl shadow-[0_4px_24px_rgba(0,0,0,0.05)] border border-border-light dark:border-border-dark overflow-hidden">
+<!-- Hero / Banner Section -->
+<div class="relative h-48 w-full bg-cover bg-center" data-alt="Abstract colorful gradient background with anime style vibes" style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCec4tN8ZBZ6rXNFl5WeKAqIKNtDqfcH3CvhHxAnLjUvzh_5BVnz8pUHqMzEpQG8vtjyJWsF-S4DZZIRXvfWtTs76fZ6GDDaJwedNQnzqz7XuYd3U_daCU0gbTeYOz4U8FSe3FjeZnINy_5uowhHE5rn5K2q_SD6pyGzK6pD5CgN0AS35MxGGrVHxZ4VEU_X68G97Cyz-ZN_EbOHeMmtlyRsidg3H1FhQLQTvvs7dL0bVOHfDzaONSMnsHvsaxwy7S8izHhrLrPhKSM");'>
+<div class="absolute bottom-0 left-0 p-6 w-full">
+<h1 class="text-white text-2xl font-bold mb-1">ログイン</h1>
+<p class="text-white/90 text-sm font-medium">アカウントにログインして、買い物を続けましょう。</p>
+</div>
+</div>
+<!-- Login Form -->
+<div class="p-6 pt-8 space-y-6">
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="block text-sm font-medium text-text-main-light dark:text-text-main-dark" for="email">メールアドレス</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-light dark:text-text-muted-dark">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-border-light dark:border-border-dark rounded-lg leading-5 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition duration-150 ease-in-out" id="email" placeholder="example@email.com" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="block text-sm font-medium text-text-main-light dark:text-text-main-dark" for="password">パスワード</label>
+<a class="text-sm font-medium text-primary hover:text-opacity-80 transition-colors" href="#">パスワードをお忘れですか？</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted-light dark:text-text-muted-dark">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="block w-full pl-10 pr-10 py-3 border border-border-light dark:border-border-dark rounded-lg leading-5 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary sm:text-sm transition duration-150 ease-in-out" id="password" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer text-text-muted-light dark:text-text-muted-dark hover:text-text-main-light dark:hover:text-text-main-dark">
+<span class="material-symbols-outlined text-[20px]">visibility_off</span>
+</div>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-base font-bold text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all" type="button">
+                    ログイン
+                </button>
+<!-- Divider -->
+<div class="relative">
+<div class="absolute inset-0 flex items-center">
+<div class="w-full border-t border-border-light dark:border-border-dark"></div>
+</div>
+<div class="relative flex justify-center text-sm">
+<span class="px-2 bg-surface-light dark:bg-surface-dark text-text-muted-light dark:text-text-muted-dark">または</span>
+</div>
+</div>
+<!-- Social Login (Optional but common in modern UI) -->
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center px-4 py-2.5 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-background-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" type="button">
+<svg aria-hidden="true" class="h-5 w-5 mr-2" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z"></path>
+</svg>
+<span class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Google</span>
+</button>
+<button class="flex items-center justify-center px-4 py-2.5 border border-border-light dark:border-border-dark rounded-lg bg-white dark:bg-background-dark hover:bg-gray-50 dark:hover:bg-surface-dark transition-colors" type="button">
+<svg aria-hidden="true" class="h-5 w-5 mr-2 text-[#1DA1F2]" fill="currentColor" viewbox="0 0 24 24">
+<path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.84 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path>
+</svg>
+<span class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Twitter</span>
+</button>
+</div>
+<!-- Footer Link -->
+<div class="text-center pt-2">
+<p class="text-sm text-text-muted-light dark:text-text-muted-dark">
+                        アカウントをお持ちでないですか？ 
+                        <a class="font-bold text-primary hover:text-opacity-80 transition-colors" href="#">新規会員登録はこちら</a>
+</p>
+</div>
+</div>
+</div>
+<!-- Background decorative elements for flavor -->
+<div class="fixed top-1/2 left-10 -z-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl transform -translate-y-1/2 hidden xl:block"></div>
+<div class="fixed bottom-10 right-10 -z-10 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl hidden xl:block"></div>
+</main>
+<!-- Footer -->
+<footer class="py-6 text-center text-sm text-text-muted-light dark:text-text-muted-dark">
+<div class="flex justify-center gap-6 mb-4">
+<a class="hover:text-primary transition-colors" href="#">プライバシーポリシー</a>
+<a class="hover:text-primary transition-colors" href="#">利用規約</a>
+<a class="hover:text-primary transition-colors" href="#">特定商取引法に基づく表記</a>
+</div>
+<p>© 2023 Character EC. All rights reserved.</p>
+</footer>
+</body></html>

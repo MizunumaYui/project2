@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>注文管理：日本語版</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#3c83f6",
+            "background-light": "#f5f7f8",
+            "background-dark": "#101722",
+          },
+          fontFamily: {
+            "display": ["Inter", "Noto Sans JP", "sans-serif"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Header -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e5e7eb] dark:border-b-gray-700 bg-white dark:bg-[#1a202c] px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">キャラクターEC管理</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-[#60708a] dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">ダッシュボード</a>
+<a class="text-[#111418] dark:text-white text-sm font-bold leading-normal border-b-2 border-primary pb-0.5" href="#">注文管理</a>
+<a class="text-[#60708a] dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">商品</a>
+<a class="text-[#60708a] dark:text-gray-400 hover:text-primary dark:hover:text-primary text-sm font-medium leading-normal transition-colors" href="#">顧客</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<label class="hidden md:flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-[#e5e7eb] dark:border-gray-600 bg-white dark:bg-[#2d3748] overflow-hidden focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="text-[#60708a] dark:text-gray-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-none text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-[#60708a] dark:placeholder:text-gray-500 px-2 text-sm font-normal leading-normal" placeholder="検索" value=""/>
+</div>
+</label>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center text-[#60708a] dark:text-gray-400 hover:text-[#111418] dark:hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-9 border-2 border-white dark:border-gray-700 shadow-sm" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCByby_7VrTI_wDXfd9crAWGTH6GKs1A-RU8VhlRwL1zNBVRMvfn0Yrel8-jgRvRHQs5P-Ly3621S1IBLetiJe9MAs68ie8SKHJeqTLapCXSphx-0haA67_N95T4Ecl3B_kWoAVFjDkPf7ekKfF1otzaT2WLZuxON9NbSMjl-BPN2hqQUMAtIJnYZGqxWaMB18noodGXzmSGK5RT3lh453lzE78bwvH3W4XCCFZTQd3EPWdkUfIKDlU-emzDlDTDUalbfPbCQGeGDE4");'></div>
+</div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-5 px-4 md:px-10">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1 w-full">
+<!-- Page Title & Main Action -->
+<div class="flex flex-wrap justify-between items-end gap-4 p-4 mb-2">
+<div class="flex min-w-72 flex-col gap-2">
+<h1 class="text-[#111418] dark:text-white text-3xl font-black leading-tight tracking-[-0.033em]">注文管理</h1>
+<p class="text-[#60708a] dark:text-gray-400 text-sm font-normal leading-normal">すべての顧客注文を表示および管理します。</p>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-white dark:bg-[#2d3748] border border-[#e5e7eb] dark:border-gray-600 text-[#111418] dark:text-white text-sm font-bold leading-normal hover:bg-gray-50 dark:hover:bg-[#4a5568] transition-colors">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span class="truncate">エクスポート</span>
+</button>
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal hover:bg-blue-600 transition-colors shadow-sm shadow-blue-200 dark:shadow-none">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="truncate">注文を作成</span>
+</button>
+</div>
+</div>
+<!-- Filters & Search -->
+<div class="px-4 py-2">
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-white dark:bg-[#1a202c] p-3 rounded-xl border border-[#e5e7eb] dark:border-gray-700 shadow-sm">
+<!-- Search Bar -->
+<label class="flex flex-col w-full md:w-80 h-10">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-[#e5e7eb] dark:border-gray-600 bg-[#f8fafc] dark:bg-[#2d3748] focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<div class="text-[#60708a] dark:text-gray-400 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-none text-[#111418] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-[#60708a] dark:placeholder:text-gray-500 px-3 text-sm font-normal leading-normal" placeholder="注文番号、顧客名..." value=""/>
+</div>
+</label>
+<!-- Status Filters -->
+<div class="flex gap-2 overflow-x-auto pb-1 md:pb-0 w-full md:w-auto no-scrollbar">
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#111418] dark:bg-white px-4 transition-colors">
+<p class="text-white dark:text-[#111418] text-sm font-medium leading-normal">すべて</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f0f2f5] dark:bg-[#2d3748] hover:bg-gray-200 dark:hover:bg-[#4a5568] px-4 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">未払い</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f0f2f5] dark:bg-[#2d3748] hover:bg-gray-200 dark:hover:bg-[#4a5568] px-4 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">支払い済み</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f0f2f5] dark:bg-[#2d3748] hover:bg-gray-200 dark:hover:bg-[#4a5568] px-4 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">発送中</p>
+</button>
+<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f0f2f5] dark:bg-[#2d3748] hover:bg-gray-200 dark:hover:bg-[#4a5568] px-4 transition-colors">
+<p class="text-[#111418] dark:text-white text-sm font-medium leading-normal">完了</p>
+</button>
+</div>
+</div>
+</div>
+<!-- Table -->
+<div class="px-4 py-3 @container">
+<div class="flex overflow-hidden rounded-xl border border-[#e5e7eb] dark:border-gray-700 bg-white dark:bg-[#1a202c] shadow-sm">
+<table class="flex-1 w-full text-left border-collapse">
+<thead class="bg-[#f8fafc] dark:bg-[#2d3748]">
+<tr>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider w-[150px]">注文番号</th>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">購入者</th>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">金額</th>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider w-[140px]">ステータス</th>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider hidden md:table-cell">注文日</th>
+<th class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-xs font-bold uppercase tracking-wider text-right w-[100px]">アクション</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e5e7eb] dark:divide-gray-700">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#283141] transition-colors group cursor-pointer">
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">#ORD-7829</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold text-xs">TT</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">田中 太郎</span>
+<span class="text-[#60708a] dark:text-gray-500 text-xs">taro.t@example.com</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">¥12,500</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+<span class="size-1.5 rounded-full bg-amber-500"></span>
+                        発送中
+                    </span>
+</td>
+<td class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-sm hidden md:table-cell">2023/10/24</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#60708a] dark:text-gray-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#283141] transition-colors group cursor-pointer">
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">#ORD-7830</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-purple-100 dark:bg-purple-900 flex items-center justify-center text-purple-600 dark:text-purple-300 font-bold text-xs">SH</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">佐藤 花子</span>
+<span class="text-[#60708a] dark:text-gray-500 text-xs">hanako.s@example.com</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">¥4,200</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                        支払い済み
+                    </span>
+</td>
+<td class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-sm hidden md:table-cell">2023/10/24</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#60708a] dark:text-gray-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#283141] transition-colors group cursor-pointer">
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">#ORD-7831</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8" data-alt="Customer avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBOAwPgWYO0H7TvZh0Vwf0fzxxGwXqIZ6jRXLlfN64aGw8f7EzOhuAJr-3sJANml11ZXmO0tBIL82R-tijb1vhbJZ2vVbfRYmpnt33Rxo1Y6PjZ5w_BPrF30iDOO21A7U0tuO7vuaxYcSAF8qYMQlaTdsETJ4wI32GApCDPPtnTuY1bXFTchOtUiE02D3_0VoEIUaNqooQgLfNnel-yKJybNrL0tOpAUyqHjoKWVvYC66Q5Gnd1dumcuw5WnqD6-ICSIZSs_OzBcO1c");'></div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">鈴木 一郎</span>
+<span class="text-[#60708a] dark:text-gray-500 text-xs">ichiro.suzuki@example.com</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">¥8,900</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+<span class="size-1.5 rounded-full bg-blue-500"></span>
+                        完了
+                    </span>
+</td>
+<td class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-sm hidden md:table-cell">2023/10/23</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#60708a] dark:text-gray-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#283141] transition-colors group cursor-pointer">
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">#ORD-7832</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-orange-100 dark:bg-orange-900 flex items-center justify-center text-orange-600 dark:text-orange-300 font-bold text-xs">TM</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">高橋 美咲</span>
+<span class="text-[#60708a] dark:text-gray-500 text-xs">misaki.t@example.com</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">¥15,000</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
+<span class="size-1.5 rounded-full bg-gray-500"></span>
+                        処理中
+                    </span>
+</td>
+<td class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-sm hidden md:table-cell">2023/10/23</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#60708a] dark:text-gray-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-gray-50 dark:hover:bg-[#283141] transition-colors group cursor-pointer">
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">#ORD-7833</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-teal-100 dark:bg-teal-900 flex items-center justify-center text-teal-600 dark:text-teal-300 font-bold text-xs">IK</div>
+<div class="flex flex-col">
+<span class="text-[#111418] dark:text-white text-sm font-medium">伊藤 健太</span>
+<span class="text-[#60708a] dark:text-gray-500 text-xs">kenta.i@example.com</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-[#111418] dark:text-white text-sm font-medium">¥3,500</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-medium bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 border border-rose-200 dark:border-rose-800">
+<span class="size-1.5 rounded-full bg-rose-500"></span>
+                        キャンセル
+                    </span>
+</td>
+<td class="px-6 py-4 text-[#60708a] dark:text-gray-400 text-sm hidden md:table-cell">2023/10/22</td>
+<td class="px-6 py-4 text-right">
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-[#60708a] dark:text-gray-400 transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="flex items-center justify-between py-4">
+<div class="text-sm text-[#60708a] dark:text-gray-400">
+                  全 1,204 件中 <span class="font-medium text-[#111418] dark:text-white">1</span> - <span class="font-medium text-[#111418] dark:text-white">10</span> 件を表示
+              </div>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg border border-[#e5e7eb] dark:border-gray-700 bg-white dark:bg-[#1a202c] text-[#60708a] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#2d3748] disabled:opacity-50 disabled:cursor-not-allowed">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg border border-[#e5e7eb] dark:border-gray-700 bg-white dark:bg-[#1a202c] text-[#60708a] dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#2d3748]">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

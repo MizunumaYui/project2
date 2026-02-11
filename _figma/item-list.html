@@ -28,33 +28,48 @@
     </script>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-white min-h-screen flex flex-col overflow-x-hidden">
-<header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 px-6 py-3 shadow-sm">
-<div class="mx-auto flex max-w-[1280px] items-center justify-between">
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 gap-4">
+<!-- Logo & Nav -->
 <div class="flex items-center gap-8">
-<a class="flex items-center gap-3 text-gray-900 dark:text-white group" href="#">
-<div class="size-8 text-primary">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
+<a class="flex items-center gap-4 group" href="#">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
 </div>
-<span class="text-xl font-bold tracking-tight">AnimeShop</span>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Character Shop</h1>
 </a>
 <nav class="hidden md:flex items-center gap-6">
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">ホーム</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">キャラクター</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">新着商品</a>
-<a class="text-sm font-medium hover:text-primary transition-colors" href="#">セール</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">商品</a>
 </nav>
 </div>
-<div class="flex items-center gap-4">
-<div class="hidden sm:flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg px-3 py-2 w-64 focus-within:ring-2 focus-within:ring-primary/50 transition-shadow">
-<span class="material-symbols-outlined text-gray-500 text-[20px]">search</span>
-<input class="bg-transparent border-none text-sm w-full focus:ring-0 text-gray-900 dark:text-white placeholder-gray-500 ml-2 h-full py-0" placeholder="グッズを検索..." type="text"/>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4 md:gap-6">
+<!-- Search Bar -->
+<div class="hidden md:flex max-w-xs w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
 </div>
-<button class="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
-<span class="material-symbols-outlined">shopping_cart</span>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg leading-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-shadow" placeholder="商品を検索..." type="text"/>
+</div>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
 </button>
-<div class="h-9 w-9 rounded-full bg-cover bg-center cursor-pointer border-2 border-transparent hover:border-primary transition-colors" data-alt="User profile avatar" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBhCRd682xKtZy6HEIr44f_NJNyyr5tCqcrh_tiSXy264Fvv0ahFbTt5ivs2g00QhZ2CO1k-W554TMTiuqi6eLAezH2x2JEoc9o_9Pzj6YXM93bqMSxwtXuiyVADYG0NHFvDZ2aeDUIxCuBu6WWBebba62pgcLsJ8-oxuWgKVumpEMQPS60EyGYpdWhKiqRzMAMoBFr3HiHMSxZ8Nebfl0YEV90hNmcfwBg9dkFiYsdQ4CCxgQ29m5Mh_HKRXgII-8j_Ohklq-8j3vb');"></div>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+</button>
+</div>
+</div>
 </div>
 </div>
 </header>

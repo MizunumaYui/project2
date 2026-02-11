@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>マイページ - Character Store</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c83f6",
+                        "primary-dark": "#2563eb",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans JP", "sans-serif"],
+                        "sans": ["Inter", "Noto Sans JP", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased transition-colors duration-200">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 gap-4">
+<!-- Logo & Nav -->
+<div class="flex items-center gap-8">
+<a class="flex items-center gap-4 group" href="#">
+<div class="size-8 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">smart_toy</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Character Shop</h1>
+</a>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ホーム</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">キャラクター</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">商品</a>
+</nav>
+</div>
+<!-- Search & Actions -->
+<div class="flex flex-1 items-center justify-end gap-4 md:gap-6">
+<!-- Search Bar -->
+<div class="hidden md:flex max-w-xs w-full">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border-none rounded-lg leading-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm transition-shadow" placeholder="商品を検索..." type="text"/>
+</div>
+</div>
+<!-- Icons -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined text-[24px]">shopping_cart</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">notifications</span>
+</button>
+<button class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-1 justify-center py-6 px-4 md:px-8">
+<div class="flex w-full max-w-[1024px] flex-col gap-6">
+<!-- Page Title Area -->
+<div class="flex flex-col gap-2">
+<h1 class="text-3xl font-black tracking-tight text-slate-900 dark:text-white">マイページ</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm md:text-base">アカウント情報の管理、注文履歴、お気に入りのキャラクターを確認できます。</p>
+</div>
+<!-- Profile Card -->
+<div class="w-full rounded-2xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200 dark:border-slate-700 p-6 md:p-8">
+<div class="flex flex-col md:flex-row items-center md:justify-between gap-6">
+<div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+<div class="relative">
+<div class="size-24 md:size-28 rounded-full bg-cover bg-center ring-4 ring-slate-100 dark:ring-slate-700" data-alt="User profile picture woman smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCcMdOSuDE4hUamI7Y9xvZm7WHLllp98nEZNd1_u7k0xbb-bcaZimfOjS0zlqI28soN6zMKRK_X3H-bhv-RWoXZOxkWUANrmkkqOaMk3R1Gl3V9mTMPp6ytRCHj_EVOXcdD3-eUocZI5ZdR1QgzV8cfIkWVK-2cRvufNYy_Myl7uIeHmQJ4PQ21jtK6bt1Tg3zXDCtfweFZ0Klnv-1G3kVnko3lXO3DApmXb-iCPzQMQyvrJYpYAyPmfCmvVjL6NFYEa2cZflPPwOxg");'></div>
+<div class="absolute bottom-0 right-0 flex size-8 items-center justify-center rounded-full bg-primary text-white ring-2 ring-white dark:ring-slate-800">
+<span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">山田 花子</h2>
+<div class="flex items-center justify-center md:justify-start gap-2 text-sm">
+<span class="inline-flex items-center gap-1 rounded-full bg-amber-100 dark:bg-amber-900/30 px-2.5 py-0.5 text-amber-700 dark:text-amber-400 font-medium">
+<span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">diamond</span>
+                                        プラチナ会員
+                                    </span>
+<span class="text-slate-500 dark:text-slate-400">ID: 8849-2201</span>
+</div>
+</div>
+</div>
+<button class="w-full md:w-auto flex items-center justify-center gap-2 rounded-lg bg-primary hover:bg-primary-dark text-white px-6 py-2.5 text-sm font-bold transition-colors shadow-sm shadow-primary/20">
+<span class="material-symbols-outlined" style="font-size: 18px;">settings</span>
+                            プロフィール編集
+                        </button>
+</div>
+<!-- Stats Grid inside Profile Card -->
+<div class="mt-8 grid grid-cols-3 gap-4 border-t border-slate-100 dark:border-slate-700 pt-6">
+<div class="flex flex-col items-center justify-center gap-1 md:gap-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 p-4 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer group">
+<span class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">15</span>
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs md:text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size: 16px;">receipt_long</span>
+                                注文履歴
+                            </div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 md:gap-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 p-4 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer group">
+<span class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">4</span>
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs md:text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size: 16px;">reviews</span>
+                                レビュー
+                            </div>
+</div>
+<div class="flex flex-col items-center justify-center gap-1 md:gap-2 rounded-xl bg-slate-50 dark:bg-slate-700/50 p-4 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer group">
+<span class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">1,250<span class="text-sm md:text-lg font-normal ml-1">pt</span></span>
+<div class="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs md:text-sm font-medium">
+<span class="material-symbols-outlined" style="font-size: 16px;">loyalty</span>
+                                保有ポイント
+                            </div>
+</div>
+</div>
+</div>
+<div class="grid lg:grid-cols-3 gap-6">
+<!-- Left Column: Recent Orders (Takes up 2/3) -->
+<div class="lg:col-span-2 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                                最近の注文
+                            </h3>
+<a class="text-sm font-medium text-primary hover:text-primary-dark hover:underline" href="#">すべて見る</a>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Order Item 1 -->
+<div class="flex flex-col sm:flex-row gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
+<img alt="Plush toy character" class="h-full w-full object-cover" data-alt="Cute plush toy product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6UZCyH3a7oW7fx-G-9QFW21Z0m8WbwiuXKJgBUrIeu36uSnmk-FlcglqKSFaDHMnSM9q1dYpDfSxg3bZ9s3ejbdE0pLXluk8-eIuqPTDGNkXCnUAYpoWrBbKpIN64Z2w6EEfKtPqalF98IRrsXuoSjMTdHGl80qPSS-honmQMlpuJsdStaREc0fPHGlotVlGLShBhKarnzzl8j5cqs4WFvFeldbwbGW5JX_EFG8JA_uXLgO_qcQwLELYAJ6-2e9961Jv9tp-UJ7pv"/>
+</div>
+<div class="flex flex-1 flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-slate-900 dark:text-white line-clamp-1">限定版 魔法少女リリィ ぬいぐるみ (Lサイズ)</h4>
+<span class="inline-flex items-center rounded-full bg-green-100 dark:bg-green-900/30 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:text-green-400 shrink-0">
+                                                配達完了
+                                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">注文番号: #JP-2023-8892</p>
+</div>
+<div class="flex items-center justify-between mt-3 sm:mt-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white">2023年10月15日</p>
+<p class="font-bold text-slate-900 dark:text-white">¥4,500</p>
+</div>
+</div>
+</div>
+<!-- Order Item 2 -->
+<div class="flex flex-col sm:flex-row gap-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm hover:shadow-md transition-shadow">
+<div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
+<img alt="Anime character figure" class="h-full w-full object-cover" data-alt="Anime figure product thumbnail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCueA-oGAm0Ghkgays80xUgcFe7Corx6wWNeDJm1y-7oGrT3PXIE6wIBSCeqGIFCA5ychk-ddgemgoMlVmZAFNuLwIS6mwuej7cS28ND1blmgWD2RYbEs36Wa6kZUc-cVr4taWD6kikSJKB1lP8PXb12YeGZsNMQaeitbinRX8BtuoQh_QOCRcd0z0IpKi6nCrWY2R4T_ctcF_w1UNHqxMbucPcaZVizkmKcuW1IWVgxdzE8M7DD_es2Af3wr_gMlUbfASY8JhqEkVD"/>
+</div>
+<div class="flex flex-1 flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="font-bold text-slate-900 dark:text-white line-clamp-1">勇者アラン 1/7スケールフィギュア</h4>
+<span class="inline-flex items-center rounded-full bg-blue-100 dark:bg-blue-900/30 px-2.5 py-0.5 text-xs font-medium text-blue-700 dark:text-blue-400 shrink-0">
+                                                発送済み
+                                            </span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">注文番号: #JP-2023-8840</p>
+</div>
+<div class="flex items-center justify-between mt-3 sm:mt-0">
+<p class="text-sm font-medium text-slate-900 dark:text-white">2023年10月12日</p>
+<p class="font-bold text-slate-900 dark:text-white">¥12,800</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Favorites & Quick Links (Takes up 1/3) -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Favorite Characters -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-red-500" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                                    推しキャラ
+                                </h3>
+<a class="text-sm font-medium text-primary hover:text-primary-dark hover:underline" href="#">編集</a>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<a class="group relative flex flex-col items-center gap-2 rounded-xl bg-white dark:bg-slate-800 p-3 border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary transition-colors" href="#">
+<div class="aspect-square w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
+<img alt="Anime character illustration" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Anime style blue haired character" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdW46eFAQNR_kdn_RMDs8GqcbsVSB-TRAKijzRCuLWVj579jX-HAzyqcau72NABwtxGqlyDIookA7LbSMNVRvLnpQ-42SD42gkRHtx_gwuKkb0e0pBj_gXKeFkLqRrHX9EYseAOQTFj-m5jn5zFu7XcMz59g798V6uB2gbf6jv5BP6AEaafCuTeXiioDlQwupj1hji6IaiK8F-swxb1r0t4dvyRPo6nUmB3LKAXNP8MROfy3EzipwpDhTLXMJ9h6ixHnrq_pVt76it"/>
+</div>
+<span class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">ミライ</span>
+</a>
+<a class="group relative flex flex-col items-center gap-2 rounded-xl bg-white dark:bg-slate-800 p-3 border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary transition-colors" href="#">
+<div class="aspect-square w-full overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-700">
+<img alt="Robot character illustration" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Sci-fi robot character headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6avZRllSseGxWUHcT0b_6ldN1OQOwWk11jlAC2QWK5lN2jeG0g74xDRTJRMukiW3ZoHkHX7hecl2_NBvZjqkGvHz9czGGEmU4PW2Cd8HjXk_WW4bu95qWaefnufePB7eAyWbJ8kbID2U26u5UwmE1T9CB28X4I9f3_HO6byeLWklUOzt697Y10PFOyz0Y-a3xN06hUqyBb75ByqydsfLwT8cyNJLioX-XI1thSlOn1DLvyTqj7CFNgiXHvdq5Ka_ZpS4edoKpdgtL"/>
+</div>
+<span class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">RX-Zero</span>
+</a>
+</div>
+</div>
+<!-- Menu List -->
+<div class="rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden">
+<a class="flex items-center justify-between px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">credit_card</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-200">お支払い方法</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-lg">chevron_right</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 border-b border-slate-100 dark:border-slate-700 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">location_on</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-200">お届け先住所</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-lg">chevron_right</span>
+</a>
+<a class="flex items-center justify-between px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors" href="#">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">help</span>
+<span class="text-sm font-medium text-slate-700 dark:text-slate-200">ヘルプ・お問い合わせ</span>
+</div>
+<span class="material-symbols-outlined text-slate-400 text-lg">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="mt-8 border-t border-slate-200 dark:border-slate-700 py-6 text-center">
+<p class="text-xs text-slate-500 dark:text-slate-400">© 2023 Character Store. All rights reserved.</p>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>商品管理：日本語版</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec4699",
+                        "background-light": "#f8f6f7",
+                        "background-dark": "#211119",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "Noto Sans JP", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-neutral-900 dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden transition-colors duration-200">
+<!-- Navbar -->
+<header class="sticky top-0 z-10 w-full bg-white dark:bg-[#2a1621] border-b border-neutral-200 dark:border-neutral-800">
+<div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<!-- Left: Logo & Title -->
+<div class="flex items-center gap-4">
+<div class="text-primary">
+<span class="material-symbols-outlined text-3xl">local_mall</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">Admin Console</h1>
+</div>
+<!-- Right: Navigation & Profile -->
+<div class="flex items-center gap-6">
+<!-- Desktop Nav Links -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ダッシュボード</a>
+<a class="text-sm font-medium text-primary dark:text-primary" href="#">商品管理</a>
+<a class="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">注文</a>
+<a class="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">ユーザー</a>
+<a class="text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary dark:hover:text-primary transition-colors" href="#">設定</a>
+</nav>
+<!-- Icons -->
+<div class="flex items-center gap-3 border-l border-neutral-200 dark:border-neutral-700 pl-6">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-600 dark:text-neutral-300 transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div class="flex flex-col gap-2">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight text-neutral-900 dark:text-white">商品管理</h2>
+<p class="text-neutral-500 dark:text-neutral-400">商品リストの表示、編集、削除を行います</p>
+</div>
+<button class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold h-10 px-6 rounded-lg shadow-sm hover:shadow transition-all whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>新規商品を登録</span>
+</button>
+</div>
+<!-- Toolbar: Search & Filters -->
+<div class="flex flex-col gap-4 mb-6">
+<!-- Search Bar -->
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-neutral-400">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="block w-full pl-10 pr-4 py-3 bg-white dark:bg-[#2a1621] border border-neutral-200 dark:border-neutral-700 rounded-xl text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary focus:border-transparent transition-shadow outline-none" placeholder="商品名で検索..." type="text"/>
+</div>
+<!-- Filter Buttons -->
+<div class="flex flex-wrap gap-3">
+<button class="group flex items-center gap-2 h-9 px-4 rounded-lg bg-white dark:bg-[#2a1621] border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 dark:hover:border-primary/50 text-sm font-medium transition-colors">
+<span class="text-neutral-700 dark:text-neutral-200">カテゴリ:</span>
+<span class="font-bold">全て</span>
+<span class="material-symbols-outlined text-neutral-400 group-hover:text-primary text-[20px]">expand_more</span>
+</button>
+<button class="group flex items-center gap-2 h-9 px-4 rounded-lg bg-white dark:bg-[#2a1621] border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 dark:hover:border-primary/50 text-sm font-medium transition-colors">
+<span class="text-neutral-700 dark:text-neutral-200">在庫:</span>
+<span class="font-bold">全て</span>
+<span class="material-symbols-outlined text-neutral-400 group-hover:text-primary text-[20px]">expand_more</span>
+</button>
+<button class="group flex items-center gap-2 h-9 px-4 rounded-lg bg-white dark:bg-[#2a1621] border border-neutral-200 dark:border-neutral-700 hover:border-primary/50 dark:hover:border-primary/50 text-sm font-medium transition-colors">
+<span class="text-neutral-700 dark:text-neutral-200">キャラクター:</span>
+<span class="font-bold">全て</span>
+<span class="material-symbols-outlined text-neutral-400 group-hover:text-primary text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="w-full overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-[#2a1621] shadow-sm @container">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-neutral-50 dark:bg-[#35202a] border-b border-neutral-200 dark:border-neutral-700">
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-16">画像</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">商品名</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-40">キャラクター</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-40">カテゴリ</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-32">価格</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-24">在庫</th>
+<th class="px-6 py-4 text-xs font-bold text-neutral-500 dark:text-neutral-400 uppercase tracking-wider w-24 text-right">操作</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
+<!-- Row 1 -->
+<tr class="group hover:bg-neutral-50 dark:hover:bg-[#35202a] transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center ring-2 ring-white dark:ring-neutral-800" data-alt="Chiikawa plush toy image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYzxQr1qVelsQLWQw6NxXNRWASQSm6wZ-aXmnEV-1jLQpOh9nG6P-XUMJF2M8JM1LiCFfb0UVMmH4d0B-9QtcQ6pW2pCiqvUQbcsQDgON_aTEBU-8abRYaAY6lyG03Qft4gaZWg9J8KycKgSqHNlCFPNKWfF764XsJthwH_eHKAEXR4BIBLJvaHX8mnAvaKXObrwDIGoMsXMYHx1YiB1A9P9wEhaphR0rY00HuahZuv8Q_DpteKQ8ij6w_eO4AtQ8zGJjF-wCzxlye");'></div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-neutral-900 dark:text-white">ちいかわ ぬいぐるみ</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">
+                                    ちいかわ
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300">
+                                    ぬいぐるみ
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">¥2,500</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm text-green-600 dark:text-green-400 font-medium">120</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors flex justify-end" href="#">
+<span class="material-symbols-outlined">edit</span>
+</a>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-neutral-50 dark:hover:bg-[#35202a] transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center ring-2 ring-white dark:ring-neutral-800" data-alt="Hachiware t-shirt image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZH3q4AxPd6CTtsIjpwtUFyOdqUTiijsb6QbkKs1cAA_2kRk1_hGJPi0nTM1tqAtINN4NK_Cu1iwpJkK7xPNqtK-jyFj99gasYKPJBGFJEIoGAZrZhGjvkPz7T-X0t_xwMpIp8RtNqK8GkcDeARqSXB-FUmca56L0Jr0mP53sEx7SDgpVtaXG7k5rrW4xPxJhfGzj9SmNgYNtyaLv-8kNCABzQPlJvJIF0iocU3ixkzFciZkhubYWnkutoEtbj7jQPX96oXNGwWuzv");'></div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-neutral-900 dark:text-white">ハチワレ Tシャツ</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-300">
+                                    ハチワレ
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300">
+                                    アパレル
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">¥3,200</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm text-yellow-600 dark:text-yellow-400 font-medium">50</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors flex justify-end" href="#">
+<span class="material-symbols-outlined">edit</span>
+</a>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-neutral-50 dark:hover:bg-[#35202a] transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center ring-2 ring-white dark:ring-neutral-800" data-alt="Usagi keychain image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6x9sUaH847RLcnK45x9hX275WoiSl1WhcKSnBnDvDDhWkuzBt0DgLRlmKpx6cNHcTyQXoe_19PgqcHZpWs-JaTu_iMspBjy4xcEKlHsavBKs2ZQUha8z3B-rcGxjdkZilNEmoGw1wm1-lbvN_imhMCBOtPP1MHJ7ou6ibi8m3P278R7wLXJwL5-A93cPa3yhldQkmr8w6UaiGsKaB_9nqL9hGfr6u6_sIgkJBg-iaLpa98sAHaPeKvUBq4q3tP7x1AVWRa66eOjuk");'></div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-neutral-900 dark:text-white">うさぎ キーホルダー</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-50 text-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-300">
+                                    うさぎ
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300">
+                                    雑貨
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">¥800</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm text-green-600 dark:text-green-400 font-medium">300</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors flex justify-end" href="#">
+<span class="material-symbols-outlined">edit</span>
+</a>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-neutral-50 dark:hover:bg-[#35202a] transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center ring-2 ring-white dark:ring-neutral-800" data-alt="Momonga mug cup image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATsJA8sRamNEIs6icdCFvd1imb2L_HWMLuCSH0bcxAPefAvx9u_akAUAG40t-27awNSrWKugk0U6h77ixCUgvqgjecrKRMon52fcDVg-y330Ma3tZc7a943sZxwE8IfP6B3hlK1XoGjken-czZSt5SAE9gXKZwKXLgAul3mdrrMC6aVO6QEO2H1QLqLXH0RQIEuIzAWs4wDXFCbpI1t51qXN5XRsPoZ9WTxcUzz9Ae6qAERK7GdENDreMSYHVhW9k9Mg6vtHUxDllp");'></div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-neutral-900 dark:text-white">モモンガ マグカップ</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-300">
+                                    モモンガ
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300">
+                                    食器
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">¥1,500</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm text-green-600 dark:text-green-400 font-medium">80</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors flex justify-end" href="#">
+<span class="material-symbols-outlined">edit</span>
+</a>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="group hover:bg-neutral-50 dark:hover:bg-[#35202a] transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="h-10 w-10 rounded-full bg-neutral-200 dark:bg-neutral-700 bg-cover bg-center ring-2 ring-white dark:ring-neutral-800" data-alt="Kurimanju cushion image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDhO3MIxV-0HifrMaNup4uw7mZ8EUuAOv5n39dazmT3Wl2k-IV1M95whjpHGI1l4IqHHrloH0UkIIx3fAxMVt18RZ4zLeZ4zvyY6zeov6BrW09j3_7as94E852gOGlrxUBSJb3krT1pdM7xSVaJyemZvigDwRbCKOIKBMc6xoaIpNrz-5PeuHL8oBsd65nRbGT1jZQwAa80JzCaLSk6fcg0rNEihRJFKZWWDonc8JtZqxEqxoCRcLbf_9mtlajjnLZ0dyKhbLmz1ubh");'></div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm font-medium text-neutral-900 dark:text-white">くりまんじゅう クッション</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-300">
+                                    くりまんじゅう
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-300">
+                                    インテリア
+                                </span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-500 dark:text-neutral-400">¥4,000</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="text-sm text-red-500 dark:text-red-400 font-medium">20</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+<a class="text-neutral-400 hover:text-primary dark:hover:text-primary transition-colors flex justify-end" href="#">
+<span class="material-symbols-outlined">edit</span>
+</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer of Table -->
+<div class="px-6 py-4 border-t border-neutral-200 dark:border-neutral-700 flex items-center justify-between bg-neutral-50 dark:bg-[#35202a]">
+<span class="text-sm text-neutral-500 dark:text-neutral-400">全 45 件中 1-5 件を表示</span>
+<div class="flex gap-2">
+<button class="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 disabled:opacity-50 text-neutral-600 dark:text-neutral-300 transition-colors" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="p-1 rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-600 dark:text-neutral-300 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
