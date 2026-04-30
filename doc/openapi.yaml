@@ -1,0 +1,728 @@
+openapi: 3.0.3
+info:
+  title: キャラクターEC API
+  version: 1.0.0
+  description: sample.dio のデータ構成に合わせた Swagger UI 用 OpenAPI 定義
+servers:
+  - url: /api/v1
+    description: API v1
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+  - name: Characters
+  - name: Categories
+  - name: Products
+  - name: Cart
+  - name: Orders
+  - name: Favorites
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: 会員登録
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+            example:
+              email: user@example.com
+              password: SecurePassword123
+              password_confirmation: SecurePassword123
+              name: 山田太郎
+      responses:
+        '201':
+          description: 登録成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              example:
+                user:
+                  id: user-001
+                  email: user@example.com
+                  name: 山田太郎
+                  role: user
+                  createdAt: '2026-01-22T10:00:00Z'
+                  updatedAt: '2026-01-22T10:00:00Z'
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: ログイン
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: user@example.com
+              password: SecurePassword123
+      responses:
+        '200':
+          description: ログイン成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+              example:
+                user:
+                  id: user-001
+                  email: user@example.com
+                  name: 山田太郎
+                  role: user
+                  createdAt: '2026-01-22T10:00:00Z'
+                  updatedAt: '2026-01-22T10:00:00Z'
+                token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /auth/logout:
+    delete:
+      tags: [Auth]
+      summary: ログアウト
+      responses:
+        '200':
+          description: ログアウト成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+              example:
+                message: ログアウトしました
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /auth/me:
+    get:
+      tags: [Auth]
+      summary: 現在のユーザー情報取得
+      responses:
+        '200':
+          description: ユーザー情報
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthMeResponse'
+              example:
+                user:
+                  id: user-001
+                  email: user@example.com
+                  name: 山田太郎
+                  role: user
+                  createdAt: '2026-01-22T10:00:00Z'
+                  updatedAt: '2026-01-22T10:00:00Z'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+  /characters:
+    get:
+      tags: [Characters]
+      summary: キャラクター一覧取得
+      security: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 20
+      responses:
+        '200':
+          description: キャラクター一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiCollectionResponse'
+              example:
+                data:
+                  - type: character
+                    id: char-001
+                    attributes:
+                      name: キャラクターA
+                      description: 人気キャラクターの説明文
+                      image_url: https://storage.example.com/characters/001.jpg
+                      created_at: '2026-01-01T00:00:00Z'
+                      updated_at: '2026-01-01T00:00:00Z'
+                meta:
+                  current_page: 1
+                  total_pages: 5
+                  total_count: 100
+  /characters/{characterId}:
+    get:
+      tags: [Characters]
+      summary: キャラクター詳細取得
+      security: []
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: キャラクター詳細
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+              example:
+                data:
+                  type: character
+                  id: char-001
+                  attributes:
+                    name: キャラクターA
+                    description: 人気キャラクターの詳細な説明文
+                    image_url: https://storage.example.com/characters/001.jpg
+                    created_at: '2026-01-01T00:00:00Z'
+                    updated_at: '2026-01-01T00:00:00Z'
+  /categories:
+    get:
+      tags: [Categories]
+      summary: カテゴリ一覧取得
+      security: []
+      responses:
+        '200':
+          description: カテゴリ一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiCollectionResponse'
+              example:
+                data:
+                  - type: category
+                    id: cat-001
+                    attributes:
+                      name: アクリルスタンド
+                      description: アクリル製のスタンド商品
+                      created_at: '2026-01-01T00:00:00Z'
+                      updated_at: '2026-01-01T00:00:00Z'
+  /categories/{categoryId}:
+    get:
+      tags: [Categories]
+      summary: カテゴリ詳細取得
+      security: []
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: カテゴリ詳細
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+              example:
+                data:
+                  type: category
+                  id: cat-001
+                  attributes:
+                    name: アクリルスタンド
+                    description: アクリル製のスタンド商品
+                    created_at: '2026-01-01T00:00:00Z'
+                    updated_at: '2026-01-01T00:00:00Z'
+  /products:
+    get:
+      tags: [Products]
+      summary: 商品一覧取得
+      security: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+          example: 20
+        - name: character_id
+          in: query
+          schema:
+            type: string
+        - name: category_id
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 商品一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiCollectionResponse'
+              example:
+                data:
+                  - type: product
+                    id: prod-001
+                    attributes:
+                      name: アクリルスタンド キャラクターA
+                      description: 高さ約15cmのアクリルスタンド
+                      price: 1500
+                      stock: 50
+                      image_url: https://storage.example.com/products/001.jpg
+                      created_at: '2026-01-01T00:00:00Z'
+                      updated_at: '2026-01-01T00:00:00Z'
+                    relationships:
+                      character:
+                        data:
+                          type: character
+                          id: char-001
+                      category:
+                        data:
+                          type: category
+                          id: cat-001
+                meta:
+                  current_page: 1
+                  total_pages: 10
+                  total_count: 200
+  /products/{productId}:
+    get:
+      tags: [Products]
+      summary: 商品詳細取得
+      security: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 商品詳細
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+              example:
+                data:
+                  type: product
+                  id: prod-001
+                  attributes:
+                    name: アクリルスタンド キャラクターA
+                    description: 高さ約15cmのアクリルスタンド。クリアな素材で美しい仕上がり。
+                    price: 1500
+                    stock: 50
+                    image_url: https://storage.example.com/products/001.jpg
+                    created_at: '2026-01-01T00:00:00Z'
+                    updated_at: '2026-01-01T00:00:00Z'
+                  relationships:
+                    character:
+                      data:
+                        type: character
+                        id: char-001
+                    category:
+                      data:
+                        type: category
+                        id: cat-001
+  /cart:
+    get:
+      tags: [Cart]
+      summary: カート取得
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: カート情報
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+              example:
+                data:
+                  type: cart
+                  id: cart-001
+                  attributes:
+                    total_price: 3000
+                    total_items: 2
+                    created_at: '2026-01-22T10:00:00Z'
+                    updated_at: '2026-01-22T10:00:00Z'
+                  relationships:
+                    cart_items:
+                      data:
+                        - type: cart_item
+                          id: cart_item-001
+  /cart/add_item:
+    post:
+      tags: [Cart]
+      summary: カートに商品追加
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemChangeRequest'
+            example:
+              product_id: prod-001
+              quantity: 1
+      responses:
+        '200':
+          description: 更新後のカート
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /cart/update_item:
+    patch:
+      tags: [Cart]
+      summary: カート商品数量更新
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemChangeRequest'
+            example:
+              product_id: prod-001
+              quantity: 3
+      responses:
+        '200':
+          description: 更新後のカート
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /cart/remove_item:
+    delete:
+      tags: [Cart]
+      summary: カート商品削除
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartProductRequest'
+            example:
+              product_id: prod-001
+      responses:
+        '200':
+          description: 更新後のカート
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /cart/clear:
+    delete:
+      tags: [Cart]
+      summary: カートクリア
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 更新後のカート
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /orders:
+    get:
+      tags: [Orders]
+      summary: 注文一覧取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: per_page
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [pending, paid, preparing, shipped, delivered, cancelled]
+      responses:
+        '200':
+          description: 注文一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiCollectionResponse'
+    post:
+      tags: [Orders]
+      summary: 注文作成
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreateRequest'
+            example:
+              shipping_address: 東京都千代田区丸の内1-1-1 ABCビル 5F 山田太郎 03-1234-5678
+      responses:
+        '201':
+          description: 注文作成成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+  /orders/{orderId}:
+    get:
+      tags: [Orders]
+      summary: 注文詳細取得
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 注文詳細
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /favorites:
+    get:
+      tags: [Favorites]
+      summary: お気に入り一覧取得
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: お気に入り一覧
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiCollectionResponse'
+    post:
+      tags: [Favorites]
+      summary: お気に入り追加
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FavoriteCreateRequest'
+            example:
+              character_id: char-001
+      responses:
+        '201':
+          description: 追加成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonApiResourceResponse'
+  /favorites/{favoriteId}:
+    delete:
+      tags: [Favorites]
+      summary: お気に入り削除
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: favoriteId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 削除成功
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: 認証エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error: 認証が必要です
+    ValidationError:
+      description: バリデーションエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              - Email can't be blank
+  schemas:
+    MessageResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+      required: [error]
+    AuthResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserAttributes'
+        token:
+          type: string
+      required: [user, token]
+    AuthMeResponse:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/UserAttributes'
+      required: [user]
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 6
+        password_confirmation:
+          type: string
+        name:
+          type: string
+      required: [email, password, password_confirmation, name]
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required: [email, password]
+    UserAttributes:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [user, admin]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required: [id, email, name, role]
+    PaginationMeta:
+      type: object
+      properties:
+        current_page:
+          type: integer
+        total_pages:
+          type: integer
+        total_count:
+          type: integer
+      required: [current_page, total_pages, total_count]
+    JsonApiCollectionResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+        meta:
+          $ref: '#/components/schemas/PaginationMeta'
+      required: [data]
+    JsonApiResourceResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/JsonApiResourceObject'
+        included:
+          type: array
+          items:
+            $ref: '#/components/schemas/JsonApiResourceObject'
+      required: [data]
+    JsonApiResourceObject:
+      type: object
+      properties:
+        type:
+          type: string
+        id:
+          type: string
+        attributes:
+          type: object
+          additionalProperties: true
+        relationships:
+          type: object
+          additionalProperties: true
+      required: [type, id]
+    CartProductRequest:
+      type: object
+      properties:
+        product_id:
+          type: string
+      required: [product_id]
+    CartItemChangeRequest:
+      type: object
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+          minimum: 1
+      required: [product_id, quantity]
+    OrderCreateRequest:
+      type: object
+      properties:
+        shipping_address:
+          type: string
+      required: [shipping_address]
+    FavoriteCreateRequest:
+      type: object
+      properties:
+        character_id:
+          type: string
+      required: [character_id]

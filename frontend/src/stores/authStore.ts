@@ -18,15 +18,14 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       login: (user, token) => {
         set({ user, token, isAuthenticated: true });
-        localStorage.setItem('token', token);
       },
       logout: () => {
         set({ user: null, token: null, isAuthenticated: false });
-        localStorage.removeItem('token');
       },
     }),
     {
       name: 'auth-storage',
+      partialize: (state) => ({ user: state.user, isAuthenticated: state.isAuthenticated }),
     }
   )
 );

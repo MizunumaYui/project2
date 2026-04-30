@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::API
   include Pundit::Authorization
+  include ActionController::Cookies  # クッキーサポートを有効化
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from ActiveRecord::RecordInvalid, with: :unprocessable_entity
