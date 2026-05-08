@@ -123,22 +123,3 @@ export default function RegisterPage() {
     </div>
   );
 }
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors"
-        >
-          登録する
-        </button>
-      </form>
-      <p className="mt-4 text-center text-sm text-gray-600">
-        すでにアカウントをお持ちですか？{' '}
-        <Link href="/login" className="text-primary-600 hover:underline">
-          ログイン
-        </Link>
-      </p>
-    </div>
-  );
-}
