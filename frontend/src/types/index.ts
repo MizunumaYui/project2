@@ -4,6 +4,7 @@ export interface User {
   email: string;
   name: string;
   role: 'user' | 'admin';
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 }

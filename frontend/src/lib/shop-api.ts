@@ -1,5 +1,5 @@
 import apiClient, { authClient, setAccessToken } from './api';
-import type { Cart, CartItem, Category, Character, Order, OrderItem, OrderStatus, Product } from '@/types';
+import type { Cart, CartItem, Category, Character, Order, OrderItem, OrderStatus, Product, User } from '@/types';
 
 type JsonApiRelation = {
   id: string;
@@ -26,8 +26,36 @@ export interface CartDetails extends Cart {
 
 export interface OrderDetails extends Order {}
 
+type UserApiPayload = {
+  id?: unknown;
+  email?: unknown;
+  name?: unknown;
+  role?: unknown;
+  image_url?: unknown;
+  imageUrl?: unknown;
+  created_at?: unknown;
+  updated_at?: unknown;
+};
+
 function getAttributes(resource: JsonApiResource) {
   return resource.attributes ?? {};
+}
+
+function resolveImageUrl(attributes: Record<string, unknown>): string | null {
+  const candidate = attributes.image_url ?? attributes.imageUrl ?? attributes.image;
+  return candidate ? String(candidate) : null;
+}
+
+function mapUser(payload: UserApiPayload): User {
+  return {
+    id: String(payload.id ?? ''),
+    email: String(payload.email ?? ''),
+    name: String(payload.name ?? ''),
+    role: (String(payload.role ?? 'user') as User['role']),
+    imageUrl: resolveImageUrl(payload),
+    createdAt: String(payload.created_at ?? ''),
+    updatedAt: String(payload.updated_at ?? ''),
+  };
 }
 
 function getRelation(resource: JsonApiResource, relationName: string): JsonApiRelation | JsonApiRelation[] | null {
@@ -71,7 +99,7 @@ function mapCharacter(resource: JsonApiResource): Character {
     id: resource.id,
     name: String(attributes.name ?? ''),
     description: attributes.description ? String(attributes.description) : null,
-    imageUrl: attributes.image_url ? String(attributes.image_url) : null,
+    imageUrl: resolveImageUrl(attributes),
     createdAt: String(attributes.created_at ?? ''),
     updatedAt: String(attributes.updated_at ?? ''),
   };
@@ -104,7 +132,7 @@ function mapProduct(resource: JsonApiResource, included: Map<string, JsonApiReso
     description: attributes.description ? String(attributes.description) : null,
     price: Number(attributes.price ?? 0),
     stock: Number(attributes.stock ?? 0),
-    imageUrl: attributes.image_url ? String(attributes.image_url) : null,
+    imageUrl: resolveImageUrl(attributes),
     character: characterResource ? mapCharacter(characterResource) : undefined,
     category: categoryResource ? mapCategory(categoryResource) : undefined,
     createdAt: String(attributes.created_at ?? ''),
@@ -310,31 +338,32 @@ export async function fetchOrders() {
 // ============================================
 
 export interface AuthResponse {
-  user: {
-    id: string;
-    email: string;
-    name: string;
-    role: string;
-  };
+  user: User;
   token: string;
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {
-  const response = await authClient.post<AuthResponse>('/auth/login', {
+  const response = await authClient.post<{ user: UserApiPayload; token: string }>('/auth/login', {
     email,
     password,
   });
-  return response.data;
+  return {
+    user: mapUser(response.data.user),
+    token: response.data.token,
+  };
 }
 
 export async function register(email: string, password: string, password_confirmation: string, name: string): Promise<AuthResponse> {
-  const response = await authClient.post<AuthResponse>('/auth/register', {
+  const response = await authClient.post<{ user: UserApiPayload; token: string }>('/auth/register', {
     email,
     password,
     password_confirmation,
     name,
   });
-  return response.data;
+  return {
+    user: mapUser(response.data.user),
+    token: response.data.token,
+  };
 }
 
 export async function logout(): Promise<void> {
@@ -344,8 +373,13 @@ export async function logout(): Promise<void> {
 }
 
 export async function getCurrentUser() {
-  const response = await apiClient.get<{ user: AuthResponse['user'] }>('/auth/me');
-  return response.data.user;
+  const response = await apiClient.get<{ user: UserApiPayload }>('/auth/me');
+  return mapUser(response.data.user);
+}
+
+export async function updateProfile(data: { name?: string; email?: string; image_url?: string | null; password?: string; password_confirmation?: string; }) {
+  const response = await apiClient.patch<{ user: UserApiPayload }>('/users/profile', data);
+  return mapUser(response.data.user);
 }
 
 // ============================================
@@ -366,12 +400,20 @@ export async function addCartItem(productId: string, quantity: number): Promise<
     .filter((item): item is JsonApiResource => Boolean(item))
     .map((item) => mapCartItem(item, map));
 
+  const hydratedItems = await Promise.all(
+    cartItems.map(async (item) => {
+      if (item.product) return item;
+      const product = item.productId ? await fetchProduct(item.productId) : null;
+      return { ...item, product: product ?? undefined };
+    }),
+  );
+
   const attributes = getAttributes(cart);
 
   return {
     id: cart.id,
     userId: '',
-    items: cartItems,
+    items: hydratedItems,
     createdAt: String(attributes.created_at ?? ''),
     updatedAt: String(attributes.updated_at ?? ''),
     totalPrice: Number(attributes.total_price ?? 0),
@@ -393,12 +435,20 @@ export async function updateCartItem(productId: string, quantity: number): Promi
     .filter((item): item is JsonApiResource => Boolean(item))
     .map((item) => mapCartItem(item, map));
 
+  const hydratedItems = await Promise.all(
+    cartItems.map(async (item) => {
+      if (item.product) return item;
+      const product = item.productId ? await fetchProduct(item.productId) : null;
+      return { ...item, product: product ?? undefined };
+    }),
+  );
+
   const attributes = getAttributes(cart);
 
   return {
     id: cart.id,
     userId: '',
-    items: cartItems,
+    items: hydratedItems,
     createdAt: String(attributes.created_at ?? ''),
     updatedAt: String(attributes.updated_at ?? ''),
     totalPrice: Number(attributes.total_price ?? 0),
@@ -421,12 +471,20 @@ export async function removeCartItem(productId: string): Promise<CartDetails> {
     .filter((item): item is JsonApiResource => Boolean(item))
     .map((item) => mapCartItem(item, map));
 
+  const hydratedItems = await Promise.all(
+    cartItems.map(async (item) => {
+      if (item.product) return item;
+      const product = item.productId ? await fetchProduct(item.productId) : null;
+      return { ...item, product: product ?? undefined };
+    }),
+  );
+
   const attributes = getAttributes(cart);
 
   return {
     id: cart.id,
     userId: '',
-    items: cartItems,
+    items: hydratedItems,
     createdAt: String(attributes.created_at ?? ''),
     updatedAt: String(attributes.updated_at ?? ''),
     totalPrice: Number(attributes.total_price ?? 0),
@@ -445,12 +503,20 @@ export async function clearCart(): Promise<CartDetails> {
     .filter((item): item is JsonApiResource => Boolean(item))
     .map((item) => mapCartItem(item, map));
 
+  const hydratedItems = await Promise.all(
+    cartItems.map(async (item) => {
+      if (item.product) return item;
+      const product = item.productId ? await fetchProduct(item.productId) : null;
+      return { ...item, product: product ?? undefined };
+    }),
+  );
+
   const attributes = getAttributes(cart);
 
   return {
     id: cart.id,
     userId: '',
-    items: cartItems,
+    items: hydratedItems,
     createdAt: String(attributes.created_at ?? ''),
     updatedAt: String(attributes.updated_at ?? ''),
     totalPrice: Number(attributes.total_price ?? 0),

@@ -17,6 +17,7 @@ export default function ProductDetailPage({
   const [error, setError] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -47,12 +48,20 @@ export default function ProductDetailPage({
 
   const handleAddToCart = async () => {
     if (!product) return;
-    
+
     setIsAdding(true);
     try {
       await addCartItem(product.id, quantity);
-      router.push('/cart');
-    } catch {
+      setSuccessMessage('カートに追加しました。');
+      setTimeout(() => setSuccessMessage(null), 3000);
+    } catch (err: unknown) {
+      // 未認証であればログインへリダイレクト
+      const status = (err as any)?.response?.status;
+      if (status === 401) {
+        router.push(`/login?redirect=/products/${encodeURIComponent(product.id)}`);
+        return;
+      }
+
       setError('カートへの追加に失敗しました。');
     } finally {
       setIsAdding(false);
@@ -79,10 +88,16 @@ export default function ProductDetailPage({
         </p>
       ) : (
         <div className="mt-6 grid gap-8 lg:grid-cols-[420px_minmax(0,1fr)]">
-          <div
-            className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-pink-50 via-white to-blue-50 bg-cover bg-center shadow-sm"
-            style={product.imageUrl ? { backgroundImage: `url("${product.imageUrl}")` } : undefined}
-          />
+          {(() => {
+            const placeholder = `https://picsum.photos/seed/product-${product.id}/420/525`;
+            const imageUrl = product.imageUrl ?? placeholder;
+            return (
+              <div
+                className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-pink-50 via-white to-blue-50 bg-cover bg-center shadow-sm"
+                style={{ backgroundImage: `url("${imageUrl}")` }}
+              />
+            );
+          })()}
           <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">Product Detail</p>
             <h1 className="mt-2 text-3xl font-black text-gray-900">{product.name}</h1>
@@ -138,6 +153,7 @@ export default function ProductDetailPage({
               >
                 {isAdding ? 'カートに追加中...' : 'カートに追加'}
               </button>
+              {successMessage && <p className="mt-2 text-sm text-green-600">{successMessage}</p>}
             </div>
           </div>
         </div>

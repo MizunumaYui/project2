@@ -44,6 +44,8 @@ Rails.application.routes.draw do
         resources :users, only: %i[index show]
         get :dashboard, to: "dashboard#index"
       end
+      # ユーザー自己情報更新
+      patch 'users/profile', to: 'users#update'
     end
   end
 

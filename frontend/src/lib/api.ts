@@ -1,7 +1,9 @@
 import axios, { InternalAxiosRequestConfig, AxiosError } from 'axios';
 
-const rawBase = process.env.NEXT_PUBLIC_API_URL ?? '';
-const baseURL = rawBase ? rawBase.replace(/\/$/, '') + '/api/v1' : '/api/v1';
+const publicBase = process.env.NEXT_PUBLIC_API_URL ?? '';
+const internalBase = process.env.NEXT_INTERNAL_API_URL ?? publicBase;
+const runtimeBase = typeof window === 'undefined' ? internalBase : publicBase;
+const baseURL = runtimeBase ? runtimeBase.replace(/\/$/, '') + '/api/v1' : '/api/v1';
 
 let accessToken: string | null = null;
 let isRefreshing = false;

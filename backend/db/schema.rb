@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_01_000010) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_01_000011) do
   create_table "cart_items", id: :string, force: :cascade do |t|
     t.string "cart_id", null: false
     t.string "product_id", null: false
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_01_000010) do
     t.string "role", default: "user", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "image_url"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

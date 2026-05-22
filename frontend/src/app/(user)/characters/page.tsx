@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchCharacters } from '@/lib/shop-api';
+import { placeholderDataUrl } from '@/lib/image-fallback';
 import type { Character } from '@/types';
 
 export default function CharactersPage() {
@@ -69,7 +70,9 @@ export default function CharactersPage() {
             >
               <div
                 className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 bg-cover bg-center"
-                style={character.imageUrl ? { backgroundImage: `url("${character.imageUrl}")` } : undefined}
+                style={{
+                  backgroundImage: `url("${character.imageUrl || placeholderDataUrl(character.name, 400, 400)}")`,
+                }}
               />
               <div className="p-4">
                 <h2 className="text-base font-bold text-gray-900 group-hover:text-primary-600">{character.name}</h2>

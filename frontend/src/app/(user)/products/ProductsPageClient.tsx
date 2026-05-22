@@ -9,7 +9,9 @@ import type { Product } from '@/types';
 export default function ProductsPageClient() {
   const searchParams = useSearchParams();
   const categoryName = searchParams.get('category');
-  const searchText = searchParams.get('search')?.trim().toLowerCase() ?? '';
+  const characterId = searchParams.get('character');
+  const searchText = (searchParams.get('q') ?? searchParams.get('search') ?? '').trim().toLowerCase();
+  const priceParam = searchParams.get('price');
 
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,13 +46,35 @@ export default function ProductsPageClient() {
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = categoryName ? product.category?.name === categoryName : true;
+    const matchesCharacter = characterId
+      ? (product.characterId === characterId || product.character?.id === characterId || product.character?.name === characterId)
+      : true;
     const searchSource = [product.name, product.description, product.character?.name, product.category?.name]
       .filter(Boolean)
       .join(' ')
       .toLowerCase();
     const matchesSearch = searchText ? searchSource.includes(searchText) : true;
 
-    return matchesCategory && matchesSearch;
+    // 価格フィルタ
+    let matchesPrice = true;
+    if (priceParam) {
+      // 形式: "min-max" または "min+"（例: "10000+")
+      if (priceParam.includes('+')) {
+        const min = Number(priceParam.replace('+', '')) || 0;
+        matchesPrice = product.price >= min;
+      } else if (priceParam.includes('-')) {
+        const [minStr, maxStr] = priceParam.split('-');
+        const min = Number(minStr) || 0;
+        const max = Number(maxStr) || Infinity;
+        matchesPrice = product.price >= min && product.price <= max;
+      } else {
+        // 単一数値は下限として扱う
+        const min = Number(priceParam) || 0;
+        matchesPrice = product.price >= min;
+      }
+    }
+
+    return matchesCategory && matchesCharacter && matchesSearch && matchesPrice;
   });
 
   return (
@@ -61,6 +85,9 @@ export default function ProductsPageClient() {
           <h1 className="text-3xl font-black text-gray-900 md:text-4xl">商品一覧</h1>
         </div>
         {categoryName && <span className="rounded-full bg-primary-50 px-4 py-2 text-sm font-medium text-primary-700">カテゴリ: {categoryName}</span>}
+        {characterId && (
+          <span className="rounded-full bg-primary-50 px-4 py-2 text-sm font-medium text-primary-700">キャラクター指定: {products.find(p => p.character?.id === characterId)?.character?.name || characterId}</span>
+        )}
       </div>
 
       {loading ? (

@@ -2,9 +2,32 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
+import { setAccessToken } from '@/lib/api';
+
+const navigationItems = [
+  { label: 'キャラクター', href: '/characters' },
+  { label: '商品', href: '/products' },
+  { label: 'カート', href: '/cart' },
+  { label: '注文履歴', href: '/orders' },
+];
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+  const { isAuthenticated, user, logout } = useAuthStore();
+
+  const handleLogout = () => {
+    setAccessToken(null);
+    logout();
+    router.push('/login');
+  };
+
+  const initial = user?.name ? user.name.charAt(0).toUpperCase() : '?';
+  const avatarStyle = user?.imageUrl
+    ? { backgroundImage: `url("${user.imageUrl}")`, backgroundSize: 'cover', backgroundPosition: 'center' }
+    : undefined;
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -17,34 +40,56 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/characters" className="text-gray-600 hover:text-primary-600">
-              キャラクター
-            </Link>
-            <Link href="/products" className="text-gray-600 hover:text-primary-600">
-              商品
-            </Link>
-            <Link href="/cart" className="text-gray-600 hover:text-primary-600">
-              カート
-            </Link>
-            <Link href="/orders" className="text-gray-600 hover:text-primary-600">
-              注文履歴
-            </Link>
+            {navigationItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-gray-600 hover:text-primary-600"
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons / Avatar */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              href="/login"
-              className="text-gray-600 hover:text-primary-600"
-            >
-              ログイン
-            </Link>
-            <Link
-              href="/register"
-              className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
-            >
-              新規登録
-            </Link>
+            {isAuthenticated && user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsMenuOpen(!isMenuOpen)}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-sm font-bold text-gray-800 overflow-hidden"
+                  aria-label="ユーザーメニュー"
+                  style={avatarStyle}
+                >
+                  {!user?.imageUrl && initial}
+                </button>
+                {isMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-40 rounded-md bg-white shadow-lg py-1 z-50">
+                    <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      プロフィール設定
+                    </Link>
+                    <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      ログアウト
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-gray-600 hover:text-primary-600"
+                >
+                  ログイン
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
+                >
+                  新規登録
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,25 +126,35 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <nav className="flex flex-col space-y-4">
-              <Link href="/characters" className="text-gray-600 hover:text-primary-600">
-                キャラクター
-              </Link>
-              <Link href="/products" className="text-gray-600 hover:text-primary-600">
-                商品
-              </Link>
-              <Link href="/cart" className="text-gray-600 hover:text-primary-600">
-                カート
-              </Link>
-              <Link href="/orders" className="text-gray-600 hover:text-primary-600">
-                注文履歴
-              </Link>
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-gray-600 hover:text-primary-600"
+                >
+                  {item.label}
+                </Link>
+              ))}
               <hr />
-              <Link href="/login" className="text-gray-600 hover:text-primary-600">
-                ログイン
-              </Link>
-              <Link href="/register" className="text-primary-600 hover:text-primary-700">
-                新規登録
-              </Link>
+              {isAuthenticated && user ? (
+                <>
+                  <Link href="/profile" className="text-gray-600 hover:text-primary-600">
+                    プロフィール設定
+                  </Link>
+                  <button onClick={handleLogout} className="text-left text-gray-600 hover:text-primary-600">
+                    ログアウト
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link href="/login" className="text-gray-600 hover:text-primary-600">
+                    ログイン
+                  </Link>
+                  <Link href="/register" className="text-primary-600 hover:text-primary-700">
+                    新規登録
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         )}

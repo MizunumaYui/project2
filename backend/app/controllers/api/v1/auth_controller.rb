@@ -90,7 +90,7 @@ module Api
       private
 
       def register_params
-        params.permit(:email, :password, :password_confirmation, :name)
+        params.permit(:email, :password, :password_confirmation, :name, :image_url)
       end
     end
   end

@@ -29,6 +29,13 @@ export default function CheckoutPage() {
       return;
     }
 
+    // マーク: チェックアウト中フラグをローカルストレージに設定
+    try {
+      localStorage.setItem('checkout_in_progress', '1');
+    } catch {
+      // ignore
+    }
+
     let isMounted = true;
 
     const loadCart = async () => {
@@ -52,6 +59,11 @@ export default function CheckoutPage() {
 
     return () => {
       isMounted = false;
+      try {
+        localStorage.removeItem('checkout_in_progress');
+      } catch {
+        // ignore
+      }
     };
   }, [isAuthenticated, router]);
 
@@ -76,6 +88,11 @@ export default function CheckoutPage() {
     setIsSubmitting(true);
     try {
       const order = await createOrder(shippingAddress);
+      try {
+        localStorage.removeItem('checkout_in_progress');
+      } catch {
+        // ignore
+      }
       // 注文成功後、注文詳細ページへリダイレクト
       router.push(`/orders/${order.id}`);
     } catch {
@@ -89,7 +106,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Link href="/cart" className="text-sm font-medium text-primary-600 hover:text-primary-700">
+      <Link href="/cart?readonly=1" className="text-sm font-medium text-primary-600 hover:text-primary-700">
         ← カートに戻る
       </Link>
 

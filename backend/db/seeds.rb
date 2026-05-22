@@ -40,20 +40,22 @@ end
 
 puts "Created #{Category.count} categories"
 
-# サンプルキャラクター
+# サンプルキャラクター（画像URLを追加）
 characters = [
   { name: "キャラクターA", description: "元気で明るいキャラクター" },
   { name: "キャラクターB", description: "クールで知的なキャラクター" },
   { name: "キャラクターC", description: "優しくて癒し系のキャラクター" }
 ]
 
-characters.each do |char_attrs|
+characters.each_with_index do |char_attrs, i|
   Character.find_or_create_by!(name: char_attrs[:name]) do |char|
     char.description = char_attrs[:description]
+    # サンプル画像は Picsum を利用（seed を固定して再現性を確保）
+    char.image_url = "https://picsum.photos/seed/character#{i + 1}/600/600"
   end
 end
 
-puts "Created #{Character.count} characters"
+puts "Created #{Character.count} characters (with sample image_url)"
 
 # サンプル商品
 if Product.count.zero?

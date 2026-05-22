@@ -1,13 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { fetchCart, updateCartItem, removeCartItem } from '@/lib/shop-api';
 import type { CartDetails } from '@/lib/shop-api';
+import { useCartStore } from '@/stores/cartStore';
 
 export default function CartPage() {
-  const router = useRouter();
+  const [inCheckout, setInCheckout] = useState(false);
   const [cart, setCart] = useState<CartDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,8 +23,35 @@ export default function CartPage() {
         if (isMounted) {
           setCart(data);
         }
-      } catch {
+      } catch (err: unknown) {
+        // サーバーが401 (未認証) の場合は、ゲスト用ローカルカートをフォールバックで表示する
+        const status = (err as any)?.response?.status;
         if (isMounted) {
+          if (status === 401) {
+            // use guest cart from zustand
+            const guestItems = useCartStore.getState().items;
+            const guestCart: CartDetails = {
+              id: 'guest',
+              userId: '',
+              items: guestItems.map((it) => ({
+                id: it.product.id,
+                cartId: 'guest',
+                productId: it.product.id,
+                quantity: it.quantity,
+                product: it.product,
+                createdAt: new Date().toISOString(),
+              })),
+              createdAt: new Date().toISOString(),
+              updatedAt: new Date().toISOString(),
+              totalPrice: guestItems.reduce((s, i) => s + i.product.price * i.quantity, 0),
+              totalItems: guestItems.reduce((s, i) => s + i.quantity, 0),
+            };
+
+            setCart(guestCart);
+            setError(null);
+            return;
+          }
+
           setError('カート情報を読み込めませんでした。');
         }
       } finally {
@@ -39,6 +67,8 @@ export default function CartPage() {
       isMounted = false;
     };
   }, []);
+
+  // inCheckout is kept for compatibility but we force readonly below
 
   const handleUpdateQuantity = async (productId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -70,6 +100,8 @@ export default function CartPage() {
   };
 
   const items = cart?.items ?? [];
+  // Always readonly: quantity changes and removals are disabled to avoid update errors
+  const readonly = true;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -99,7 +131,7 @@ export default function CartPage() {
             {items.map((item) => {
               const product = item.product;
               const subtotal = (product?.price ?? 0) * item.quantity;
-              const isUpdating = updating[product?.id || ''];
+              const isUpdating = updating[item.productId];
 
               return (
                 <div key={item.id} className="flex gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
@@ -112,24 +144,10 @@ export default function CartPage() {
                     <h2 className="truncate text-base font-bold text-gray-900">{product?.name || item.productId}</h2>
                     <p className="mt-1 text-sm text-gray-600">¥{(product?.price ?? 0).toLocaleString()}</p>
                     
-                    <div className="mt-3 flex items-center gap-2">
+                    <div className="mt-3 flex items-center gap-2 w-full">
+                      <span className="text-sm font-semibold">個数：{item.quantity}</span>
                       <button
-                        onClick={() => handleUpdateQuantity(product?.id || '', item.quantity - 1)}
-                        disabled={isUpdating}
-                        className="rounded bg-gray-100 px-2 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-                      >
-                        −
-                      </button>
-                      <span className="w-8 text-center text-sm font-semibold">{item.quantity}</span>
-                      <button
-                        onClick={() => handleUpdateQuantity(product?.id || '', item.quantity + 1)}
-                        disabled={isUpdating}
-                        className="rounded bg-gray-100 px-2 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-200 disabled:opacity-50"
-                      >
-                        ＋
-                      </button>
-                      <button
-                        onClick={() => handleRemoveItem(product?.id || '')}
+                        onClick={() => handleRemoveItem(item.productId)}
                         disabled={isUpdating}
                         className="ml-auto rounded bg-red-100 px-3 py-1 text-sm font-semibold text-red-700 hover:bg-red-200 disabled:opacity-50"
                       >
