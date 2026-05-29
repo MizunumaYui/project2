@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       end
       # ユーザー自己情報更新
       patch 'users/profile', to: 'users#update'
+      post 'users/profile/image', to: 'users#upload_image'
     end
   end
 

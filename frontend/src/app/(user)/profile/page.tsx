@@ -2,30 +2,49 @@
 
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/stores/authStore';
-import { updateProfile } from '@/lib/shop-api';
+import { updateProfile, uploadProfileImage } from '@/lib/shop-api';
 
 export default function ProfilePage() {
   const { user, setUser } = useAuthStore();
   const [name, setName] = useState(user?.name ?? '');
   const [email, setEmail] = useState(user?.email ?? '');
   const [imageUrl, setImageUrl] = useState(user?.imageUrl ?? '');
+  const [previewUrl, setPreviewUrl] = useState(user?.imageUrl ?? '');
   const [message, setMessage] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     setName(user?.name ?? '');
     setEmail(user?.email ?? '');
     setImageUrl(user?.imageUrl ?? '');
+    setPreviewUrl(user?.imageUrl ?? '');
   }, [user]);
 
   const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setImageUrl(String(reader.result ?? ''));
-    };
-    reader.readAsDataURL(file);
+    const objectUrl = URL.createObjectURL(file);
+    setPreviewUrl(objectUrl);
+    setMessage(null);
+    setIsUploading(true);
+
+    uploadProfileImage(file)
+      .then(({ user: updatedUser, imageUrl: uploadedImageUrl }) => {
+        setUser(updatedUser);
+        setImageUrl(uploadedImageUrl);
+        setPreviewUrl(uploadedImageUrl);
+        setMessage('プロフィール画像をアップロードしました。');
+      })
+      .catch((err: any) => {
+        console.error(err);
+        setPreviewUrl(user?.imageUrl ?? '');
+        setMessage(err?.response?.data?.errors?.join(', ') ?? err?.response?.data?.error ?? '画像のアップロードに失敗しました。');
+      })
+      .finally(() => {
+        setIsUploading(false);
+        URL.revokeObjectURL(objectUrl);
+      });
   };
 
   const handleSave = async (e: React.FormEvent) => {
@@ -47,11 +66,11 @@ export default function ProfilePage() {
       <div className="mb-6 flex items-center gap-4">
         <div
           className="h-20 w-20 rounded-full bg-gray-200 bg-cover bg-center border border-gray-200"
-          style={imageUrl ? { backgroundImage: `url("${imageUrl}")` } : undefined}
+          style={previewUrl ? { backgroundImage: `url("${previewUrl}")` } : undefined}
         />
         <div className="text-sm text-gray-600">
           <p className="font-semibold text-gray-800">プロフィール画像</p>
-          <p>URL を貼るか、画像ファイルを選ぶとプレビューされます。</p>
+          <p>画像ファイルを選ぶと minIO にアップロードされます。</p>
         </div>
       </div>
       <form onSubmit={handleSave} className="space-y-4">
@@ -88,6 +107,7 @@ export default function ProfilePage() {
             onChange={handleImageFileChange}
             className="w-full px-3 py-2 border rounded"
           />
+          {isUploading && <p className="mt-2 text-sm text-gray-500">アップロード中...</p>}
         </div>
         <div>
           <button className="bg-primary-600 text-white px-4 py-2 rounded">保存</button>

@@ -34,4 +34,6 @@ Rails.application.configure do
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
+  config.active_storage.service = :minio
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
 end

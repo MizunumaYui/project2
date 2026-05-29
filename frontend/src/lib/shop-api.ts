@@ -382,6 +382,22 @@ export async function updateProfile(data: { name?: string; email?: string; image
   return mapUser(response.data.user);
 }
 
+export async function uploadProfileImage(file: File): Promise<{ user: User; imageUrl: string }> {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const response = await apiClient.post<{ user: UserApiPayload; image_url?: string }>('/users/profile/image', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+
+  return {
+    user: mapUser(response.data.user),
+    imageUrl: String(response.data.image_url ?? response.data.user.image_url ?? ''),
+  };
+}
+
 // ============================================
 // Cart API
 // ============================================

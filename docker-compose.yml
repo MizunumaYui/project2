@@ -52,6 +52,18 @@ services:
       timeout: 20s
       retries: 3
 
+  createbuckets:
+    image: minio/mc
+    container_name: character_ec_createbuckets
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb --ignore-existing local/character-ec;
+      "
+
   # Rails API バックエンド
   backend:
     build:
@@ -66,6 +78,15 @@ services:
       DATABASE_HOST: db
       DATABASE_USERNAME: ${DATABASE_USERNAME:-postgres}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD:-postgres}
+      BACKEND_URL: http://localhost:3001
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_PUBLIC_URL: http://localhost:9000
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      MINIO_BUCKET: ${MINIO_BUCKET:-character-ec}
+      MINIO_BUCKET_NAME: ${MINIO_BUCKET_NAME:-character-ec}
+      MINIO_REGION: ${MINIO_REGION:-us-east-1}
+      MINIO_USE_SSL: ${MINIO_USE_SSL:-false}
       REDIS_URL: redis://redis:6379/0
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-your-secret-key-change-in-production}
       FRONTEND_URL: http://localhost:3000
@@ -76,6 +97,10 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+      minio:
+        condition: service_healthy
+      createbuckets:
+        condition: service_completed_successfully
     stdin_open: true
     tty: true
 

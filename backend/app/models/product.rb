@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
+  include MinioImageUrl
+
   belongs_to :character
   belongs_to :category, optional: true
   has_many :cart_items, dependent: :destroy

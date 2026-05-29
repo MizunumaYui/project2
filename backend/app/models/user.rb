@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   has_secure_password
+  has_one_attached :profile_image
 
   has_one :cart, dependent: :destroy
   has_many :orders, dependent: :destroy
@@ -16,6 +17,18 @@ class User < ApplicationRecord
   enum role: { user: "user", admin: "admin" }
 
   after_create :create_cart
+
+  def image_url
+    return profile_image_url if profile_image.attached?
+
+    read_attribute(:image_url)
+  end
+
+  def profile_image_url
+    return nil unless profile_image.attached?
+
+    Rails.application.routes.url_helpers.url_for(profile_image)
+  end
 
   private
 

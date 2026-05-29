@@ -18,6 +18,10 @@ module CharacterEcBackend
   class Application < Rails::Application
     config.load_defaults 7.1
     config.autoload_lib(ignore: %w[assets tasks])
+
+    config.after_initialize do
+      Rails.application.routes.default_url_options[:host] = ENV.fetch("BACKEND_URL", "http://localhost:3001")
+    end
     
     # API モード
     config.api_only = true

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Character < ApplicationRecord
+  include MinioImageUrl
+
   has_many :products, dependent: :destroy
   has_many :user_favorites, dependent: :destroy
   has_many :favorited_by_users, through: :user_favorites, source: :user
