@@ -4,7 +4,7 @@ export interface User {
   email: string;
   name: string;
   role: 'user' | 'admin';
-  imageUrl: string | null;
+  image_url: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,7 +14,7 @@ export interface Character {
   id: string;
   name: string;
   description: string | null;
-  imageUrl: string | null;
+  image_url: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,7 +37,7 @@ export interface Product {
   description: string | null;
   price: number;
   stock: number;
-  imageUrl: string | null;
+  image_url: string | null;
   character?: Character;
   category?: Category;
   createdAt: string;
@@ -87,6 +87,7 @@ export interface OrderItem {
 export interface Order {
   id: string;
   userId: string;
+  user?: User;
   status: OrderStatus;
   totalAmount: number;
   shippingAddress: string;

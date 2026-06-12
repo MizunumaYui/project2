@@ -36,4 +36,20 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
   config.active_storage.service = :minio
   config.active_storage.resolve_model_to_route = :rails_storage_proxy
+
+  #画像表示用（ActiveStorage）のURLをフロント（3000番）に合わせる設定
+  
+  if ENV['FRONTEND_URL'].present?
+    # docker-compose.yml の FRONTEND_URL (http://localhost:3000) から自動抽出
+    frontend_uri = URI.parse(ENV['FRONTEND_URL'])
+    config.action_mailer.default_url_options = { host: frontend_uri.host, port: frontend_uri.port }
+    Rails.application.routes.default_url_options = { host: "#{frontend_uri.host}:#{frontend_uri.port}" }
+  else
+    # 環境変数が万が一ない場合の保険設定（localhost:3000）
+    config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+    Rails.application.routes.default_url_options = { host: "localhost:3000" }
+  end
+
+  # ルーティングを有効化
+  config.active_storage.draw_routes = true
 end

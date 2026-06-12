@@ -37,13 +37,19 @@ Rails.application.routes.draw do
 
       # 管理者用API
       namespace :admin do
-        resources :characters
+        # ✨ 修正箇所
+        resources :characters do
+          member do
+            post :upload_image
+          end
+        end
         resources :categories
         resources :products
         resources :orders, only: %i[index show update]
         resources :users, only: %i[index show]
         get :dashboard, to: "dashboard#index"
       end
+
       # ユーザー自己情報更新
       patch 'users/profile', to: 'users#update'
       post 'users/profile/image', to: 'users#upload_image'

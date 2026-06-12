@@ -26,6 +26,31 @@ export interface CartDetails extends Cart {
 
 export interface OrderDetails extends Order {}
 
+export interface AdminDashboardRecentOrder {
+  id: string;
+  status: OrderStatus;
+  total_amount: number;
+  shipping_address: string;
+  created_at: string;
+  updated_at: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
+}
+
+export interface AdminDashboardStats {
+  total_users: number;
+  total_orders: number;
+  total_products: number;
+  total_characters: number;
+  total_categories: number;
+  total_revenue: number;
+  pending_orders: number;
+  recent_orders: AdminDashboardRecentOrder[];
+}
+
 type UserApiPayload = {
   id?: unknown;
   email?: unknown;
@@ -174,6 +199,8 @@ function mapOrderItem(resource: JsonApiResource, included: Map<string, JsonApiRe
 function mapOrder(resource: JsonApiResource, included: Map<string, JsonApiResource>): OrderDetails {
   const attributes = getAttributes(resource);
   const orderItemIds = relationIds(resource, 'order_items');
+  const userId = relationId(resource, 'user');
+  const userResource = userId ? includedResource(included, 'user', userId) : null;
   const orderItems = orderItemIds
     .map((orderItemId) => includedResource(included, 'order_item', orderItemId))
     .filter((item): item is JsonApiResource => Boolean(item))
@@ -181,7 +208,8 @@ function mapOrder(resource: JsonApiResource, included: Map<string, JsonApiResour
 
   return {
     id: resource.id,
-    userId: '',
+    userId,
+    user: userResource ? mapUser({ id: userResource.id, ...(getAttributes(userResource) as UserApiPayload) }) : undefined,
     status: String(attributes.status ?? 'pending') as OrderStatus,
     totalAmount: Number(attributes.total_amount ?? 0),
     shippingAddress: String(attributes.shipping_address ?? ''),
@@ -241,6 +269,36 @@ export async function fetchCharacter(identifier: string) {
   return fetchSingleCharacter(identifier);
 }
 
+
+
+interface AdminCharacterInput {
+  name: string;
+  description?: string;
+  imageFile?: File | null;
+}
+
+export async function createAdminCharacter(data: { name: string; description?: string }): Promise<any> {
+  // 画像処理を削除し、データのみ送信
+  const response = await apiClient.post('/admin/characters', data);
+  return response.data;
+}
+
+export async function updateAdminCharacter(id: string, data: { name: string; description?: string }): Promise<any> {
+  // 画像処理を削除し、データのみ送信
+  const response = await apiClient.put(`/admin/characters/${id}`, data);
+  return response.data;
+}
+
+export async function uploadCharacterImage(id: string, imageFile: File): Promise<any> {
+  const formData = new FormData();
+  formData.append('file', imageFile);
+
+  const response = await apiClient.post(`/admin/characters/${id}/upload_image`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+}
+
 export async function fetchCategories() {
   const response = await apiClient.get<JsonApiDocument>('/categories');
   const document = response.data;
@@ -260,6 +318,40 @@ export async function fetchProducts() {
 
 export async function fetchProduct(identifier: string) {
   return fetchSingleProduct(identifier);
+}
+
+export async function fetchAdminCharacters() {
+  const response = await apiClient.get<JsonApiDocument>('/admin/characters', {
+    params: { per_page: 1000 },
+  });
+  const document = response.data;
+  const resources = Array.isArray(document.data) ? document.data : [document.data];
+  return resources.map(mapCharacter);
+}
+
+export async function fetchAdminProducts() {
+  const response = await apiClient.get<JsonApiDocument>('/admin/products', {
+    params: { per_page: 1000 },
+  });
+  const document = response.data;
+  const resources = Array.isArray(document.data) ? document.data : [document.data];
+  const map = includedMap(document.included);
+  return resources.map((resource) => mapProduct(resource, map));
+}
+
+export async function fetchAdminOrders() {
+  const response = await apiClient.get<JsonApiDocument>('/admin/orders', {
+    params: { per_page: 1000 },
+  });
+  const document = response.data;
+  const resources = Array.isArray(document.data) ? document.data : [document.data];
+  const map = includedMap(document.included);
+  return resources.map((resource) => mapOrder(resource, map));
+}
+
+export async function fetchAdminDashboard() {
+  const response = await apiClient.get<{ data: { statistics: AdminDashboardStats } }>('/admin/dashboard');
+  return response.data.data.statistics;
 }
 
 export async function fetchCart() {
@@ -598,4 +690,10 @@ export async function addFavorite(characterId: string): Promise<UserFavorite> {
 
 export async function removeFavorite(favoriteId: string): Promise<void> {
   await apiClient.delete(`/favorites/${favoriteId}`);
+}
+
+
+//管理者画面キャラクター削除
+export async function deleteAdminCharacter(id: string): Promise<void> {
+  await apiClient.delete(`/admin/characters/${id}`);
 }

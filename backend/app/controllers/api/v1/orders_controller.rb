@@ -7,19 +7,19 @@ module Api
 
       def index
         orders = current_user.orders.recent.includes(:order_items).page(params[:page]).per(params[:per_page] || 10)
-        render json: OrderSerializer.new(orders, include: [:order_items], meta: pagination_meta(orders)).serializable_hash
+        render json: OrderSerializer.new(orders, include: %i[user order_items], meta: pagination_meta(orders)).serializable_hash
       end
 
       def show
         order = current_user.orders.find(params[:id])
-        render json: OrderSerializer.new(order, include: [:order_items]).serializable_hash
+        render json: OrderSerializer.new(order, include: %i[user order_items]).serializable_hash
       end
 
       def create
         result = OrderService.new(current_user).create_order(order_params)
 
         if result[:success]
-          render json: OrderSerializer.new(result[:order], include: [:order_items]).serializable_hash, status: :created
+          render json: OrderSerializer.new(result[:order], include: %i[user order_items]).serializable_hash, status: :created
         else
           render json: { errors: result[:errors] }, status: :unprocessable_entity
         end

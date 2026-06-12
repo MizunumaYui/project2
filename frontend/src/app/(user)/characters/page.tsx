@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchCharacters } from '@/lib/shop-api';
 import { placeholderDataUrl } from '@/lib/image-fallback';
+import { useAuthStore } from '@/stores/authStore';
 import type { Character } from '@/types';
 
 export default function CharactersPage() {
+  const { user } = useAuthStore();
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +47,6 @@ export default function CharactersPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">Characters</p>
           <h1 className="text-3xl font-black text-gray-900 md:text-4xl">キャラクター一覧</h1>
         </div>
-        <p className="text-sm text-gray-500">{characters.length} 件</p>
       </div>
 
       {loading ? (

@@ -29,9 +29,18 @@ export default function LoginPageClient() {
       setAccessToken(response.token);
       setAuthLogin(response.user, response.token);
       
-      // リダイレクト先を確認（デフォルトはホーム）
-      const redirect = searchParams.get('redirect') || '/';
-      console.log('リダイレクト:', redirect);
+      // 💡 管理者かどうかでリダイレクト先を分岐
+      let redirect = searchParams.get('redirect');
+      
+      if (response.user && response.user.role === 'admin') {
+        // 管理者の場合は強制的にダッシュボードへ（URLの指定を優先したい場合は条件を調整してください）
+        redirect = '/admin';
+      } else if (!redirect) {
+        // 一般ユーザーでリダイレクト先の指定がなければトップページへ
+        redirect = '/';
+      }
+
+      console.log('リダイレクト先:', redirect);
       router.push(redirect);
     } catch (error) {
       console.error('ログインエラー:', error);

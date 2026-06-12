@@ -18,7 +18,21 @@ module Api
                 total_categories: Category.count,
                 total_revenue: Order.sum(:total_amount),
                 pending_orders: Order.where(status: "pending").count,
-                recent_orders: Order.recent.limit(10).includes(:order_items).map { |o| OrderSerializer.new(o).serializable_hash[:data] }
+                recent_orders: Order.recent.limit(10).includes(:user).map do |order|
+                  {
+                    id: order.id,
+                    status: order.status,
+                    total_amount: order.total_amount,
+                    shipping_address: order.shipping_address,
+                    created_at: order.created_at,
+                    updated_at: order.updated_at,
+                    user: order.user && {
+                      id: order.user.id,
+                      name: order.user.name,
+                      email: order.user.email
+                    }
+                  }
+                end
               }
             }
           }

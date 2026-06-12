@@ -3,7 +3,7 @@
 module Api
   module V1
     module Admin
-      class ApplicationController < Api::V1::ApplicationController
+      class ApplicationController < ::ApplicationController
         # Admin共通処理
       end
     end
