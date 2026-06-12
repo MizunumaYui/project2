@@ -30,27 +30,22 @@ module Api
 
         # 画像アップロード専用アクション
         def upload_image
-          image = params[:image] || params[:file]
-
-          if image.blank?
-            render json: { error: "画像ファイルが必要です" }, status: :unprocessable_entity
-            return
-          end
-
-          # モデル側で定義した image.attach を実行
-          @character.image.attach(image)
-
-          # モデルの image_url メソッド経由でURLを生成してDBを更新
-          if @character.update(image_url: @character.image_url)
-            render json: {
-              character: CharacterSerializer.new(@character).serializable_hash[:data][:attributes],
-              image_url: @character.image_url
-            }
-          else
-            render json: { errors: @character.errors.full_messages }, status: :unprocessable_entity
+          @character = Character.find(params[:id])
+          
+          if params[:file].present?
+            @character.image.attach(params[:file])
+            
+            # ここで一度保存して、DB上で画像が紐付いた状態にする
+            if @character.save
+              # 保存が成功してから URL を更新する
+              @character.update(image_url: @character.attachment_url)
+              render json: { character: @character }
+            else
+              render json: { errors: @character.errors.full_messages }, status: :unprocessable_entity
+            end
           end
         end
-
+        
         def update
           if @character.update(character_params.except(:image_file))
             render json: CharacterSerializer.new(@character).serializable_hash

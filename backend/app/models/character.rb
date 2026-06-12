@@ -19,9 +19,16 @@ class Character < ApplicationRecord
   end
 
   def attachment_url
-    return nil unless image.attached?
+    # 画像が添付されていない、または新しいレコードで未保存の場合は nil を返す
+    return nil unless image.attached? && image.persisted?
+
+    # ここで signed_id ではなく、直接 URL を生成する方式に切り替える
+    # Rails.application.routes.url_helpers を利用
     Rails.application.routes.url_helpers.url_for(image)
-  end
+  rescue => e
+    Rails.logger.error "URL generation failed: #{e.message}"
+    nil
+end
 
   def soft_delete
     update(deleted_at: Time.current)
