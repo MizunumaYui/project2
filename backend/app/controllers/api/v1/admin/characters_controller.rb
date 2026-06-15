@@ -52,7 +52,7 @@ module Api
           # UsersControllerと同様の成功ロジック
           @character.image.attach(image)
           
-          if @character.update(image_url: @character.minio_url) # または適切なURLメソッド
+          if @character.update(image_url: @character.image_url)
             render json: { image_url: @character.image_url }
           else
             render json: { errors: @character.errors.full_messages }, status: :unprocessable_entity

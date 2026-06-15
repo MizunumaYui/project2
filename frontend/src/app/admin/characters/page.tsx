@@ -103,7 +103,7 @@ export default function AdminCharactersPage() {
                       <div
                         className="h-12 w-12 rounded-full bg-gray-100 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url("${character.image_url || placeholderDataUrl(character.name, 96, 96)}")`,
+                          backgroundImage: `url("${character.imageUrl || placeholderDataUrl(character.name, 96, 96)}")`,
                         }}
                       />
                       <span className="font-medium">{character.name}</span>

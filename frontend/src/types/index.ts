@@ -4,7 +4,7 @@ export interface User {
   email: string;
   name: string;
   role: 'user' | 'admin';
-  image_url: string | null;
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,7 +14,7 @@ export interface Character {
   id: string;
   name: string;
   description: string | null;
-  image_url: string | null;
+  imageUrl: string | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -37,7 +37,7 @@ export interface Product {
   description: string | null;
   price: number;
   stock: number;
-  image_url: string | null;
+  imageUrl: string | null;
   character?: Character;
   category?: Category;
   createdAt: string;
