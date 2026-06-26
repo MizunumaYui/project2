@@ -20,28 +20,24 @@ export default function Header() {
   const { isAuthenticated, user, setUser, logout } = useAuthStore();
 
   const hydrated = useAuthStore.persist.hasHydrated();
-  if (!hydrated) {
-    return (
-      <header className="bg-white shadow-md sticky top-0 z-50 h-16" />
-    );
-  }
 
-  useEffect(() => {
-    // 👈 3. 完全にデータ復元が終わり、かつログインしている時だけAPIを叩く
+      useEffect(() => {
+    // 💡 完全にデータ復元（Hydration）が終わり、かつログインしている時だけシンプルにAPIを叩く
     if (hydrated && isAuthenticated) {
       getCurrentUser()
         .then((updatedUser) => {
           setUser(updatedUser);
         })
         .catch((err) => {
+          // 401エラーが出ても、api.ts側で自動リフレッシュが走るため、
+          // ここに到達したエラーは「完全に期限切れ」の場合のみになります。
           console.error('Failed to sync user session:', err);
-          if (err.response?.status === 401) {
-            console.log("USER SYNC 401");
-            console.log(err);
-          }
         });
     }
-  }, [hydrated, isAuthenticated, setUser, logout]); // 依存配列にhydratedを追加
+    // 💡 依存配列から setUser と logout を除外し、画面遷移時の余計な再発火を防ぎます
+  }, [hydrated, isAuthenticated]);
+
+
 
   const handleLogout = () => {
     setAccessToken(null);
@@ -146,19 +142,9 @@ export default function Header() {
               viewBox="0 0 24 24"
             >
               {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>

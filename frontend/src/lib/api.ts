@@ -10,8 +10,13 @@ let isRefreshing = false;
 let refreshPromise: Promise<string | null> | null = null;
 
 function isAuthEndpoint(url?: string) {
+  // 💡 /auth/me はトークン（Authorizationヘッダー）が必要なので、除外対象から外します
+  if (url === '/auth/me') {
+    return false;
+  }
   return Boolean(url && url.startsWith('/auth/'));
 }
+
 
 const apiClient = axios.create({
   baseURL,
