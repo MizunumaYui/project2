@@ -299,6 +299,40 @@ export async function uploadCharacterImage(id: string, imageFile: File): Promise
   return response.data;
 }
 
+export async function createAdminProduct(data: {
+  name: string;
+  description?: string;
+  price: number;
+  stock: number;
+  character_id: string;
+  category_id?: string | null;
+}): Promise<any> {
+  const response = await apiClient.post('/admin/products', data);
+  return response.data;
+}
+
+export async function updateAdminProduct(id: string, data: {
+  name: string;
+  description?: string;
+  price: number;
+  stock: number;
+  character_id: string;
+  category_id?: string | null;
+}): Promise<any> {
+  const response = await apiClient.put(`/admin/products/${id}`, data);
+  return response.data;
+}
+
+export async function uploadProductImage(id: string, imageFile: File): Promise<any> {
+  const formData = new FormData();
+  formData.append('file', imageFile);
+
+  const response = await apiClient.post(`/admin/products/${id}/upload_image`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+}
+
 export async function fetchCategories() {
   const response = await apiClient.get<JsonApiDocument>('/categories');
   const document = response.data;
@@ -696,4 +730,9 @@ export async function removeFavorite(favoriteId: string): Promise<void> {
 //管理者画面キャラクター削除
 export async function deleteAdminCharacter(id: string): Promise<void> {
   await apiClient.delete(`/admin/characters/${id}`);
+}
+
+//管理者画面商品削除
+export async function deleteAdminProduct(id: string): Promise<void> {
+  await apiClient.delete(`/admin/products/${id}`);
 }

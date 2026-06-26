@@ -4,6 +4,9 @@ import ProductsCarousel from '@/components/ProductsCarousel';
 import SearchBar from '@/components/SearchBar';
 import type { Character, Product } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
+
 function characterFallbackImage(name: string) {
   return `https://placehold.co/240x240/e5e7eb/374151?text=${encodeURIComponent(name)}`;
 }

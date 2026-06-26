@@ -44,7 +44,11 @@ Rails.application.routes.draw do
           end
         end
         resources :categories
-        resources :products
+        resources :products do
+          member do
+            post :upload_image
+          end
+        end
         resources :orders, only: %i[index show update]
         resources :users, only: %i[index show]
         get :dashboard, to: "dashboard#index"

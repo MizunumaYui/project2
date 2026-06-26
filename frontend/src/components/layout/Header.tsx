@@ -1,10 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
 import { setAccessToken } from '@/lib/api';
+import { getCurrentUser } from '@/lib/shop-api';
 
 const navigationItems = [
   { label: 'キャラクター', href: '/characters' },
@@ -16,13 +17,41 @@ const navigationItems = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const { isAuthenticated, user, logout } = useAuthStore();
+  const { isAuthenticated, user, setUser, logout } = useAuthStore();
+
+  const hydrated = useAuthStore.persist.hasHydrated();
+  if (!hydrated) {
+    return (
+      <header className="bg-white shadow-md sticky top-0 z-50 h-16" />
+    );
+  }
+
+  useEffect(() => {
+    // 👈 3. 完全にデータ復元が終わり、かつログインしている時だけAPIを叩く
+    if (hydrated && isAuthenticated) {
+      getCurrentUser()
+        .then((updatedUser) => {
+          setUser(updatedUser);
+        })
+        .catch((err) => {
+          console.error('Failed to sync user session:', err);
+          if (err.response?.status === 401) {
+            console.log("USER SYNC 401");
+            console.log(err);
+          }
+        });
+    }
+  }, [hydrated, isAuthenticated, setUser, logout]); // 依存配列にhydratedを追加
 
   const handleLogout = () => {
     setAccessToken(null);
     logout();
     router.push('/login');
   };
+
+  if (!hydrated) {
+    return <header className="bg-white shadow-md sticky top-0 z-50 h-16" />;
+  }
 
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : '?';
   const avatarStyle = user?.imageUrl
@@ -49,6 +78,14 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
+            {isAuthenticated && user?.role === 'admin' && (
+              <Link
+                href="/admin/dashboard"
+                className="text-red-600 font-bold hover:text-red-800 transition-colors flex items-center gap-1"
+              >
+                📊 管理画面へ戻る
+              </Link>
+            )}
           </nav>
 
           {/* Auth Buttons / Avatar */}
@@ -65,6 +102,11 @@ export default function Header() {
                 </button>
                 {isMenuOpen && (
                   <div className="absolute right-0 mt-2 w-40 rounded-md bg-white shadow-lg py-1 z-50">
+                    {user?.role === 'admin' && (
+                      <Link href="/admin/dashboard" className="block px-4 py-2 text-sm text-red-600 font-bold hover:bg-gray-100 border-b">
+                        管理画面へ戻る
+                      </Link>
+                    )}
                     <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                       プロフィール設定
                     </Link>
@@ -135,6 +177,14 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
+              {isAuthenticated && user?.role === 'admin' && (
+                <Link
+                  href="/admin/dashboard"
+                  className="text-red-600 font-bold hover:text-red-800 transition-colors"
+                >
+                  📊 管理画面へ戻る
+                </Link>
+              )}
               <hr />
               {isAuthenticated && user ? (
                 <>

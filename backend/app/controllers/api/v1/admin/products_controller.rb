@@ -18,18 +18,39 @@ module Api
         end
 
         def create
-          product = Product.new(product_params)
+          product = Product.new(product_params.except(:image_file))
+          product.image.attach(product_params[:image_file]) if product_params[:image_file].present?
 
           if product.save
-            render json: ProductSerializer.new(product, include: [:character, :category]).serializable_hash, status: :created
+            render json: ProductSerializer.new(product.reload, include: [:character, :category]).serializable_hash, status: :created
           else
             render json: { errors: product.errors.full_messages }, status: :unprocessable_entity
           end
         end
 
         def update
-          if @product.update(product_params)
-            render json: ProductSerializer.new(@product, include: [:character, :category]).serializable_hash
+          @product.image.attach(product_params[:image_file]) if product_params[:image_file].present?
+
+          if @product.update(product_params.except(:image_file))
+            render json: ProductSerializer.new(@product.reload, include: [:character, :category]).serializable_hash
+          else
+            render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+          end
+        end
+
+        def upload_image
+          @product = Product.unscoped.find(params[:id])
+          image = params[:image] || params[:file]
+
+          if image.blank?
+            render json: { error: "画像ファイルが必要です" }, status: :unprocessable_entity
+            return
+          end
+
+          @product.image.attach(image)
+          
+          if @product.update(image_url: @product.image_url)
+            render json: { image_url: @product.image_url }
           else
             render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
           end
@@ -47,7 +68,7 @@ module Api
         end
 
         def product_params
-          params.permit(:character_id, :category_id, :name, :description, :price, :stock, :image_url)
+          params.permit(:character_id, :category_id, :name, :description, :price, :stock, :image_url, :image_file)
         end
 
         def authorize_admin!
