@@ -99,11 +99,7 @@ export default function LoginPageClient() {
         </button>
       </form>
       
-      <div className="mt-4 p-4 bg-blue-50 rounded-lg text-sm text-blue-700">
-        <p className="font-semibold mb-2">テストアカウント:</p>
-        <p>メール: user@example.com</p>
-        <p>パスワード: password123</p>
-      </div>
+
       
       <p className="mt-4 text-center text-sm text-gray-600">
         アカウントをお持ちでないですか？{' '}

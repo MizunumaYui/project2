@@ -50,8 +50,7 @@ class MinioImageUploader
       region: ENV.fetch("MINIO_REGION", "us-east-1"),
       access_key_id: ENV.fetch("MINIO_ROOT_USER", ENV.fetch("MINIO_ACCESS_KEY_ID", "minioadmin")),
       secret_access_key: ENV.fetch("MINIO_ROOT_PASSWORD", ENV.fetch("MINIO_SECRET_ACCESS_KEY", "minioadmin")),
-      force_path_style: true,
-      use_ssl: ENV.fetch("MINIO_USE_SSL", "false") == "true"
+        force_path_style: true
     )
   end
 

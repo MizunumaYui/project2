@@ -2,25 +2,43 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-type Character = { id: string; name: string };
+import type { Character } from '@/types';
+import { fetchCharacters } from '@/lib/shop-api';
 
 export default function SearchBar({
-  characters = [],
+  characters: initialCharacters = [],
   categories = [],
 }: {
   characters?: Character[];
   categories?: string[];
 }) {
-  useEffect(() => {
-    // デバッグ: クライアントで受け取った characters を確認
-    console.debug('[SearchBar] characters:', characters);
-  }, [characters]);
+  const [characters, setCharacters] = useState<Character[]>(initialCharacters);
   const router = useRouter();
   const [q, setQ] = useState('');
   const [character, setCharacter] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+
+  useEffect(() => {
+    // デバッグ: クライアントで受け取った characters を確認
+    console.debug('[SearchBar] initial characters:', initialCharacters);
+    console.debug('[SearchBar] initial characters length:', initialCharacters.length);
+
+    // サーバーサイドでキャラクターが取得できなかった場合、クライアントから再取得
+    if (initialCharacters.length === 0) {
+      console.log('[SearchBar] No characters from server, fetching from client...');
+      fetchCharacters()
+        .then((data) => {
+          console.log('[SearchBar] Fetched characters from client:', data.length);
+          setCharacters(data);
+        })
+        .catch((error) => {
+          console.error('[SearchBar] Failed to fetch characters:', error);
+        });
+    } else {
+      setCharacters(initialCharacters);
+    }
+  }, [initialCharacters]);
 
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -51,11 +69,17 @@ export default function SearchBar({
           className="w-full max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm"
         >
           <option value="">キャラクター</option>
-          {characters.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.name}
+          {characters && characters.length > 0 ? (
+            characters.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))
+          ) : (
+            <option value="" disabled>
+              キャラクターなし
             </option>
-          ))}
+          )}
         </select>
 
         <select

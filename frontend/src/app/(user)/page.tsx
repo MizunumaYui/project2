@@ -113,16 +113,23 @@ export default async function Home() {
 
     if (charactersResult.status === 'fulfilled') {
       characters = charactersResult.value;
+      console.log('[Home] characters fetched successfully:', characters.length);
+    } else {
+      console.error('[Home] characters fetch failed:', charactersResult.reason);
     }
 
     if (productsResult.status === 'fulfilled') {
       products = productsResult.value;
+      console.log('[Home] products fetched successfully:', products.length);
+    } else {
+      console.error('[Home] products fetch failed:', productsResult.reason);
     }
   } catch (error) {
     console.error('Failed to fetch data:', error);
   }
 
   console.log('[Home] characters count:', characters.length);
+  console.log('[Home] characters data:', characters);
 
   const topCharacters = characters.slice(0, 5);
 

@@ -70,7 +70,6 @@ export default function ProfilePage() {
         />
         <div className="text-sm text-gray-600">
           <p className="font-semibold text-gray-800">プロフィール画像</p>
-          <p>画像ファイルを選ぶと minIO にアップロードされます。</p>
         </div>
       </div>
       <form onSubmit={handleSave} className="space-y-4">

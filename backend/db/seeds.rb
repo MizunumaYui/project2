@@ -2,6 +2,8 @@
 
 # 初期データ投入
 
+require "open-uri"
+
 # 管理者ユーザー
 admin = User.find_or_create_by!(email: "admin@example.com") do |user|
   user.name = "管理者"
@@ -48,11 +50,19 @@ characters = [
 ]
 
 characters.each_with_index do |char_attrs, i|
-  Character.find_or_create_by!(name: char_attrs[:name]) do |char|
-    char.description = char_attrs[:description]
-    # サンプル画像は Picsum を利用（seed を固定して再現性を確保）
-    char.image_url = "https://picsum.photos/seed/character#{i + 1}/600/600"
+  character = Character.find_or_initialize_by(name: char_attrs[:name])
+  character.description = char_attrs[:description]
+
+  source_url = "https://picsum.photos/seed/character#{i + 1}/600/600"
+
+  begin
+    character.image_url = URI.open(source_url)
+  rescue => e
+    warn "Failed to upload seeded image for #{character.name}: #{e.message}"
+    character.image_url = source_url
   end
+
+  character.save!
 end
 
 puts "Created #{Character.count} characters (with sample image_url)"

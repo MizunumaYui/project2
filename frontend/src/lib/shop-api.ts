@@ -340,9 +340,17 @@ export async function fetchCategories() {
   return resources.map(mapCategory);
 }
 
-export async function fetchProducts() {
+export async function fetchProducts(params?: {
+  q?: string;
+  character_id?: string;
+  category_id?: string;
+  category?: string;
+  price?: string;
+  page?: number;
+  per_page?: number;
+}) {
   const response = await apiClient.get<JsonApiDocument>('/products', {
-    params: { per_page: 1000 },
+    params: { per_page: 1000, ...params },
   });
   const document = response.data;
   const resources = Array.isArray(document.data) ? document.data : [document.data];

@@ -22,7 +22,14 @@ export default function ProductsPageClient() {
 
     const loadProducts = async () => {
       try {
-        const data = await fetchProducts();
+        // API側で検索を行うためパラメータを渡す
+        const params: Record<string, string | number> = {};
+        if (searchText) params.q = searchText;
+        if (characterId) params.character_id = characterId;
+        if (categoryName) params.category = categoryName;
+        if (priceParam) params.price = priceParam;
+
+        const data = await fetchProducts(params);
         if (isMounted) {
           setProducts(data);
         }
@@ -42,40 +49,10 @@ export default function ProductsPageClient() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [searchText, characterId, categoryName, priceParam]);
 
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory = categoryName ? product.category?.name === categoryName : true;
-    const matchesCharacter = characterId
-      ? (product.characterId === characterId || product.character?.id === characterId || product.character?.name === characterId)
-      : true;
-    const searchSource = [product.name, product.description, product.character?.name, product.category?.name]
-      .filter(Boolean)
-      .join(' ')
-      .toLowerCase();
-    const matchesSearch = searchText ? searchSource.includes(searchText) : true;
-
-    // 価格フィルタ
-    let matchesPrice = true;
-    if (priceParam) {
-      // 形式: "min-max" または "min+"（例: "10000+")
-      if (priceParam.includes('+')) {
-        const min = Number(priceParam.replace('+', '')) || 0;
-        matchesPrice = product.price >= min;
-      } else if (priceParam.includes('-')) {
-        const [minStr, maxStr] = priceParam.split('-');
-        const min = Number(minStr) || 0;
-        const max = Number(maxStr) || Infinity;
-        matchesPrice = product.price >= min && product.price <= max;
-      } else {
-        // 単一数値は下限として扱う
-        const min = Number(priceParam) || 0;
-        matchesPrice = product.price >= min;
-      }
-    }
-
-    return matchesCategory && matchesCharacter && matchesSearch && matchesPrice;
-  });
+  // API側でフィルタリング済みのため、そのまま表示
+  const filteredProducts = products;
 
   return (
     <div className="container mx-auto px-4 py-8">
