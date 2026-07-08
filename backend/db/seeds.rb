@@ -68,18 +68,25 @@ end
 puts "Created #{Character.count} characters (with sample image_url)"
 
 # サンプル商品
-if Product.count.zero?
-  Character.all.each do |character|
-    Category.all.each do |category|
-      Product.create!(
-        character: character,
-        category: category,
-        name: "#{character.name} #{category.name}",
-        description: "#{character.name}の#{category.name}です。",
-        price: rand(1000..5000),
-        stock: rand(10..100)
-      )
+Character.all.each do |character|
+  Category.all.each do |category|
+    product = Product.find_or_initialize_by(character: character, category: category, name: "#{character.name} #{category.name}")
+    product.description = "#{character.name}の#{category.name}です。"
+    product.price = rand(1000..5000)
+    product.stock = rand(10..100)
+
+    source_key = "#{character.id}-#{category.id}"
+    source_url = "https://picsum.photos/seed/#{source_key}/600/750"
+
+    begin
+      product.image_url = URI.open(source_url)
+    rescue => e
+      warn "Failed to upload seeded product image for #{product.name}: #{e.message}"
+      product.image_url = source_url
     end
+
+    product.save!
   end
-  puts "Created #{Product.count} products"
 end
+
+puts "Created #{Product.count} products"
