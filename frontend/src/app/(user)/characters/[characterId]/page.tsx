@@ -61,17 +61,17 @@ export default function CharacterDetailPage({
           キャラクターが見つかりません。
         </p>
       ) : (
-        <div className="mt-6 grid gap-8 lg:grid-cols-[360px_minmax(0,1fr)]">
+        <div className="mt-6 grid gap-8 lg:grid-cols-[340px_minmax(0,1fr)] lg:items-start">
           
           {/* 2. 画像表示部分の修正 */}
           <div
             className="relative aspect-square overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-blue-50 shadow-sm bg-cover bg-center"
             style={{
-              backgroundImage: `url("${character.imageUrl ?? `https://picsum.photos/seed/character-${character.id}/360/360`}")`,
+              backgroundImage: `url("${character.imageUrl ?? `https://picsum.photos/seed/character-${character.id}/340/340`}")`,
             }}
           />
 
-          <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="rounded-3xl border border-gray-200 bg-white p-5 shadow-sm">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">Character Detail</p>
             <h1 className="mt-2 text-3xl font-black text-gray-900">{character.name}</h1>
             <p className="mt-4 text-gray-600 leading-7">
@@ -85,11 +85,6 @@ export default function CharacterDetailPage({
                 商品を見る
               </Link>
               <Link href="/products" className="inline-flex items-center rounded-md border border-gray-200 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition">商品一覧</Link>
-            </div>
-            <div className="mt-6 grid gap-3 text-sm text-gray-500">
-              <p>キャラクターID: {character.id}</p>
-              <p>作成日時: {character.createdAt}</p>
-              <p>更新日時: {character.updatedAt}</p>
             </div>
           </div>
         </div>
