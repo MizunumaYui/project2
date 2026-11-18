@@ -3,11 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchProducts } from '@/lib/shop-api';
+import { getFallbackImageUrl } from '@/lib/image-fallback';
 import type { Product } from '@/types';
-
-function productFallbackImage(name: string) {
-  return `https://placehold.co/600x750/f3f4f6/374151?text=${encodeURIComponent(name)}`;
-}
 
 export default function ProductsCarousel({ products }: { products: Product[] }) {
   const perPage = 5;
@@ -75,7 +72,7 @@ export default function ProductsCarousel({ products }: { products: Product[] }) 
               <div
                 className="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
                 style={{
-                  backgroundImage: `url("${product.imageUrl || productFallbackImage(product.name)}")`,
+                  backgroundImage: `url("${product.imageUrl || getFallbackImageUrl(600, 750, product.name)}")`,
                   backgroundColor: '#f0f0f0',
                 }}
               />

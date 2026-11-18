@@ -4,16 +4,19 @@ module Api
   module V1
     class ProductsController < ApplicationController
       def index
-        products = Product.active.includes(:character, :category)
+        products = Product.active
+                          .includes(:character, :category)
+                          .joins(:character)
+                          .left_joins(:category)
         products = products.where(character_id: params[:character_id]) if params[:character_id].present?
         products = products.where(category_id: params[:category_id]) if params[:category_id].present?
         products = products.where(categories: { name: params[:category] }) if params[:category].present?
-        
+
         # 検索キーワードによるフィルタリング
         if params[:q].present?
           search_term = "%#{params[:q]}%"
           products = products.where(
-            "products.name LIKE ? OR products.description LIKE ? OR characters.name LIKE ? OR categories.name LIKE ?",
+            "LOWER(products.name) LIKE LOWER(?) OR LOWER(products.description) LIKE LOWER(?) OR LOWER(characters.name) LIKE LOWER(?) OR LOWER(categories.name) LIKE LOWER(?)",
             search_term, search_term, search_term, search_term
           )
         end

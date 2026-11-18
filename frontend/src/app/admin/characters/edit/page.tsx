@@ -1,10 +1,10 @@
 'use client';
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation'; // 💡 useSearchParams を追加
 import { fetchAdminCharacters, updateAdminCharacter, uploadCharacterImage } from '@/lib/shop-api';
 
-export default function AdminCharacterEditPage() {
+function AdminCharacterEditPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -161,5 +161,13 @@ async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function AdminCharacterEditPageWithSuspense() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center text-gray-500">読み込み中...</div>}>
+      <AdminCharacterEditPage />
+    </Suspense>
   );
 }

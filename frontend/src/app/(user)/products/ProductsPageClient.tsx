@@ -10,7 +10,7 @@ export default function ProductsPageClient() {
   const searchParams = useSearchParams();
   const categoryName = searchParams.get('category');
   const characterId = searchParams.get('character');
-  const searchText = (searchParams.get('q') ?? searchParams.get('search') ?? '').trim().toLowerCase();
+  const searchText = (searchParams.get('q') ?? searchParams.get('search') ?? '').trim();
   const priceParam = searchParams.get('price');
 
   const [products, setProducts] = useState<Product[]>([]);

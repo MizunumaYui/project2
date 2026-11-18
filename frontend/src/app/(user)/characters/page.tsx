@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchCharacters } from '@/lib/shop-api';
-import { placeholderDataUrl } from '@/lib/image-fallback';
+import { getFallbackImageUrl } from '@/lib/image-fallback';
 import { useAuthStore } from '@/stores/authStore';
 import type { Character } from '@/types';
 
@@ -72,7 +72,7 @@ export default function CharactersPage() {
               <div
                 className="aspect-square bg-gradient-to-br from-pink-50 via-white to-blue-50 bg-cover bg-center"
                 style={{
-                  backgroundImage: `url("${character.imageUrl || placeholderDataUrl(character.name, 400, 400)}")`,
+                  backgroundImage: `url("${character.imageUrl || getFallbackImageUrl(400, 400, character.name)}")`,
                 }}
               />
               <div className="p-4">

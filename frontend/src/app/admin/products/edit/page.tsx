@@ -1,12 +1,12 @@
 'use client';
 
-import { FormEvent, useState, useEffect } from 'react';
+import { FormEvent, useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchAdminProducts, updateAdminProduct, uploadProductImage, fetchAdminCharacters, fetchCategories } from '@/lib/shop-api';
 import type { Character, Category } from '@/types';
 
-export default function AdminProductEditPage() {
+function AdminProductEditPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get('id');
@@ -275,5 +275,13 @@ export default function AdminProductEditPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function AdminProductEditPageWithSuspense() {
+  return (
+    <Suspense fallback={<div className="p-6 text-center text-gray-500">読み込み中...</div>}>
+      <AdminProductEditPage />
+    </Suspense>
   );
 }

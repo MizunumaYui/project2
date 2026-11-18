@@ -16,8 +16,14 @@ export default function SearchBar({
   const router = useRouter();
   const [q, setQ] = useState('');
   const [character, setCharacter] = useState('');
+  const [selectedCharacterId, setSelectedCharacterId] = useState('');
+  const [showCharacterSuggestions, setShowCharacterSuggestions] = useState(false);
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
+
+  const characterSuggestions = characters.filter((item) =>
+    item.name.toLocaleLowerCase().includes(character.trim().toLocaleLowerCase()),
+  );
 
   useEffect(() => {
     // デバッグ: クライアントで受け取った characters を確認
@@ -44,7 +50,21 @@ export default function SearchBar({
     e.preventDefault();
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());
-    if (character) params.set('character', character);
+    if (selectedCharacterId) {
+      params.set('character', selectedCharacterId);
+    } else if (character.trim() && !q.trim()) {
+      const normalizedCharacterName = character.trim().toLocaleLowerCase();
+      const matchedCharacter = characters.find(
+        (item) => item.name.toLocaleLowerCase() === normalizedCharacterName,
+      );
+
+      if (matchedCharacter) {
+        params.set('character', matchedCharacter.id);
+      } else {
+        // 部分一致やキャラクター一覧の再取得前でも、名前で検索できるようにする
+        params.set('q', character.trim());
+      }
+    }
     if (category) params.set('category', category);
     if (price) params.set('price', price);
 
@@ -63,24 +83,46 @@ export default function SearchBar({
           className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-primary focus:outline-none"
         />
 
-        <select
-          value={character}
-          onChange={(e) => setCharacter(e.target.value)}
-          className="w-full max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm"
-        >
-          <option value="">キャラクター</option>
-          {characters && characters.length > 0 ? (
-            characters.map((c) => (
-              <option key={c.id} value={c.id}>
-                {c.name}
-              </option>
-            ))
-          ) : (
-            <option value="" disabled>
-              キャラクターなし
-            </option>
+        <div className="relative w-full max-w-xs">
+          <input
+            aria-label="キャラクター名で検索"
+            aria-autocomplete="list"
+            aria-controls="character-suggestions"
+            value={character}
+            onFocus={() => setShowCharacterSuggestions(true)}
+            onChange={(e) => {
+              setCharacter(e.target.value);
+              setSelectedCharacterId('');
+              setShowCharacterSuggestions(true);
+            }}
+            placeholder="キャラクター名"
+            className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm shadow-sm focus:border-primary focus:outline-none"
+          />
+          {showCharacterSuggestions && character.trim() && characterSuggestions.length > 0 && (
+            <ul
+              id="character-suggestions"
+              role="listbox"
+              className="absolute z-10 mt-1 max-h-52 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+              onMouseDown={(e) => e.preventDefault()}
+            >
+              {characterSuggestions.map((item) => (
+                <li key={item.id} role="option" aria-selected={selectedCharacterId === item.id}>
+                  <button
+                    type="button"
+                    className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-primary-50"
+                    onClick={() => {
+                      setCharacter(item.name);
+                      setSelectedCharacterId(item.id);
+                      setShowCharacterSuggestions(false);
+                    }}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
-        </select>
+        </div>
 
         <select
           value={category}

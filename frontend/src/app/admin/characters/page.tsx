@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 // 💡 deleteAdminCharacter も shop-api からインポート
 import { fetchAdminCharacters, deleteAdminCharacter } from '@/lib/shop-api';
-import { placeholderDataUrl } from '@/lib/image-fallback';
+import { getFallbackImageUrl } from '@/lib/image-fallback';
 import type { Character } from '@/types';
 
 function formatDate(value: string) {
@@ -103,7 +103,7 @@ export default function AdminCharactersPage() {
                       <div
                         className="h-12 w-12 rounded-full bg-gray-100 bg-cover bg-center"
                         style={{
-                          backgroundImage: `url("${character.imageUrl || placeholderDataUrl(character.name, 96, 96)}")`,
+                          backgroundImage: `url("${character.imageUrl || getFallbackImageUrl(96, 96, character.name)}")`,
                         }}
                       />
                       <span className="font-medium">{character.name}</span>

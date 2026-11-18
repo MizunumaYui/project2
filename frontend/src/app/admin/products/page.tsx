@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { fetchAdminProducts, deleteAdminProduct } from '@/lib/shop-api';
-import { placeholderDataUrl } from '@/lib/image-fallback';
+import { getFallbackImageUrl } from '@/lib/image-fallback';
 import type { Product } from '@/types';
 
 function formatCurrency(value: number) {
@@ -92,7 +92,7 @@ export default function AdminProductsPage() {
                       <div
                         className="h-12 w-12 rounded-lg bg-gray-100 bg-cover bg-center shrink-0"
                         style={{
-                          backgroundImage: `url("${product.imageUrl || placeholderDataUrl(product.name, 96, 96)}")`,
+                          backgroundImage: `url("${product.imageUrl || getFallbackImageUrl(96, 96, product.name)}")`,
                         }}
                       />
                       <div>

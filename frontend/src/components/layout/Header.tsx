@@ -16,12 +16,28 @@ const navigationItems = [
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const router = useRouter();
   const { isAuthenticated, user, setUser, logout } = useAuthStore();
 
-  const hydrated = useAuthStore.persist.hasHydrated();
+  useEffect(() => {
+    const persistApi = useAuthStore.persist;
 
-      useEffect(() => {
+    if (typeof persistApi?.hasHydrated !== 'function') {
+      setHydrated(true);
+      return;
+    }
+
+    if (persistApi.hasHydrated()) {
+      setHydrated(true);
+      return;
+    }
+
+    const unsubscribe = persistApi.onFinishHydration(() => setHydrated(true));
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
     // 💡 完全にデータ復元（Hydration）が終わり、かつログインしている時だけシンプルにAPIを叩く
     if (hydrated && isAuthenticated) {
       getCurrentUser()
@@ -35,7 +51,7 @@ export default function Header() {
         });
     }
     // 💡 依存配列から setUser と logout を除外し、画面遷移時の余計な再発火を防ぎます
-  }, [hydrated, isAuthenticated]);
+  }, [hydrated, isAuthenticated, setUser]);
 
 
 
