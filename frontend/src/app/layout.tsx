@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'キャラクターEC',
+  title: 'にゃかごマルシェ公式サイト',
   description: 'キャラクターグッズのオンラインショップ',
 };
 
