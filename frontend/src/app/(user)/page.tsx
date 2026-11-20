@@ -50,7 +50,7 @@ export default async function Home() {
   const categoryNames = categories.map((category) => category.name);
 
   return (
-    <div className="flex flex-1 flex-col items-center bg-gray-50">
+    <div className="flex flex-1 flex-col items-center bg-[#FDF9F3] text-[#4A3B32]">
       <div className="flex flex-col w-full max-w-7xl px-4 md:px-10 lg:px-20 py-5 gap-6">
         {/* 検索バー */}
         <div className="w-full">
@@ -81,7 +81,7 @@ export default async function Home() {
               </p>
               <Link
                 href="/products"
-                className="mt-4 w-fit rounded-lg bg-primary px-8 py-3 text-base font-bold text-white shadow-lg shadow-pink-500/30 transition-all hover:bg-primary-600 hover:scale-105"
+                className="mt-4 w-fit rounded-full bg-primary px-8 py-3 text-base font-bold text-white shadow-lg shadow-primary-300/40 transition-all hover:bg-primary-600 hover:scale-105"
               >
                 今すぐ購入
               </Link>
@@ -91,13 +91,13 @@ export default async function Home() {
 
         {/* カテゴリセクション */}
         <section className="flex flex-col gap-4">
-          <h2 className="text-xl font-bold text-gray-900">カテゴリから探す</h2>
+          <h2 className="text-xl font-bold text-[#4A3B32]">＊ カテゴリから探す ＊</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((category) => (
               <Link
                 key={category.name}
                 href={category.href}
-                className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200 bg-white p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer"
+                className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-[#EFE6DD] bg-[#FFFDF8] p-4 transition-all hover:border-primary hover:shadow-md cursor-pointer"
               >
                 <div className={`flex size-12 items-center justify-center rounded-full ${category.bgColor} ${category.textColor} group-hover:bg-primary group-hover:text-white transition-colors`}>
                   <span className="material-symbols-outlined">{category.icon}</span>
@@ -112,8 +112,8 @@ export default async function Home() {
 
         {/* 新着商品セクション */}
         <section className="flex flex-col gap-6">
-          <h2 className="text-2xl font-bold text-gray-900 tracking-tight relative">
-            新着商品
+          <h2 className="text-2xl font-bold text-[#4A3B32] tracking-tight relative">
+            ＊ 新着アイテム ＊
             <span className="absolute -bottom-[9px] left-0 h-1 w-12 bg-primary rounded-full"></span>
           </h2>
           {/* デバッグ用メッセージはクライアントフォールバックで商品が取得されるため削除しました */}

@@ -66,7 +66,7 @@ export default function ProductsCarousel({ products }: { products: Product[] }) 
           <Link
             key={product.id}
             href={`/products/${product.id}`}
-            className="group flex flex-col rounded-xl bg-white shadow-sm border border-transparent hover:border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300"
+            className="group flex flex-col rounded-2xl bg-[#FFFDF8] shadow-sm border border-[#EFE6DD] overflow-hidden hover:border-primary-300 hover:shadow-xl transition-all duration-300"
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100">
               <div

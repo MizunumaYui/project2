@@ -62,7 +62,7 @@ export default function Header() {
   };
 
   if (!hydrated) {
-    return <header className="bg-white shadow-md sticky top-0 z-50 h-16" />;
+    return <header className="bg-[#FFFDF8] shadow-md sticky top-0 z-50 h-16" />;
   }
 
   const initial = user?.name ? user.name.charAt(0).toUpperCase() : '?';
@@ -71,7 +71,7 @@ export default function Header() {
     : undefined;
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
+    <header className="bg-[#FFFDF8] shadow-md sticky top-0 z-50 text-[#4A3B32]">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -138,7 +138,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
+                  className="bg-primary-600 text-white px-4 py-2 rounded-full hover:bg-primary-700"
                 >
                   新規登録
                 </Link>

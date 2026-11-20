@@ -80,7 +80,7 @@ export default function SearchBar({
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="商品名で検索"
-          className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm shadow-sm focus:border-primary focus:outline-none"
+          className="w-full rounded-full border border-[#EFE6DD] bg-[#FFFDF8] px-4 py-3 text-sm text-[#4A3B32] shadow-sm focus:border-primary focus:outline-none"
         />
 
         <div className="relative w-full max-w-xs">
@@ -96,13 +96,13 @@ export default function SearchBar({
               setShowCharacterSuggestions(true);
             }}
             placeholder="キャラクター名"
-            className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm shadow-sm focus:border-primary focus:outline-none"
+            className="w-full rounded-full border border-[#EFE6DD] bg-[#FFFDF8] px-3 py-3 text-sm text-[#4A3B32] shadow-sm focus:border-primary focus:outline-none"
           />
           {showCharacterSuggestions && character.trim() && characterSuggestions.length > 0 && (
             <ul
               id="character-suggestions"
               role="listbox"
-              className="absolute z-10 mt-1 max-h-52 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg"
+              className="absolute z-10 mt-1 max-h-52 w-full overflow-y-auto rounded-2xl border border-[#EFE6DD] bg-[#FFFDF8] py-1 shadow-lg"
               onMouseDown={(e) => e.preventDefault()}
             >
               {characterSuggestions.map((item) => (
@@ -127,7 +127,7 @@ export default function SearchBar({
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm"
+          className="w-full max-w-xs rounded-full border border-[#EFE6DD] bg-[#FFFDF8] px-3 py-3 text-sm text-[#4A3B32]"
         >
           <option value="">カテゴリ</option>
           {categories.map((c) => (
@@ -140,7 +140,7 @@ export default function SearchBar({
         <select
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="w-full max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm"
+          className="w-full max-w-xs rounded-full border border-[#EFE6DD] bg-[#FFFDF8] px-3 py-3 text-sm text-[#4A3B32]"
         >
           <option value="">価格</option>
           <option value="0-1000">〜1,000円</option>
@@ -151,7 +151,7 @@ export default function SearchBar({
 
         <button
           type="submit"
-          className="w-full max-w-xs rounded-lg bg-primary px-4 py-3 text-sm font-bold text-white hover:bg-primary-600"
+          className="w-full max-w-xs rounded-full bg-primary px-4 py-3 text-sm font-bold text-white hover:bg-primary-600"
         >
           検索
         </button>

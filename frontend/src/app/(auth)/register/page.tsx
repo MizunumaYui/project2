@@ -40,7 +40,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-8">
+    <div className="bg-[#FFFDF8] rounded-2xl border border-[#EFE6DD] shadow-md p-8 text-[#4A3B32]">
       <h1 className="text-2xl font-bold text-center mb-6">新規登録</h1>
       
       {error && (
@@ -59,7 +59,7 @@ export default function RegisterPage() {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full px-4 py-2 border border-[#EFE6DD] rounded-full text-[#4A3B32] focus:outline-none focus:ring-2 focus:ring-primary-500"
             required
             disabled={isLoading}
           />
@@ -73,7 +73,7 @@ export default function RegisterPage() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full px-4 py-2 border border-[#EFE6DD] rounded-full text-[#4A3B32] focus:outline-none focus:ring-2 focus:ring-primary-500"
             required
             disabled={isLoading}
           />
@@ -87,7 +87,7 @@ export default function RegisterPage() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full px-4 py-2 border border-[#EFE6DD] rounded-full text-[#4A3B32] focus:outline-none focus:ring-2 focus:ring-primary-500"
             required
             disabled={isLoading}
           />
@@ -101,14 +101,14 @@ export default function RegisterPage() {
             id="passwordConfirmation"
             value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full px-4 py-2 border border-[#EFE6DD] rounded-full text-[#4A3B32] focus:outline-none focus:ring-2 focus:ring-primary-500"
             required
             disabled={isLoading}
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors disabled:opacity-50"
+          className="w-full bg-primary-600 text-white py-2 px-4 rounded-full hover:bg-primary-700 transition-colors disabled:opacity-50"
           disabled={isLoading}
         >
           {isLoading ? '登録中...' : '新規登録'}
